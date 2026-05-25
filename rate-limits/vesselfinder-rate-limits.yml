@@ -1,0 +1,69 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: VesselFinder
+providerId: vesselfinder
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: false
+tags:
+  - AIS
+  - Rate Limiting
+  - Credits
+description: |
+  VesselFinder uses a credit-based quota model rather than per-second rate limiting on the AIS
+  API. Each call deducts credits proportional to the requested datasets and the position source
+  (terrestrial vs. satellite). The Container Tracking API enforces a per-container subscription
+  quota and queues asynchronous requests with a recommended minimum poll interval of 60 seconds.
+  Public, exact RPS/RPM limits are not published by VesselFinder; the limits below capture the
+  documented quota model and the asynchronous polling guidance.
+sources:
+  - https://api.vesselfinder.com/docs/
+  - https://container.vesselfinder.com/api/1.0/docs
+headers: {}
+responseCodes:
+  throttled: 400
+  quotaExceeded: 402
+algorithm: credit-bucket
+quotas:
+  - surface: AIS API
+    unit: credit
+    pool: per-account
+    expiration: 12 months after purchase
+    enforcement: Each call deducts credits per method; remaining credits visible via /status.
+  - surface: Container Tracking API
+    unit: container
+    pool: per-account
+    expiration: 12 months after purchase
+    enforcement: First lookup per container deducts one unit; subsequent lookups within 30 days are free. 402 returned when limit is reached.
+asyncPolling:
+  - surface: Container Tracking API
+    statusCode: 202
+    minimumIntervalSeconds: 60
+    typicalCompletionSeconds: 60
+    maximumCompletionSeconds: 1200
+methodCosts:
+  - method: vessels (AIS, terrestrial)
+    credits: 1
+  - method: vessels (AIS, satellite)
+    credits: 10
+  - method: vessels (voyage extradata)
+    credits: 1
+  - method: vessels (master extradata)
+    credits: 2
+  - method: portcalls
+    credits: 1-2
+  - method: expectedarrivals (AIS)
+    credits: 5
+  - method: expectedarrivals (voyage)
+    credits: 1
+  - method: expectedarrivals (master)
+    credits: 2
+  - method: masterdata
+    credits: 3
+  - method: distance
+    credits: 1
+  - method: status
+    credits: 0
+  - method: listmanager
+    credits: 0

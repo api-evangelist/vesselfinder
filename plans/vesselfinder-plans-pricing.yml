@@ -1,0 +1,201 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: VesselFinder
+providerId: vesselfinder
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: true
+tags:
+  - AIS
+  - Maritime
+  - Vessel Tracking
+  - Container Tracking
+description: 'Reconciled plans and per-credit pricing for VesselFinder''s AIS API and Container Tracking API. Source: api.vesselfinder.com/docs and container.vesselfinder.com.'
+sources:
+  - https://api.vesselfinder.com/docs/
+  - https://container.vesselfinder.com/api/1.0/docs
+plans:
+  - id: vesselfinder-ais-credits-10k
+    name: AIS Credits — 10,000
+    type: prepaid
+    description: 10,000 AIS API credits. Credits expire 12 months after purchase.
+    entries:
+      - label: Credits
+        name: credits
+        type: prepaid
+        metric: credit
+        limit: 10000
+        timeFrame: 12-months
+        geo: global
+        unit: 10000
+        price: '330.00'
+        currency: EUR
+        userMultiplied: false
+  - id: vesselfinder-ais-credits-20k
+    name: AIS Credits — 20,000
+    type: prepaid
+    description: 20,000 AIS API credits. Credits expire 12 months after purchase.
+    entries:
+      - label: Credits
+        name: credits
+        type: prepaid
+        metric: credit
+        limit: 20000
+        timeFrame: 12-months
+        geo: global
+        unit: 20000
+        price: '625.00'
+        currency: EUR
+        userMultiplied: false
+  - id: vesselfinder-ais-credits-50k
+    name: AIS Credits — 50,000
+    type: prepaid
+    description: 50,000 AIS API credits. Credits expire 12 months after purchase.
+    entries:
+      - label: Credits
+        name: credits
+        type: prepaid
+        metric: credit
+        limit: 50000
+        timeFrame: 12-months
+        geo: global
+        unit: 50000
+        price: '1470.00'
+        currency: EUR
+        userMultiplied: false
+  - id: vesselfinder-ais-vesselslist
+    name: AIS VesselsList (Fleet) — Subscription
+    type: subscription
+    description: Predefined-fleet data subscription. Pricing depends on fleet size and dataset selection (AIS, Voyage, Master). Contact sales for quote.
+    entries:
+      - label: Subscription
+        name: subscription
+        type: subscription
+        metric: vessel
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: 'Call'
+        userMultiplied: false
+  - id: vesselfinder-ais-livedata
+    name: AIS LiveData (Area) — Subscription
+    type: subscription
+    description: Area-based subscription. Pricing depends on area size, traffic density, and dataset selection. Contact sales for quote.
+    entries:
+      - label: Subscription
+        name: subscription
+        type: subscription
+        metric: area
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: 'Call'
+        userMultiplied: false
+  - id: vesselfinder-container-tracking-1
+    name: Container Tracking — 1 Container
+    type: prepaid
+    description: Single-container subscription. Expires 12 months after purchase. VAT excluded.
+    entries:
+      - label: Container
+        name: container
+        type: prepaid
+        metric: container
+        limit: 1
+        timeFrame: 12-months
+        geo: global
+        unit: 1
+        price: '7.00'
+        currency: USD
+        userMultiplied: false
+  - id: vesselfinder-container-tracking-10
+    name: Container Tracking — 10 Containers
+    type: prepaid
+    description: 10-container subscription. Expires 12 months after purchase. VAT excluded.
+    entries:
+      - label: Containers
+        name: containers
+        type: prepaid
+        metric: container
+        limit: 10
+        timeFrame: 12-months
+        geo: global
+        unit: 10
+        price: '65.00'
+        currency: USD
+        userMultiplied: false
+  - id: vesselfinder-container-tracking-20
+    name: Container Tracking — 20 Containers
+    type: prepaid
+    description: 20-container subscription. Expires 12 months after purchase. VAT excluded.
+    entries:
+      - label: Containers
+        name: containers
+        type: prepaid
+        metric: container
+        limit: 20
+        timeFrame: 12-months
+        geo: global
+        unit: 20
+        price: '120.00'
+        currency: USD
+        userMultiplied: false
+  - id: vesselfinder-container-tracking-50
+    name: Container Tracking — 50 Containers
+    type: prepaid
+    description: 50-container subscription. Expires 12 months after purchase. VAT excluded.
+    entries:
+      - label: Containers
+        name: containers
+        type: prepaid
+        metric: container
+        limit: 50
+        timeFrame: 12-months
+        geo: global
+        unit: 50
+        price: '275.00'
+        currency: USD
+        userMultiplied: false
+  - id: vesselfinder-container-tracking-100
+    name: Container Tracking — 100 Containers
+    type: prepaid
+    description: 100-container subscription. Expires 12 months after purchase. VAT excluded.
+    entries:
+      - label: Containers
+        name: containers
+        type: prepaid
+        metric: container
+        limit: 100
+        timeFrame: 12-months
+        geo: global
+        unit: 100
+        price: '500.00'
+        currency: USD
+        userMultiplied: false
+creditCosts:
+  - method: Vessels (AIS dataset)
+    credits: '1 (terrestrial) / 10 (satellite)'
+  - method: Vessels (Voyage extradata)
+    credits: '1'
+  - method: Vessels (Master extradata)
+    credits: '2'
+  - method: PortCalls
+    credits: '1–2'
+  - method: ExpectedArrivals (AIS)
+    credits: '5'
+  - method: ExpectedArrivals (Voyage)
+    credits: '1'
+  - method: ExpectedArrivals (Master)
+    credits: '2'
+  - method: MasterData
+    credits: '3'
+  - method: Distance
+    credits: '1 per delivered response'
+  - method: Status
+    credits: '0'
+  - method: ListManager
+    credits: '0'
+containerTracking:
+  cachePolicy: First search per container deducts one unit; subsequent searches within 30 days are free. Successful responses are cached 12 hours.

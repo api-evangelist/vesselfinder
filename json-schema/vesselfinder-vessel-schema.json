@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/vesselfinder/main/json-schema/vesselfinder-vessel-schema.json",
+  "title": "VesselFinder Vessel",
+  "description": "A vessel record returned by VesselFinder's AIS API, containing dynamic AIS data and optional voyage and master particulars.",
+  "type": "object",
+  "properties": {
+    "AIS": { "$ref": "#/$defs/AIS" },
+    "VOYAGE": { "$ref": "#/$defs/Voyage" },
+    "MASTERDATA": { "$ref": "#/$defs/MasterData" }
+  },
+  "$defs": {
+    "AIS": {
+      "type": "object",
+      "description": "Dynamic AIS position and state for a vessel.",
+      "properties": {
+        "MMSI": { "type": "integer" },
+        "TIMESTAMP": { "type": "string", "format": "date-time" },
+        "LATITUDE": { "type": "number" },
+        "LONGITUDE": { "type": "number" },
+        "COURSE": { "type": "number" },
+        "SPEED": { "type": "number" },
+        "HEADING": { "type": "integer" },
+        "NAVSTAT": { "type": "integer", "description": "AIS navigation status code (0-15)." },
+        "IMO": { "type": "integer" },
+        "NAME": { "type": "string" },
+        "CALLSIGN": { "type": "string" },
+        "TYPE": { "type": "integer", "description": "AIS ship-type code." },
+        "A": { "type": "integer" },
+        "B": { "type": "integer" },
+        "C": { "type": "integer" },
+        "D": { "type": "integer" },
+        "DRAUGHT": { "type": "number" },
+        "DESTINATION": { "type": "string" },
+        "LOCODE": { "type": "string" },
+        "ETA_AIS": { "type": "string" },
+        "ETA": { "type": "string", "format": "date-time" },
+        "SRC": { "type": "string", "enum": ["TER", "SAT"] },
+        "ZONE": { "type": "string" },
+        "ECA": { "type": "integer", "enum": [0, 1] }
+      },
+      "required": ["MMSI", "TIMESTAMP", "LATITUDE", "LONGITUDE"]
+    },
+    "Voyage": {
+      "type": "object",
+      "description": "Last completed port-call information for a vessel.",
+      "properties": {
+        "LOCODE": { "type": "string" },
+        "DEPARTURE": { "type": "string", "format": "date-time" },
+        "LASTPORT": { "type": "string" },
+        "LASTCOUNTRY": { "type": "string" }
+      }
+    },
+    "MasterData": {
+      "type": "object",
+      "description": "Static vessel particulars.",
+      "properties": {
+        "IMO": { "type": "integer" },
+        "NAME": { "type": "string" },
+        "FLAG": { "type": "string" },
+        "TYPE": { "type": "string" },
+        "BUILT": { "type": "integer" },
+        "BUILDER": { "type": "string" },
+        "OWNER": { "type": "string" },
+        "MANAGER": { "type": "string" },
+        "LENGTH": { "type": "number" },
+        "BEAM": { "type": "number" },
+        "MAXDRAUGHT": { "type": "number" },
+        "GT": { "type": "integer" },
+        "NT": { "type": "integer" },
+        "DWT": { "type": "integer" },
+        "TEU": { "type": "integer" },
+        "CRUDE": { "type": "integer" }
+      }
+    }
+  }
+}

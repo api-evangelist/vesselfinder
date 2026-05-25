@@ -1,0 +1,69 @@
+extends:
+  - spectral:oas
+rules:
+  vesselfinder-info-contact:
+    description: VesselFinder OpenAPI documents must declare a contact.
+    severity: error
+    given: $.info
+    then:
+      field: contact
+      function: truthy
+  vesselfinder-info-license:
+    description: VesselFinder OpenAPI documents must declare a license.
+    severity: error
+    given: $.info
+    then:
+      field: license
+      function: truthy
+  vesselfinder-https-only:
+    description: Servers must use HTTPS.
+    severity: error
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: '^https://'
+  vesselfinder-operation-summary-title-case:
+    description: Operation summaries must use Title Case.
+    severity: warn
+    given: $.paths[*][*].summary
+    then:
+      function: pattern
+      functionOptions:
+        match: '^([A-Z][a-zA-Z0-9]*)(\s[A-Z][a-zA-Z0-9]*)*$'
+  vesselfinder-operation-description:
+    description: Every operation must have a description.
+    severity: error
+    given: $.paths[*][*]
+    then:
+      field: description
+      function: truthy
+  vesselfinder-operation-id-camel-case:
+    description: operationId must be lowerCamelCase.
+    severity: error
+    given: $.paths[*][*].operationId
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[a-z][a-zA-Z0-9]+$'
+  vesselfinder-tags-defined:
+    description: Each operation must reference at least one tag defined in the root tags array.
+    severity: warn
+    given: $.paths[*][*].tags
+    then:
+      function: truthy
+  vesselfinder-userkey-required:
+    description: Every operation must require the userkey API key parameter (AIS API only).
+    severity: warn
+    given: "$.paths[?(@path != '/container/{apiKey}/{containerNumber}/{sealine}')][*].parameters[?(@.name == 'userkey')]"
+    then:
+      field: required
+      function: truthy
+  vesselfinder-no-trailing-slash:
+    description: Paths must not end with a trailing slash.
+    severity: error
+    given: $.paths
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: '/$'

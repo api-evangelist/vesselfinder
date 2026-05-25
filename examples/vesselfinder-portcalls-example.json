@@ -1,0 +1,20 @@
+[
+  {
+    "MMSI": 538003422,
+    "IMO": 9175717,
+    "LOCODE": "NLRTM",
+    "EVENT": "arrival",
+    "TIMESTAMP": "2026-05-25T16:42:00Z",
+    "PORT": "Rotterdam",
+    "COUNTRY": "Netherlands"
+  },
+  {
+    "MMSI": 538003422,
+    "IMO": 9175717,
+    "LOCODE": "NLRTM",
+    "EVENT": "departure",
+    "TIMESTAMP": "2026-05-26T22:10:00Z",
+    "PORT": "Rotterdam",
+    "COUNTRY": "Netherlands"
+  }
+]

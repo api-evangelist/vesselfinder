@@ -1,0 +1,90 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@vocab": "https://schema.org/",
+    "vf": "https://api.vesselfinder.com/v1/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "geo": "http://www.opengis.net/ont/geosparql#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "Vessel": {
+      "@id": "vf:Vessel",
+      "@context": {
+        "mmsi": { "@id": "vf:Vessel/mmsi", "@type": "xsd:integer" },
+        "imo": { "@id": "vf:Vessel/imo", "@type": "xsd:integer" },
+        "name": { "@id": "schema:name", "@type": "xsd:string" },
+        "callsign": { "@id": "vf:Vessel/callsign", "@type": "xsd:string" },
+        "flag": { "@id": "vf:Vessel/flag", "@type": "xsd:string" },
+        "type": { "@id": "vf:Vessel/type", "@type": "xsd:string" },
+        "built": { "@id": "vf:Vessel/built", "@type": "xsd:integer" },
+        "length": { "@id": "vf:Vessel/length", "@type": "xsd:decimal" },
+        "beam": { "@id": "vf:Vessel/beam", "@type": "xsd:decimal" },
+        "grossTonnage": { "@id": "vf:Vessel/gt", "@type": "xsd:integer" },
+        "deadweight": { "@id": "vf:Vessel/dwt", "@type": "xsd:integer" },
+        "teu": { "@id": "vf:Vessel/teu", "@type": "xsd:integer" }
+      }
+    },
+
+    "AISReport": {
+      "@id": "vf:AISReport",
+      "@context": {
+        "timestamp": { "@id": "dcterms:date", "@type": "xsd:dateTime" },
+        "latitude": { "@id": "schema:latitude", "@type": "xsd:decimal" },
+        "longitude": { "@id": "schema:longitude", "@type": "xsd:decimal" },
+        "course": { "@id": "vf:AISReport/course", "@type": "xsd:decimal" },
+        "speed": { "@id": "vf:AISReport/speed", "@type": "xsd:decimal" },
+        "heading": { "@id": "vf:AISReport/heading", "@type": "xsd:integer" },
+        "navstat": { "@id": "vf:AISReport/navstat", "@type": "xsd:integer" },
+        "draught": { "@id": "vf:AISReport/draught", "@type": "xsd:decimal" },
+        "destination": { "@id": "vf:AISReport/destination", "@type": "xsd:string" },
+        "eta": { "@id": "vf:AISReport/eta", "@type": "xsd:dateTime" },
+        "source": { "@id": "vf:AISReport/source", "@type": "xsd:string" }
+      }
+    },
+
+    "Port": {
+      "@id": "schema:Place",
+      "@context": {
+        "locode": { "@id": "vf:Port/locode", "@type": "xsd:string" },
+        "name": { "@id": "schema:name", "@type": "xsd:string" },
+        "country": { "@id": "schema:addressCountry", "@type": "xsd:string" }
+      }
+    },
+
+    "PortCall": {
+      "@id": "vf:PortCall",
+      "@context": {
+        "mmsi": { "@id": "vf:PortCall/mmsi", "@type": "xsd:integer" },
+        "imo": { "@id": "vf:PortCall/imo", "@type": "xsd:integer" },
+        "event": { "@id": "vf:PortCall/event", "@type": "xsd:string" },
+        "timestamp": { "@id": "dcterms:date", "@type": "xsd:dateTime" },
+        "port": { "@id": "schema:location", "@type": "vf:Port" },
+        "locode": { "@id": "vf:Port/locode", "@type": "xsd:string" }
+      }
+    },
+
+    "ContainerShipment": {
+      "@id": "vf:ContainerShipment",
+      "@context": {
+        "containerNumber": { "@id": "vf:ContainerShipment/containerNumber", "@type": "xsd:string" },
+        "sealine": { "@id": "vf:ContainerShipment/sealine", "@type": "xsd:string" },
+        "origin": { "@id": "vf:ContainerShipment/origin", "@type": "vf:Port" },
+        "destination": { "@id": "vf:ContainerShipment/destination", "@type": "vf:Port" },
+        "progress": { "@id": "vf:ContainerShipment/progress", "@type": "xsd:decimal" },
+        "schedule": { "@id": "vf:ContainerShipment/schedule", "@container": "@list" }
+      }
+    },
+
+    "SeaRoute": {
+      "@id": "vf:SeaRoute",
+      "@context": {
+        "from": { "@id": "vf:SeaRoute/from" },
+        "to": { "@id": "vf:SeaRoute/to" },
+        "distance": { "@id": "vf:SeaRoute/distance", "@type": "xsd:decimal" },
+        "distanceECA": { "@id": "vf:SeaRoute/distanceECA", "@type": "xsd:decimal" },
+        "crossing": { "@id": "vf:SeaRoute/crossing", "@container": "@list" }
+      }
+    }
+  }
+}

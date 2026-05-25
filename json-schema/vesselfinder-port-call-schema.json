@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/vesselfinder/main/json-schema/vesselfinder-port-call-schema.json",
+  "title": "VesselFinder Port Call",
+  "description": "A vessel arrival or departure event at a port, as reported by VesselFinder's PortCalls endpoint.",
+  "type": "object",
+  "properties": {
+    "MMSI": { "type": "integer" },
+    "IMO": { "type": "integer" },
+    "LOCODE": { "type": "string" },
+    "EVENT": { "type": "string", "enum": ["arrival", "departure"] },
+    "TIMESTAMP": { "type": "string", "format": "date-time" },
+    "PORT": { "type": "string" },
+    "COUNTRY": { "type": "string" }
+  },
+  "required": ["MMSI", "EVENT", "TIMESTAMP"]
+}

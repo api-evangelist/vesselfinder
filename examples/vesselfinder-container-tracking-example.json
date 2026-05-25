@@ -1,0 +1,43 @@
+{
+  "status": "success",
+  "general": {
+    "origin": "Shanghai, China",
+    "destination": "Rotterdam, Netherlands",
+    "currentLocation": "Suez Canal",
+    "progress": 62.5,
+    "carrier": "MSC",
+    "sealine": "MSCU"
+  },
+  "schedule": [
+    {
+      "port": "Shanghai",
+      "locode": "CNSHA",
+      "event": "CGI",
+      "timestamp": "2026-05-02T08:00:00Z",
+      "actual": true
+    },
+    {
+      "port": "Singapore",
+      "locode": "SGSIN",
+      "event": "VAT",
+      "timestamp": "2026-05-12T14:30:00Z",
+      "actual": true,
+      "vessel": {
+        "name": "MSC OSCAR",
+        "imo": 9703291,
+        "mmsi": 636016432,
+        "latitude": 1.2933,
+        "longitude": 103.853,
+        "speed": 0.1,
+        "course": 0
+      }
+    },
+    {
+      "port": "Rotterdam",
+      "locode": "NLRTM",
+      "event": "CDD",
+      "timestamp": "2026-06-04T07:00:00Z",
+      "actual": false
+    }
+  ]
+}

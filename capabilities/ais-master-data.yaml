@@ -1,0 +1,82 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: VesselFinder AIS API — Master Data
+  description: VesselFinder AIS API — Master Data. Static vessel particulars by IMO.
+  tags:
+    - VesselFinder
+    - AIS
+    - Master Data
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+  - namespace: env
+    keys:
+      VESSELFINDER_USER_KEY: VESSELFINDER_USER_KEY
+capability:
+  consumes:
+    - type: http
+      namespace: ais-master-data
+      baseUri: https://api.vesselfinder.com
+      description: VesselFinder MasterData capability.
+      resources:
+        - name: masterdata
+          path: /masterdata
+          operations:
+            - name: getmasterdata
+              method: GET
+              description: Get static vessel particulars by IMO.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: array
+                  value: $.
+              inputParameters:
+                - name: userkey
+                  in: query
+                  type: string
+                  required: true
+                - name: imo
+                  in: query
+                  type: string
+                  required: true
+                - name: format
+                  in: query
+                  type: string
+      authentication:
+        type: apikey
+        key: userkey
+        value: '{{env.VESSELFINDER_USER_KEY}}'
+        placement: query
+  exposes:
+    - type: rest
+      namespace: ais-master-data-rest
+      port: 8080
+      description: REST adapter for VesselFinder MasterData.
+      resources:
+        - path: /v1/masterdata
+          name: masterdata
+          description: REST surface for masterdata.
+          operations:
+            - method: GET
+              name: getmasterdata
+              description: Get static vessel particulars by IMO.
+              call: ais-master-data.getmasterdata
+              outputParameters:
+                - type: array
+                  mapping: $.
+    - type: mcp
+      namespace: ais-master-data-mcp
+      port: 9090
+      transport: http
+      description: MCP adapter for VesselFinder MasterData.
+      tools:
+        - name: vesselfinder-get-master-data
+          description: Get vessel particulars (flag, type, dimensions, tonnage) by IMO.
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: ais-master-data.getmasterdata
+          outputParameters:
+            - type: array
+              mapping: $.

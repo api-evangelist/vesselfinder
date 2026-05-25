@@ -1,0 +1,20 @@
+{
+  "type": "Feature",
+  "properties": {
+    "Crossing": ["Suez Canal", "Strait of Malacca"],
+    "Distance": 22418500,
+    "DistanceECA": 312700
+  },
+  "geometry": {
+    "type": "LineString",
+    "coordinates": [
+      [27.3711, 43.256],
+      [29.0833, 41.0083],
+      [32.4, 31.2],
+      [43.2, 12.6],
+      [78.0, 6.2],
+      [103.8, 1.3],
+      [128.345, -34.223]
+    ]
+  }
+}

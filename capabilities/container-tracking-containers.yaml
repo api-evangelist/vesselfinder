@@ -1,0 +1,90 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: VesselFinder Container Tracking API — Containers
+  description: VesselFinder Container Tracking API — Containers. Real-time container track-and-trace by container number.
+  tags:
+    - VesselFinder
+    - Container Tracking
+    - Logistics
+    - Supply Chain
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+  - namespace: env
+    keys:
+      VESSELFINDER_CONTAINER_API_KEY: VESSELFINDER_CONTAINER_API_KEY
+capability:
+  consumes:
+    - type: http
+      namespace: container-tracking-containers
+      baseUri: https://container.vesselfinder.com/api/1.0
+      description: VesselFinder Container Tracking capability.
+      resources:
+        - name: container
+          path: /container/{apiKey}/{containerNumber}/{sealine}
+          operations:
+            - name: trackcontainer
+              method: GET
+              description: Look up the shipment for the specified container.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: $.
+              inputParameters:
+                - name: apiKey
+                  in: path
+                  type: string
+                  required: true
+                - name: containerNumber
+                  in: path
+                  type: string
+                  required: true
+                - name: sealine
+                  in: path
+                  type: string
+                  required: true
+      authentication:
+        type: apikey
+        key: apiKey
+        value: '{{env.VESSELFINDER_CONTAINER_API_KEY}}'
+        placement: path
+  exposes:
+    - type: rest
+      namespace: container-tracking-containers-rest
+      port: 8080
+      description: REST adapter for VesselFinder Container Tracking.
+      resources:
+        - path: /v1/containers/{container-number}
+          name: containers
+          description: REST surface for container tracking.
+          operations:
+            - method: GET
+              name: trackcontainer
+              description: Track a container by its 11-character container number.
+              call: container-tracking-containers.trackcontainer
+              with:
+                containerNumber: rest.path.container-number
+                sealine: rest.query.sealine
+              outputParameters:
+                - type: object
+                  mapping: $.
+    - type: mcp
+      namespace: container-tracking-containers-mcp
+      port: 9090
+      transport: http
+      description: MCP adapter for VesselFinder Container Tracking.
+      tools:
+        - name: vesselfinder-track-container
+          description: Track an ocean-freight container by container number (and optional SCAC carrier code).
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: container-tracking-containers.trackcontainer
+          with:
+            containerNumber: tools.containerNumber
+            sealine: tools.sealine
+          outputParameters:
+            - type: object
+              mapping: $.

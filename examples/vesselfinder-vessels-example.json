@@ -1,0 +1,49 @@
+[
+  {
+    "AIS": {
+      "MMSI": 538003422,
+      "TIMESTAMP": "2026-05-25T10:14:00Z",
+      "LATITUDE": 51.9421,
+      "LONGITUDE": 4.1163,
+      "COURSE": 87.5,
+      "SPEED": 12.3,
+      "HEADING": 88,
+      "NAVSTAT": 0,
+      "IMO": 9175717,
+      "NAME": "EVER GIVEN",
+      "CALLSIGN": "H3RC",
+      "TYPE": 70,
+      "A": 175,
+      "B": 225,
+      "C": 30,
+      "D": 29,
+      "DRAUGHT": 14.5,
+      "DESTINATION": "NLRTM",
+      "LOCODE": "NLRTM",
+      "ETA_AIS": "05-25 16:00",
+      "ETA": "2026-05-25T16:00:00Z",
+      "SRC": "TER",
+      "ZONE": "North Sea",
+      "ECA": 1
+    },
+    "VOYAGE": {
+      "LOCODE": "DEHAM",
+      "DEPARTURE": "2026-05-24T22:00:00Z",
+      "LASTPORT": "Hamburg",
+      "LASTCOUNTRY": "Germany"
+    },
+    "MASTERDATA": {
+      "IMO": 9175717,
+      "NAME": "EVER GIVEN",
+      "FLAG": "Panama",
+      "TYPE": "Container Ship",
+      "BUILT": 2018,
+      "LENGTH": 400.0,
+      "BEAM": 58.8,
+      "MAXDRAUGHT": 14.5,
+      "GT": 220940,
+      "DWT": 199629,
+      "TEU": 20124
+    }
+  }
+]

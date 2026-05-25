@@ -1,0 +1,90 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: VesselFinder
+providerId: vesselfinder
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: false
+tags:
+  - FinOps
+  - Cost Management
+  - FOCUS
+  - AIS
+  - Maritime
+description: |
+  FOCUS-aligned FinOps definition for VesselFinder. Two distinct billing surfaces — AIS API
+  (credit-metered, EUR-priced prepaid credit packs) and Container Tracking API (per-container
+  prepaid subscriptions, USD-priced, VAT excluded). Subscriptions for predefined fleets
+  (VesselsList) and predefined areas (LiveData) are quoted separately.
+sources:
+  - https://api.vesselfinder.com/docs/
+  - https://container.vesselfinder.com/api/1.0/docs
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: VesselFinder Ltd
+serviceCategory: Geospatial and Logistics
+billingModel:
+  pricingCategory: Usage-Based (Prepaid)
+  billingFrequency: At purchase
+  billingCurrency: Mixed — EUR (AIS) and USD (Container Tracking)
+  chargeCategories:
+    - Purchase
+    - Usage
+    - Adjustment
+    - Tax
+  primaryUnit: credit
+  secondaryUnits:
+    - container
+    - vessel
+    - area
+focusColumns:
+  ServiceName: VesselFinder AIS API
+  ServiceCategory: Geospatial and Logistics
+  ProviderName: VesselFinder
+  PublisherName: VesselFinder Ltd
+  InvoiceIssuerName: VesselFinder Ltd
+  PricingCategory: Usage-Based
+  PricingUnit: credit
+  BillingCurrency: EUR
+meters:
+  - name: ais_credits_consumed
+    unit: credit
+    aggregation: sum
+    dimensions:
+      - method
+      - dataset
+      - source
+  - name: container_lookups
+    unit: container
+    aggregation: sum
+    dimensions:
+      - carrier
+      - cache_hit
+  - name: vesselslist_subscription
+    unit: vessel
+    aggregation: max
+    dimensions:
+      - fleet
+      - dataset
+  - name: livedata_subscription
+    unit: area
+    aggregation: max
+    dimensions:
+      - region
+      - dataset
+costAllocation:
+  recommendedDimensions:
+    - account
+    - method
+    - dataset
+    - source
+    - region
+notes:
+  - Credits and container subscriptions expire 12 months after purchase.
+  - First container lookup deducts one unit; lookups for the same container within 30 days are free (cache hit).
+  - VesselsList and LiveData are subscription products; pricing depends on fleet size, area, traffic, and dataset selection.

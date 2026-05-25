@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-structure.org/v0/schema",
+  "title": "VesselFinder Vessel Structure",
+  "description": "Logical structure of a VesselFinder vessel record (AIS + Voyage + MasterData).",
+  "type": "object",
+  "fields": [
+    {
+      "name": "AIS",
+      "description": "Dynamic AIS state.",
+      "type": "object",
+      "fields": [
+        { "name": "MMSI", "type": "integer" },
+        { "name": "IMO", "type": "integer" },
+        { "name": "NAME", "type": "string" },
+        { "name": "CALLSIGN", "type": "string" },
+        { "name": "TYPE", "type": "integer", "description": "AIS ship-type code." },
+        { "name": "NAVSTAT", "type": "integer" },
+        { "name": "LATITUDE", "type": "number" },
+        { "name": "LONGITUDE", "type": "number" },
+        { "name": "COURSE", "type": "number" },
+        { "name": "SPEED", "type": "number" },
+        { "name": "HEADING", "type": "integer" },
+        { "name": "DRAUGHT", "type": "number" },
+        { "name": "DESTINATION", "type": "string" },
+        { "name": "LOCODE", "type": "string" },
+        { "name": "ETA", "type": "string" },
+        { "name": "TIMESTAMP", "type": "string" },
+        { "name": "SRC", "type": "string", "description": "TER or SAT." }
+      ]
+    },
+    {
+      "name": "VOYAGE",
+      "description": "Last port call summary.",
+      "type": "object",
+      "fields": [
+        { "name": "LOCODE", "type": "string" },
+        { "name": "DEPARTURE", "type": "string" },
+        { "name": "LASTPORT", "type": "string" },
+        { "name": "LASTCOUNTRY", "type": "string" }
+      ]
+    },
+    {
+      "name": "MASTERDATA",
+      "description": "Static vessel particulars.",
+      "type": "object",
+      "fields": [
+        { "name": "IMO", "type": "integer" },
+        { "name": "NAME", "type": "string" },
+        { "name": "FLAG", "type": "string" },
+        { "name": "TYPE", "type": "string" },
+        { "name": "BUILT", "type": "integer" },
+        { "name": "LENGTH", "type": "number" },
+        { "name": "BEAM", "type": "number" },
+        { "name": "MAXDRAUGHT", "type": "number" },
+        { "name": "GT", "type": "integer" },
+        { "name": "DWT", "type": "integer" },
+        { "name": "TEU", "type": "integer" }
+      ]
+    }
+  ]
+}

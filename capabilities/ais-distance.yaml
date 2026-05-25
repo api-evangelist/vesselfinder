@@ -1,0 +1,93 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: VesselFinder AIS API — Distance
+  description: VesselFinder AIS API — Distance. Shortest sea route between two coordinates with optional gateways and ECA preference.
+  tags:
+    - VesselFinder
+    - AIS
+    - Distance
+    - Routing
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+  - namespace: env
+    keys:
+      VESSELFINDER_USER_KEY: VESSELFINDER_USER_KEY
+capability:
+  consumes:
+    - type: http
+      namespace: ais-distance
+      baseUri: https://api.vesselfinder.com
+      description: VesselFinder Distance capability.
+      resources:
+        - name: distance
+          path: /distance
+          operations:
+            - name: getdistance
+              method: GET
+              description: Compute the shortest sea route between two coordinates as a GeoJSON LineString.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: $.
+              inputParameters:
+                - name: userkey
+                  in: query
+                  type: string
+                  required: true
+                - name: from
+                  in: query
+                  type: string
+                  required: true
+                - name: to
+                  in: query
+                  type: string
+                  required: true
+                - name: gateways
+                  in: query
+                  type: string
+                - name: ECA
+                  in: query
+                  type: string
+                - name: EPSG3857
+                  in: query
+                  type: integer
+      authentication:
+        type: apikey
+        key: userkey
+        value: '{{env.VESSELFINDER_USER_KEY}}'
+        placement: query
+  exposes:
+    - type: rest
+      namespace: ais-distance-rest
+      port: 8080
+      description: REST adapter for VesselFinder Distance.
+      resources:
+        - path: /v1/distance
+          name: distance
+          description: REST surface for distance.
+          operations:
+            - method: GET
+              name: getdistance
+              description: Compute the shortest sea route between two coordinates.
+              call: ais-distance.getdistance
+              outputParameters:
+                - type: object
+                  mapping: $.
+    - type: mcp
+      namespace: ais-distance-mcp
+      port: 9090
+      transport: http
+      description: MCP adapter for VesselFinder Distance.
+      tools:
+        - name: vesselfinder-get-sea-distance
+          description: Compute the shortest sea route between two coordinates with optional gateways and ECA preference.
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: ais-distance.getdistance
+          outputParameters:
+            - type: object
+              mapping: $.

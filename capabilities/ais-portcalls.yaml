@@ -1,0 +1,112 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: VesselFinder AIS API — Port Calls
+  description: VesselFinder AIS API — Port Calls. Arrival and departure events for vessels or ports.
+  tags:
+    - VesselFinder
+    - AIS
+    - Port Calls
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+  - namespace: env
+    keys:
+      VESSELFINDER_USER_KEY: VESSELFINDER_USER_KEY
+capability:
+  consumes:
+    - type: http
+      namespace: ais-portcalls
+      baseUri: https://api.vesselfinder.com
+      description: VesselFinder PortCalls capability.
+      resources:
+        - name: portcalls
+          path: /portcalls
+          operations:
+            - name: getportcalls
+              method: GET
+              description: Get arrival and departure events for vessels (by IMO/MMSI) or for a port (by LOCODE).
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: array
+                  value: $.
+              inputParameters:
+                - name: userkey
+                  in: query
+                  type: string
+                  required: true
+                - name: interval
+                  in: query
+                  type: integer
+                  required: true
+                - name: imo
+                  in: query
+                  type: string
+                - name: mmsi
+                  in: query
+                  type: string
+                - name: locode
+                  in: query
+                  type: string
+                - name: event
+                  in: query
+                  type: string
+                - name: fromdate
+                  in: query
+                  type: string
+                - name: todate
+                  in: query
+                  type: string
+                - name: extradata
+                  in: query
+                  type: string
+                - name: limit
+                  in: query
+                  type: integer
+                - name: last_id
+                  in: query
+                  type: integer
+                - name: anchorage
+                  in: query
+                  type: integer
+                - name: imo_only
+                  in: query
+                  type: integer
+      authentication:
+        type: apikey
+        key: userkey
+        value: '{{env.VESSELFINDER_USER_KEY}}'
+        placement: query
+  exposes:
+    - type: rest
+      namespace: ais-portcalls-rest
+      port: 8080
+      description: REST adapter for VesselFinder PortCalls.
+      resources:
+        - path: /v1/portcalls
+          name: portcalls
+          description: REST surface for portcalls.
+          operations:
+            - method: GET
+              name: getportcalls
+              description: Get arrival and departure events for vessels or ports.
+              call: ais-portcalls.getportcalls
+              outputParameters:
+                - type: array
+                  mapping: $.
+    - type: mcp
+      namespace: ais-portcalls-mcp
+      port: 9090
+      transport: http
+      description: MCP adapter for VesselFinder PortCalls.
+      tools:
+        - name: vesselfinder-get-port-calls
+          description: Get arrival and departure events for one or more vessels or for a selected port.
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: ais-portcalls.getportcalls
+          outputParameters:
+            - type: array
+              mapping: $.

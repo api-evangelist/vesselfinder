@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/vesselfinder/main/json-schema/vesselfinder-container-shipment-schema.json",
+  "title": "VesselFinder Container Shipment",
+  "description": "Container shipment record returned by VesselFinder's Container Tracking API.",
+  "type": "object",
+  "properties": {
+    "status": { "type": "string", "enum": ["success", "queued", "processing", "error"] },
+    "general": {
+      "type": "object",
+      "properties": {
+        "origin": { "type": "string" },
+        "destination": { "type": "string" },
+        "progress": { "type": "number" },
+        "currentLocation": { "type": "string" },
+        "carrier": { "type": "string" },
+        "sealine": { "type": "string" }
+      }
+    },
+    "schedule": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "port": { "type": "string" },
+          "locode": { "type": "string" },
+          "event": { "type": "string" },
+          "timestamp": { "type": "string", "format": "date-time" },
+          "actual": { "type": "boolean" },
+          "vessel": { "$ref": "#/$defs/Vessel" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "Vessel": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "imo": { "type": "integer" },
+        "mmsi": { "type": "integer" },
+        "latitude": { "type": "number" },
+        "longitude": { "type": "number" },
+        "speed": { "type": "number" },
+        "course": { "type": "number" }
+      }
+    }
+  }
+}

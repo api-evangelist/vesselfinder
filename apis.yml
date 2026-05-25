@@ -1,0 +1,336 @@
+aid: vesselfinder
+url: https://raw.githubusercontent.com/api-evangelist/vesselfinder/refs/heads/main/apis.yml
+apis:
+- aid: vesselfinder:vesselfinder-ais-api
+  name: VesselFinder AIS API
+  tags:
+  - AIS
+  - Vessels
+  - Maritime
+  - Tracking
+  humanURL: https://api.vesselfinder.com/docs/
+  properties:
+  - url: https://api.vesselfinder.com/docs/
+    type: Documentation
+  - url: https://api.vesselfinder.com/docs/vessels.html
+    type: Documentation
+  - url: https://api.vesselfinder.com/docs/portcalls.html
+    type: Documentation
+  - url: https://api.vesselfinder.com/docs/expectedarrivals.html
+    type: Documentation
+  - url: https://api.vesselfinder.com/docs/masterdata.html
+    type: Documentation
+  - url: https://api.vesselfinder.com/docs/distance.html
+    type: Documentation
+  - url: https://api.vesselfinder.com/docs/vesselslist.html
+    type: Documentation
+  - url: https://api.vesselfinder.com/docs/livedata.html
+    type: Documentation
+  - url: https://api.vesselfinder.com/docs/status.html
+    type: Documentation
+  - url: https://api.vesselfinder.com/docs/listmanager.html
+    type: Documentation
+  - url: openapi/vesselfinder-ais-api-openapi.yml
+    type: OpenAPI
+  - url: json-schema/vesselfinder-vessel-schema.json
+    type: JSONSchema
+  - url: json-schema/vesselfinder-port-call-schema.json
+    type: JSONSchema
+  - url: json-structure/vesselfinder-vessel-structure.json
+    type: JSONStructure
+  - url: json-ld/vesselfinder-context.jsonld
+    type: JSONLD
+  - type: NaftikoCapability
+    url: capabilities/ais-vessels.yaml
+  - type: NaftikoCapability
+    url: capabilities/ais-portcalls.yaml
+  - type: NaftikoCapability
+    url: capabilities/ais-expected-arrivals.yaml
+  - type: NaftikoCapability
+    url: capabilities/ais-master-data.yaml
+  - type: NaftikoCapability
+    url: capabilities/ais-distance.yaml
+  - type: NaftikoCapability
+    url: capabilities/ais-vessels-list.yaml
+  - type: NaftikoCapability
+    url: capabilities/ais-live-data.yaml
+  - type: NaftikoCapability
+    url: capabilities/ais-status.yaml
+  description: |
+    Credit-based and subscription REST API exposing the VesselFinder global AIS network. On-demand
+    methods (Vessels, PortCalls, ExpectedArrivals, MasterData, Distance) deduct credits per call
+    proportional to dataset and source (terrestrial / satellite); fleet-wide (VesselsList) and
+    area-wide (LiveData) feeds are subscription-priced. Authenticates via the userkey query parameter.
+    Responses default to JSON and may be requested as XML.
+- aid: vesselfinder:vesselfinder-container-tracking-api
+  name: VesselFinder Container Tracking API
+  tags:
+  - Container Tracking
+  - Logistics
+  - Supply Chain
+  - Maritime
+  humanURL: https://container.vesselfinder.com/api/1.0/docs
+  properties:
+  - url: https://container.vesselfinder.com/api/1.0/docs
+    type: Documentation
+  - url: https://www.vesselfinder.com/container-tracking
+    type: Documentation
+  - url: openapi/vesselfinder-container-tracking-api-openapi.yml
+    type: OpenAPI
+  - url: json-schema/vesselfinder-container-shipment-schema.json
+    type: JSONSchema
+  - url: json-ld/vesselfinder-context.jsonld
+    type: JSONLD
+  - type: NaftikoCapability
+    url: capabilities/container-tracking-containers.yaml
+  description: |
+    Real-time ocean-container track-and-trace API. Look up shipments by 11-character container
+    number and optional SCAC carrier code (AUTO to auto-detect). Returns origin, destination,
+    current vessel position, progress, and schedule events. Asynchronous: a first request may
+    return 202 Accepted while data is fetched; clients poll the same URL every 60 seconds or
+    more. Successful responses are cached for 12 hours and lookups for the same container
+    within 30 days are free.
+name: VesselFinder
+tags:
+- AIS
+- Maritime
+- Vessel Tracking
+- Container Tracking
+- Geospatial
+- Logistics
+- Ports
+- Supply Chain
+kind: contract
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+access: 3rd-Party
+common:
+- type: Portal
+  url: https://www.vesselfinder.com
+- type: Documentation
+  url: https://api.vesselfinder.com/docs/
+- type: Documentation
+  url: https://container.vesselfinder.com/api/1.0/docs
+- type: GettingStarted
+  url: https://api.vesselfinder.com/docs/
+- url: https://www.vesselfinder.com/api
+  type: Pricing
+  data:
+  - id: ais-credits-10k
+    name: AIS Credits — 10,000
+    entries:
+    - geo: global
+      unit: 10000
+      label: Credits
+      limit: 10000
+      price: 330
+      metric: credit
+      timeFrame: 12-months
+      description: 10,000 AIS API credits. Expire 12 months after purchase. EUR.
+    description: 10k credits AIS pack.
+  - id: ais-credits-20k
+    name: AIS Credits — 20,000
+    entries:
+    - geo: global
+      unit: 20000
+      label: Credits
+      limit: 20000
+      price: 625
+      metric: credit
+      timeFrame: 12-months
+      description: 20,000 AIS API credits. Expire 12 months after purchase. EUR.
+    description: 20k credits AIS pack.
+  - id: ais-credits-50k
+    name: AIS Credits — 50,000
+    entries:
+    - geo: global
+      unit: 50000
+      label: Credits
+      limit: 50000
+      price: 1470
+      metric: credit
+      timeFrame: 12-months
+      description: 50,000 AIS API credits. Expire 12 months after purchase. EUR.
+    description: 50k credits AIS pack.
+  - id: container-tracking-1
+    name: Container Tracking — 1
+    entries:
+    - geo: global
+      unit: 1
+      label: Container
+      limit: 1
+      price: 7
+      metric: container
+      timeFrame: 12-months
+      description: 1 container subscription. USD, VAT excluded.
+    description: Single container subscription.
+  - id: container-tracking-10
+    name: Container Tracking — 10
+    entries:
+    - geo: global
+      unit: 10
+      label: Containers
+      limit: 10
+      price: 65
+      metric: container
+      timeFrame: 12-months
+      description: 10 containers. USD, VAT excluded.
+    description: 10 container subscription.
+  - id: container-tracking-20
+    name: Container Tracking — 20
+    entries:
+    - geo: global
+      unit: 20
+      label: Containers
+      limit: 20
+      price: 120
+      metric: container
+      timeFrame: 12-months
+      description: 20 containers. USD, VAT excluded.
+    description: 20 container subscription.
+  - id: container-tracking-50
+    name: Container Tracking — 50
+    entries:
+    - geo: global
+      unit: 50
+      label: Containers
+      limit: 50
+      price: 275
+      metric: container
+      timeFrame: 12-months
+      description: 50 containers. USD, VAT excluded.
+    description: 50 container subscription.
+  - id: container-tracking-100
+    name: Container Tracking — 100
+    entries:
+    - geo: global
+      unit: 100
+      label: Containers
+      limit: 100
+      price: 500
+      metric: container
+      timeFrame: 12-months
+      description: 100 containers. USD, VAT excluded.
+    description: 100 container subscription.
+  - id: vesselslist-subscription
+    name: VesselsList (Fleet) Subscription
+    entries:
+    - geo: global
+      unit: 1
+      label: Subscription
+      limit: -1
+      price: Call
+      metric: vessel
+      timeFrame: month
+      description: Fleet subscription, priced by fleet size and dataset selection.
+    description: Predefined fleet subscription.
+  - id: livedata-subscription
+    name: LiveData (Area) Subscription
+    entries:
+    - geo: global
+      unit: 1
+      label: Subscription
+      limit: -1
+      price: Call
+      metric: area
+      timeFrame: month
+      description: Area subscription, priced by area, traffic, and dataset selection.
+    description: Predefined area subscription.
+  name: Pricing
+- url: https://api.vesselfinder.com/docs/
+  name: Implementation
+  type: Documentation
+- url: https://api.vesselfinder.com/docs/
+  name: FAQ
+  type: FAQ
+- url: https://api.vesselfinder.com/docs/flags.html
+  name: Flag Codes
+  type: Documentation
+- url: https://api.vesselfinder.com/docs/aistypes.html
+  name: AIS Ship Types
+  type: Documentation
+- url: https://api.vesselfinder.com/docs/navstat.html
+  name: AIS NavStat Codes
+  type: Documentation
+- url: https://www.vesselfinder.com/contact
+  type: Support
+- url: https://www.vesselfinder.com/terms
+  type: TermsOfService
+- url: https://www.vesselfinder.com/privacy
+  type: PrivacyPolicy
+- url: https://route.vesselfinder.com
+  name: Route Planner
+  type: Tool
+- url: https://www.vesselfinder.com/news
+  type: Blog
+- url: https://twitter.com/VesselFinder
+  type: Twitter
+- url: https://www.facebook.com/vesselfinder
+  type: Facebook
+- url: https://www.youtube.com/vesselfinder
+  type: YouTube
+- url: https://apps.apple.com/us/app/vesselfinder-lite/id918080862
+  name: VesselFinder for iOS
+  type: Application
+- url: https://play.google.com/store/apps/details?id=com.astrapaging.vff
+  name: VesselFinder for Android
+  type: Application
+- url: https://github.com/VesselFinder
+  type: GitHubOrganization
+- url: https://github.com/VesselFinder/vesselfinder-api-wrapper
+  name: VesselFinder AIS API Wrapper (PHP, Python)
+  type: SDK
+- url: https://github.com/VesselFinder/container-tracking-api-wrapper
+  name: VesselFinder Container Tracking API Wrapper (PHP, Python)
+  type: SDK
+- type: Plans
+  url: plans/vesselfinder-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/vesselfinder-rate-limits.yml
+- type: FinOps
+  url: finops/vesselfinder-finops.yml
+- type: Vocabulary
+  url: vocabulary/vesselfinder-vocabulary.yml
+- type: Spectral
+  url: rules/vesselfinder-rules.yml
+- type: Features
+  data:
+  - Global AIS vessel tracking network — terrestrial receivers plus satellite AIS coverage
+  - On-demand REST endpoints for vessel positions (Vessels), port arrivals/departures (PortCalls), and expected arrivals (ExpectedArrivals)
+  - Static vessel particulars (MasterData) including flag, type, dimensions, tonnage, TEU, deadweight
+  - Three dataset families — AIS (dynamic), Voyage (last port call), Master (static particulars)
+  - Sea-route distance and routing API with optional canal/strait gateway preferences and ECA handling
+  - Subscription feeds — VesselsList for a predefined fleet, LiveData for a predefined rectangular area
+  - Fleet watchlist management via ListManager (GET, POST, PUT, DELETE)
+  - Container Tracking API — track ocean-freight containers by container number with optional SCAC carrier
+  - Asynchronous container lookups with 202 polling and 12-hour caching
+  - Credit-metered AIS billing (terrestrial 1 credit, satellite 10 credits, master 2–3 credits, distance 1 credit)
+  - Prepaid AIS credit packs (10k / 20k / 50k) priced in EUR; container subscriptions priced in USD
+  - JSON (default) and XML response formats
+  - API key authentication via the userkey query parameter
+  - Reference taxonomies — Flag Codes, AIS Ship Types, AIS NavStat
+  - Official PHP and Python wrapper libraries on GitHub for both AIS and Container Tracking APIs
+  - VesselFinder web platform, iOS/Android apps, embeddable maps, fleet explorer, and route planner
+  sources:
+  - https://api.vesselfinder.com/docs/
+  - https://container.vesselfinder.com/api/1.0/docs
+  - https://www.vesselfinder.com/api
+  - https://github.com/VesselFinder
+  updated: '2026-05-25'
+created: '2026-05-25T00:00:00.000Z'
+modified: '2026-05-25'
+position: Consuming
+description: |
+  VesselFinder is a maritime intelligence company operating a global AIS vessel-tracking network
+  (terrestrial AIS plus satellite AIS) and offering ship positions, voyage history, vessel
+  particulars, port-call events, sea-distance routing, and ocean-container track-and-trace through
+  its developer APIs. The platform pairs a credit-metered AIS REST API (Vessels, PortCalls,
+  ExpectedArrivals, MasterData, Distance, plus subscription feeds VesselsList and LiveData) with a
+  separate Container Tracking API that returns shipment schedules and real-time vessel positions
+  by container number. VesselFinder also runs a public web map, iOS/Android apps, an embeddable
+  map widget, a fleet explorer, and a route planner.
+maintainers:
+- FN: Kin Lane
+  email: info@apievangelist.com
+  X: apievangelist
+  url: https://apievangelist.com
+specificationVersion: '0.16'

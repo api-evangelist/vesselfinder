@@ -1,0 +1,206 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: VesselFinder AIS API — Vessels List
+  description: VesselFinder AIS API — Vessels List. Data for the account's predefined fleet (subscription).
+  tags:
+    - VesselFinder
+    - AIS
+    - Fleet
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+  - namespace: env
+    keys:
+      VESSELFINDER_USER_KEY: VESSELFINDER_USER_KEY
+capability:
+  consumes:
+    - type: http
+      namespace: ais-vessels-list
+      baseUri: https://api.vesselfinder.com
+      description: VesselFinder VesselsList capability.
+      resources:
+        - name: vesselslist
+          path: /vesselslist
+          operations:
+            - name: getvesselslist
+              method: GET
+              description: Get AIS, Voyage, and/or Master data for the account's predefined fleet.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: array
+                  value: $.
+              inputParameters:
+                - name: userkey
+                  in: query
+                  type: string
+                  required: true
+                - name: format
+                  in: query
+                  type: string
+                - name: interval
+                  in: query
+                  type: integer
+        - name: listmanager
+          path: /listmanager
+          operations:
+            - name: getwatchlist
+              method: GET
+              description: Get the current fleet watchlist (IMO and MMSI).
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: $.
+            - name: addwatchlistvessels
+              method: POST
+              description: Add vessels to the fleet watchlist.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: $.
+              inputParameters:
+                - name: body
+                  in: body
+                  type: object
+                  description: Form body with imo and/or mmsi.
+            - name: replacewatchlistvessels
+              method: PUT
+              description: Replace the fleet watchlist with the supplied vessels.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: $.
+              inputParameters:
+                - name: body
+                  in: body
+                  type: object
+                  description: Form body with imo and/or mmsi.
+            - name: deletewatchlistvessels
+              method: DELETE
+              description: Remove vessels from the fleet watchlist.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: $.
+      authentication:
+        type: apikey
+        key: userkey
+        value: '{{env.VESSELFINDER_USER_KEY}}'
+        placement: query
+  exposes:
+    - type: rest
+      namespace: ais-vessels-list-rest
+      port: 8080
+      description: REST adapter for VesselFinder VesselsList and ListManager.
+      resources:
+        - path: /v1/vesselslist
+          name: vesselslist
+          description: REST surface for vesselslist.
+          operations:
+            - method: GET
+              name: getvesselslist
+              description: Get AIS, Voyage, and/or Master data for the account's predefined fleet.
+              call: ais-vessels-list.getvesselslist
+              outputParameters:
+                - type: array
+                  mapping: $.
+        - path: /v1/listmanager
+          name: listmanager
+          description: REST surface for fleet watchlist management.
+          operations:
+            - method: GET
+              name: getwatchlist
+              description: Get the current fleet watchlist.
+              call: ais-vessels-list.getwatchlist
+              outputParameters:
+                - type: object
+                  mapping: $.
+            - method: POST
+              name: addwatchlistvessels
+              description: Add vessels to the fleet watchlist.
+              call: ais-vessels-list.addwatchlistvessels
+              with:
+                body: rest.body
+              outputParameters:
+                - type: object
+                  mapping: $.
+            - method: PUT
+              name: replacewatchlistvessels
+              description: Replace the fleet watchlist.
+              call: ais-vessels-list.replacewatchlistvessels
+              with:
+                body: rest.body
+              outputParameters:
+                - type: object
+                  mapping: $.
+            - method: DELETE
+              name: deletewatchlistvessels
+              description: Remove vessels from the fleet watchlist.
+              call: ais-vessels-list.deletewatchlistvessels
+              outputParameters:
+                - type: object
+                  mapping: $.
+    - type: mcp
+      namespace: ais-vessels-list-mcp
+      port: 9090
+      transport: http
+      description: MCP adapter for VesselFinder VesselsList and ListManager.
+      tools:
+        - name: vesselfinder-get-vessels-list
+          description: Get data for the predefined fleet.
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: ais-vessels-list.getvesselslist
+          outputParameters:
+            - type: array
+              mapping: $.
+        - name: vesselfinder-get-watchlist
+          description: Get the current fleet watchlist.
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: ais-vessels-list.getwatchlist
+          outputParameters:
+            - type: object
+              mapping: $.
+        - name: vesselfinder-add-watchlist-vessels
+          description: Add vessels to the fleet watchlist.
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: ais-vessels-list.addwatchlistvessels
+          with:
+            body: tools.body
+          outputParameters:
+            - type: object
+              mapping: $.
+        - name: vesselfinder-replace-watchlist-vessels
+          description: Replace the fleet watchlist.
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: ais-vessels-list.replacewatchlistvessels
+          with:
+            body: tools.body
+          outputParameters:
+            - type: object
+              mapping: $.
+        - name: vesselfinder-delete-watchlist-vessels
+          description: Remove vessels from the fleet watchlist.
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: ais-vessels-list.deletewatchlistvessels
+          outputParameters:
+            - type: object
+              mapping: $.

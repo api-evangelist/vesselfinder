@@ -1,0 +1,91 @@
+specification: API Evangelist Vocabulary
+specificationVersion: '0.1'
+provider: VesselFinder
+providerId: vesselfinder
+created: '2026-05-25'
+modified: '2026-05-25'
+description: |
+  Operational and capability vocabulary for VesselFinder — maritime AIS vessel tracking and
+  container shipment monitoring.
+tags:
+  - AIS
+  - Maritime
+  - Vessels
+  - Ports
+  - Container Tracking
+  - Geospatial
+domain:
+  - Maritime
+  - Logistics
+  - Supply Chain
+  - Geospatial
+concepts:
+  - term: AIS
+    definition: Automatic Identification System — VHF radio broadcast of vessel position, identity, course, and speed, received by terrestrial and satellite networks.
+  - term: MMSI
+    definition: Maritime Mobile Service Identity — 9-digit identifier broadcast by AIS for radio routing.
+  - term: IMO Number
+    definition: 7-digit unique identifier assigned by the International Maritime Organization to a hull for its lifetime.
+  - term: LOCODE
+    definition: UN/LOCODE — 5-character code identifying a port or trade location.
+  - term: SCAC
+    definition: Standard Carrier Alpha Code — 4-letter code identifying a transportation company.
+  - term: ECA
+    definition: Emission Control Area — designated sea area with stricter SOx/NOx emission limits.
+  - term: ETA
+    definition: Estimated Time of Arrival, as broadcast in AIS or derived from container schedules.
+  - term: NavStat
+    definition: AIS Navigation Status — integer code 0–15 indicating vessel state (e.g., underway, at anchor, moored, restricted manoeuvrability).
+  - term: TEU
+    definition: Twenty-foot Equivalent Unit — container capacity measure.
+  - term: DWT
+    definition: Deadweight Tonnage — total carrying capacity of a vessel in metric tonnes.
+  - term: GT
+    definition: Gross Tonnage — unitless measure of a vessel's overall internal volume.
+operationalDimensions:
+  vessel:
+    - imo
+    - mmsi
+    - flag
+    - shipType
+    - aisNavStat
+  position:
+    - latitude
+    - longitude
+    - course
+    - speed
+    - heading
+    - draught
+    - source (terrestrial / satellite)
+  voyage:
+    - destination
+    - eta
+    - lastPort
+    - departure
+  port:
+    - locode
+    - country
+    - arrival
+    - departure
+  container:
+    - containerNumber
+    - sealine
+    - schedule
+    - currentLocation
+    - progress
+capabilityDimensions:
+  - dataset: AIS — dynamic position and state
+  - dataset: Voyage — last port-call summary
+  - dataset: Master — static vessel particulars
+  - dataset: PortCall — arrival/departure events
+  - dataset: Distance — sea-route geometry between two coordinates
+  - dataset: Container — shipment schedule and current vessel
+billing:
+  units:
+    - credit (AIS API)
+    - container (Container Tracking)
+    - vessel (VesselsList subscription)
+    - area (LiveData subscription)
+  currency:
+    - EUR (AIS credits)
+    - USD (Container Tracking)

@@ -1,0 +1,537 @@
+openapi: 3.1.0
+info:
+  title: VesselFinder AIS API
+  description: |
+    REST API providing real-time and on-demand AIS vessel positions, voyage information,
+    and vessel master data from the VesselFinder global AIS network (terrestrial and satellite).
+    Authentication is performed via the `userkey` query parameter. Responses default to JSON
+    and may be requested as XML by setting `format=xml`. Most pay-per-use methods deduct credits
+    from the account's balance; subscription methods (VesselsList, LiveData) are billed by fleet
+    or area size and dataset selection.
+  version: '1.0'
+  contact:
+    name: VesselFinder API Support
+    url: https://api.vesselfinder.com/docs/
+  license:
+    name: Commercial — VesselFinder Terms of Use
+    url: https://www.vesselfinder.com/terms
+servers:
+  - url: https://api.vesselfinder.com
+    description: VesselFinder AIS API
+tags:
+  - name: Vessels
+    description: On-demand vessel position, voyage, and master data lookups.
+  - name: Port Calls
+    description: Arrival and departure events for vessels or ports.
+  - name: Expected Arrivals
+    description: Vessels with announced ETAs at a selected port.
+  - name: Master Data
+    description: Static vessel particulars by IMO.
+  - name: Distance
+    description: Sea-route distance and geometry between two points.
+  - name: Vessels List
+    description: Predefined-fleet data, subscription-based.
+  - name: Live Data
+    description: All vessels within a predefined geographic area, subscription-based.
+  - name: Status
+    description: Account status and remaining credits.
+  - name: List Manager
+    description: Manage the watchlist of vessels backing the VesselsList method.
+paths:
+  /vessels:
+    get:
+      tags: [Vessels]
+      summary: Get Vessels
+      description: Return AIS and optionally Voyage / Master data for one or more vessels identified by IMO or MMSI.
+      operationId: getVessels
+      parameters:
+        - $ref: '#/components/parameters/userkey'
+        - name: imo
+          in: query
+          description: Comma-separated list of IMO numbers. Either imo or mmsi is required.
+          schema:
+            type: string
+            example: '9175717'
+        - name: mmsi
+          in: query
+          description: Comma-separated list of MMSI numbers. Either imo or mmsi is required.
+          schema:
+            type: string
+            example: '538003422'
+        - $ref: '#/components/parameters/format'
+        - name: extradata
+          in: query
+          description: Additional datasets to include in the response. Supported values are `voyage` and `master`.
+          schema:
+            type: string
+            enum: [voyage, master, 'voyage,master']
+        - name: interval
+          in: query
+          description: Maximum age of returned positions in minutes.
+          schema:
+            type: integer
+            minimum: 1
+        - name: sat
+          in: query
+          description: Set to 1 to include satellite positions.
+          schema:
+            type: integer
+            enum: [0, 1]
+            default: 0
+      responses:
+        '200':
+          description: Array of vessels with AIS data and optional Voyage / Master sections.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vessel'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+  /portcalls:
+    get:
+      tags: [Port Calls]
+      summary: Get Port Calls
+      description: Return arrival and departure events for one or more vessels (by IMO or MMSI) or for a port (by LOCODE).
+      operationId: getPortCalls
+      parameters:
+        - $ref: '#/components/parameters/userkey'
+        - name: interval
+          in: query
+          required: true
+          description: Maximum age of returned events in minutes.
+          schema:
+            type: integer
+            minimum: 1
+        - name: imo
+          in: query
+          description: Comma-separated list of IMO numbers. One of imo, mmsi, or locode is required.
+          schema: { type: string }
+        - name: mmsi
+          in: query
+          description: Comma-separated list of MMSI numbers. One of imo, mmsi, or locode is required.
+          schema: { type: string }
+        - name: locode
+          in: query
+          description: UN/LOCODE port identifier. Cannot be combined with imo or mmsi.
+          schema: { type: string, example: 'BGVAR' }
+        - $ref: '#/components/parameters/format'
+        - name: event
+          in: query
+          description: Filter to a single event type.
+          schema: { type: string, enum: [arrival, departure] }
+        - name: fromdate
+          in: query
+          description: Start of the date window (YYYY-MM-DD HH:MM:SS, UTC).
+          schema: { type: string, format: date-time }
+        - name: todate
+          in: query
+          description: End of the date window (YYYY-MM-DD HH:MM:SS, UTC).
+          schema: { type: string, format: date-time }
+        - name: extradata
+          in: query
+          description: Additional datasets to include. Supported values are `ais` and `voyage`.
+          schema: { type: string, enum: [ais, voyage, 'ais,voyage'] }
+        - name: limit
+          in: query
+          description: Maximum number of events to return.
+          schema: { type: integer, minimum: 1 }
+        - name: last_id
+          in: query
+          description: Return only events with id greater than this value.
+          schema: { type: integer }
+        - name: anchorage
+          in: query
+          description: 0 to exclude anchorage events, 1 to include, 2 to return anchorage events only.
+          schema: { type: integer, enum: [0, 1, 2] }
+        - name: imo_only
+          in: query
+          description: Restrict events to vessels carrying an IMO number.
+          schema: { type: integer, enum: [0, 1] }
+      responses:
+        '200':
+          description: Array of port-call events.
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/PortCall' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '402': { $ref: '#/components/responses/PaymentRequired' }
+  /expectedarrivals:
+    get:
+      tags: [Expected Arrivals]
+      summary: Get Expected Arrivals
+      description: Return vessels with announced ETAs at the selected port within an interval or date window.
+      operationId: getExpectedArrivals
+      parameters:
+        - $ref: '#/components/parameters/userkey'
+        - name: locode
+          in: query
+          required: true
+          description: UN/LOCODE port identifier.
+          schema: { type: string, example: 'BGVAR' }
+        - name: interval
+          in: query
+          description: Look-ahead window in minutes from now. Use either interval or fromdate/todate.
+          schema: { type: integer, minimum: 1 }
+        - name: fromdate
+          in: query
+          schema: { type: string, format: date-time }
+        - name: todate
+          in: query
+          schema: { type: string, format: date-time }
+        - $ref: '#/components/parameters/format'
+        - name: extradata
+          in: query
+          schema: { type: string, enum: [voyage, master, 'voyage,master'] }
+        - name: limit
+          in: query
+          schema: { type: integer, minimum: 1 }
+        - name: aistype
+          in: query
+          description: Filter by AIS ship type code(s), comma separated.
+          schema: { type: string }
+      responses:
+        '200':
+          description: Array of expected vessel arrivals.
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Vessel' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '402': { $ref: '#/components/responses/PaymentRequired' }
+  /masterdata:
+    get:
+      tags: [Master Data]
+      summary: Get Master Data
+      description: Return static vessel particulars (Master dataset) by IMO.
+      operationId: getMasterData
+      parameters:
+        - $ref: '#/components/parameters/userkey'
+        - name: imo
+          in: query
+          required: true
+          description: Comma-separated list of IMO numbers.
+          schema: { type: string, example: '9175717' }
+        - $ref: '#/components/parameters/format'
+      responses:
+        '200':
+          description: Array of master-data records.
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/MasterData' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '402': { $ref: '#/components/responses/PaymentRequired' }
+  /distance:
+    get:
+      tags: [Distance]
+      summary: Get Sea Distance
+      description: Return the shortest sea route between two coordinates as a GeoJSON LineString together with distance in meters.
+      operationId: getDistance
+      parameters:
+        - $ref: '#/components/parameters/userkey'
+        - name: from
+          in: query
+          required: true
+          description: Origin as `lon,lat`.
+          schema: { type: string, example: '27.3711,43.256' }
+        - name: to
+          in: query
+          required: true
+          description: Destination as `lon,lat`.
+          schema: { type: string, example: '128.345,-34.223' }
+        - name: gateways
+          in: query
+          description: Comma-separated list of allowed gateways (suez, panama, kiel, oresund, messina, corinth, malacca, drake, magellan, northeast, northwest).
+          schema: { type: string }
+        - name: ECA
+          in: query
+          description: Emission Control Area preference.
+          schema: { type: string, enum: [allow, deny, minimize] }
+        - name: EPSG3857
+          in: query
+          description: Set to 1 to return coordinates in WebMercator (EPSG:3857).
+          schema: { type: integer, enum: [0, 1] }
+      responses:
+        '200':
+          description: GeoJSON Feature describing the computed route.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/DistanceResponse' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '402': { $ref: '#/components/responses/PaymentRequired' }
+  /vesselslist:
+    get:
+      tags: [Vessels List]
+      summary: Get Vessels List
+      description: Return AIS, Voyage, and/or Master data for the account's predefined fleet (subscription).
+      operationId: getVesselsList
+      parameters:
+        - $ref: '#/components/parameters/userkey'
+        - $ref: '#/components/parameters/format'
+        - name: interval
+          in: query
+          description: Maximum position age in minutes.
+          schema: { type: integer, minimum: 1 }
+      responses:
+        '200':
+          description: Array of vessels in the account's predefined fleet.
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Vessel' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+  /livedata:
+    get:
+      tags: [Live Data]
+      summary: Get Live Area Data
+      description: Return all vessels in the account's predefined rectangular area (subscription).
+      operationId: getLiveData
+      parameters:
+        - $ref: '#/components/parameters/userkey'
+        - $ref: '#/components/parameters/format'
+        - name: interval
+          in: query
+          description: Maximum position age in minutes.
+          schema: { type: integer, minimum: 1 }
+      responses:
+        '200':
+          description: Array of vessels currently in the predefined area.
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Vessel' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+  /status:
+    get:
+      tags: [Status]
+      summary: Get Account Status
+      description: Return the remaining API credits and access expiration date for the account.
+      operationId: getStatus
+      parameters:
+        - $ref: '#/components/parameters/userkey'
+        - $ref: '#/components/parameters/format'
+      responses:
+        '200':
+          description: Account status object.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Status' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+  /listmanager:
+    get:
+      tags: [List Manager]
+      summary: Get Watchlist
+      description: Return the current list of vessels (IMO and MMSI) backing the VesselsList method.
+      operationId: getWatchlist
+      parameters:
+        - $ref: '#/components/parameters/userkey'
+      responses:
+        '200':
+          description: Array of vessel identifiers in the watchlist.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Watchlist' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+    post:
+      tags: [List Manager]
+      summary: Add Vessels To Watchlist
+      description: Add the supplied vessels (by IMO or MMSI) to the watchlist.
+      operationId: addWatchlistVessels
+      parameters:
+        - $ref: '#/components/parameters/userkey'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema: { $ref: '#/components/schemas/WatchlistEdit' }
+      responses:
+        '200': { description: Watchlist updated. }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+    put:
+      tags: [List Manager]
+      summary: Replace Watchlist
+      description: Replace all vessels in the watchlist with the supplied list.
+      operationId: replaceWatchlistVessels
+      parameters:
+        - $ref: '#/components/parameters/userkey'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema: { $ref: '#/components/schemas/WatchlistEdit' }
+      responses:
+        '200': { description: Watchlist replaced. }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+    delete:
+      tags: [List Manager]
+      summary: Remove Vessels From Watchlist
+      description: Remove the supplied vessels from the watchlist.
+      operationId: deleteWatchlistVessels
+      parameters:
+        - $ref: '#/components/parameters/userkey'
+        - name: imo
+          in: query
+          schema: { type: string }
+        - name: mmsi
+          in: query
+          schema: { type: string }
+      responses:
+        '200': { description: Vessels removed. }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+components:
+  parameters:
+    userkey:
+      name: userkey
+      in: query
+      required: true
+      description: Personal API key issued by VesselFinder.
+      schema: { type: string }
+    format:
+      name: format
+      in: query
+      description: Response format. Defaults to JSON.
+      schema:
+        type: string
+        enum: [json, xml]
+        default: json
+  responses:
+    Unauthorized:
+      description: Invalid or missing userkey.
+    PaymentRequired:
+      description: Insufficient credits or expired access.
+  schemas:
+    AIS:
+      type: object
+      description: AIS position and dynamic vessel state.
+      properties:
+        MMSI: { type: integer }
+        TIMESTAMP: { type: string, format: date-time }
+        LATITUDE: { type: number, format: float }
+        LONGITUDE: { type: number, format: float }
+        COURSE: { type: number, format: float }
+        SPEED: { type: number, format: float }
+        HEADING: { type: integer }
+        NAVSTAT: { type: integer, description: AIS navigation status code. }
+        IMO: { type: integer }
+        NAME: { type: string }
+        CALLSIGN: { type: string }
+        TYPE: { type: integer, description: AIS ship-type code. }
+        A: { type: integer, description: Distance from GNSS receiver to bow (m). }
+        B: { type: integer, description: Distance from GNSS receiver to stern (m). }
+        C: { type: integer, description: Distance from GNSS receiver to port (m). }
+        D: { type: integer, description: Distance from GNSS receiver to starboard (m). }
+        DRAUGHT: { type: number, format: float }
+        DESTINATION: { type: string }
+        LOCODE: { type: string }
+        ETA_AIS: { type: string }
+        ETA: { type: string, format: date-time }
+        SRC: { type: string, enum: [TER, SAT], description: Source — terrestrial or satellite. }
+        ZONE: { type: string }
+        ECA: { type: integer, description: 1 if currently in an Emission Control Area. }
+    Voyage:
+      type: object
+      description: Last completed port call summary for a vessel.
+      properties:
+        LOCODE: { type: string }
+        DEPARTURE: { type: string, format: date-time }
+        LASTPORT: { type: string }
+        LASTCOUNTRY: { type: string }
+    MasterData:
+      type: object
+      description: Static vessel particulars.
+      properties:
+        IMO: { type: integer }
+        NAME: { type: string }
+        FLAG: { type: string }
+        TYPE: { type: string }
+        BUILT: { type: integer }
+        BUILDER: { type: string }
+        OWNER: { type: string }
+        MANAGER: { type: string }
+        LENGTH: { type: number, format: float }
+        BEAM: { type: number, format: float }
+        MAXDRAUGHT: { type: number, format: float }
+        GT: { type: integer, description: Gross tonnage. }
+        NT: { type: integer, description: Net tonnage. }
+        DWT: { type: integer, description: Deadweight tonnage. }
+        TEU: { type: integer }
+        CRUDE: { type: integer }
+    Vessel:
+      type: object
+      description: A vessel returned from /vessels, /vesselslist, /livedata, or /expectedarrivals.
+      properties:
+        AIS: { $ref: '#/components/schemas/AIS' }
+        VOYAGE: { $ref: '#/components/schemas/Voyage' }
+        MASTERDATA: { $ref: '#/components/schemas/MasterData' }
+    PortCall:
+      type: object
+      description: A vessel arrival or departure event at a port.
+      properties:
+        MMSI: { type: integer }
+        IMO: { type: integer }
+        LOCODE: { type: string }
+        EVENT: { type: string, enum: [arrival, departure] }
+        TIMESTAMP: { type: string, format: date-time }
+        PORT: { type: string }
+        COUNTRY: { type: string }
+        AIS: { $ref: '#/components/schemas/AIS' }
+        VOYAGE: { $ref: '#/components/schemas/Voyage' }
+    DistanceResponse:
+      type: object
+      description: GeoJSON Feature describing the computed route.
+      properties:
+        type: { type: string, example: Feature }
+        properties:
+          type: object
+          properties:
+            Crossing:
+              type: array
+              items: { type: string }
+              description: Ordered list of canals, straits, and passages crossed.
+            Distance: { type: number, description: Route length in meters. }
+            DistanceECA: { type: number, description: Distance spent in ECA zones in meters. }
+        geometry:
+          type: object
+          properties:
+            type: { type: string, example: LineString }
+            coordinates:
+              type: array
+              items:
+                type: array
+                items: { type: number }
+    Status:
+      type: object
+      properties:
+        CREDITS: { type: integer, description: Remaining API credits. }
+        EXPIRATION_DATE: { type: string, format: date-time }
+    Watchlist:
+      type: object
+      properties:
+        imo:
+          type: array
+          items: { type: integer }
+        mmsi:
+          type: array
+          items: { type: integer }
+    WatchlistEdit:
+      type: object
+      properties:
+        imo: { type: string, description: Comma-separated IMO numbers. }
+        mmsi: { type: string, description: Comma-separated MMSI numbers. }
+  securitySchemes:
+    UserKey:
+      type: apiKey
+      in: query
+      name: userkey
+security:
+  - UserKey: []
