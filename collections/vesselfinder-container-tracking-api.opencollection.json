@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "VesselFinder Container Tracking API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apiKey",
+      "value": "{{apiKey}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Containers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Track Container",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://container.vesselfinder.com/api/1.0/container/:apiKey/:containerNumber/:sealine",
+            "params": [
+              {
+                "name": "apiKey",
+                "value": "",
+                "type": "path",
+                "description": "Personal API key for the Container Tracking service."
+              },
+              {
+                "name": "containerNumber",
+                "value": "",
+                "type": "path",
+                "description": "11-character container number (four letters + seven digits)."
+              },
+              {
+                "name": "sealine",
+                "value": "",
+                "type": "path",
+                "description": "4-character carrier SCAC code (e.g. `MSCU`). Use `AUTO` to let the service\nauto-detect the carrier.\n"
+              }
+            ]
+          },
+          "docs": "Look up the shipment for the specified container. Returns container origin,\ndestination, current vessel position, progress, and schedule events. May respond\nwith 202 Accepted while the request is processing — clients should poll the same\nURL no faster than every 60 seconds. Typical processing time is under one minute\nand may extend up to 15–20 minutes in worst case.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

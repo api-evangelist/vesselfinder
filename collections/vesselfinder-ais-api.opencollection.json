@@ -1,0 +1,566 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "VesselFinder AIS API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "userkey",
+      "value": "{{userkey}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vessels",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Vessels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vesselfinder.com/vessels",
+            "params": [
+              {
+                "name": "userkey",
+                "value": "",
+                "type": "query",
+                "description": "Personal API key issued by VesselFinder."
+              },
+              {
+                "name": "imo",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of IMO numbers. Either imo or mmsi is required."
+              },
+              {
+                "name": "mmsi",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of MMSI numbers. Either imo or mmsi is required."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format. Defaults to JSON."
+              },
+              {
+                "name": "extradata",
+                "value": "",
+                "type": "query",
+                "description": "Additional datasets to include in the response. Supported values are `voyage` and `master`."
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "Maximum age of returned positions in minutes."
+              },
+              {
+                "name": "sat",
+                "value": "",
+                "type": "query",
+                "description": "Set to 1 to include satellite positions."
+              }
+            ]
+          },
+          "docs": "Return AIS and optionally Voyage / Master data for one or more vessels identified by IMO or MMSI."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Port Calls",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Port Calls",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vesselfinder.com/portcalls",
+            "params": [
+              {
+                "name": "userkey",
+                "value": "",
+                "type": "query",
+                "description": "Personal API key issued by VesselFinder."
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "Maximum age of returned events in minutes."
+              },
+              {
+                "name": "imo",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of IMO numbers. One of imo, mmsi, or locode is required."
+              },
+              {
+                "name": "mmsi",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of MMSI numbers. One of imo, mmsi, or locode is required."
+              },
+              {
+                "name": "locode",
+                "value": "",
+                "type": "query",
+                "description": "UN/LOCODE port identifier. Cannot be combined with imo or mmsi."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format. Defaults to JSON."
+              },
+              {
+                "name": "event",
+                "value": "",
+                "type": "query",
+                "description": "Filter to a single event type."
+              },
+              {
+                "name": "fromdate",
+                "value": "",
+                "type": "query",
+                "description": "Start of the date window (YYYY-MM-DD HH:MM:SS, UTC)."
+              },
+              {
+                "name": "todate",
+                "value": "",
+                "type": "query",
+                "description": "End of the date window (YYYY-MM-DD HH:MM:SS, UTC)."
+              },
+              {
+                "name": "extradata",
+                "value": "",
+                "type": "query",
+                "description": "Additional datasets to include. Supported values are `ais` and `voyage`."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of events to return."
+              },
+              {
+                "name": "last_id",
+                "value": "",
+                "type": "query",
+                "description": "Return only events with id greater than this value."
+              },
+              {
+                "name": "anchorage",
+                "value": "",
+                "type": "query",
+                "description": "0 to exclude anchorage events, 1 to include, 2 to return anchorage events only."
+              },
+              {
+                "name": "imo_only",
+                "value": "",
+                "type": "query",
+                "description": "Restrict events to vessels carrying an IMO number."
+              }
+            ]
+          },
+          "docs": "Return arrival and departure events for one or more vessels (by IMO or MMSI) or for a port (by LOCODE)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Expected Arrivals",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Expected Arrivals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vesselfinder.com/expectedarrivals",
+            "params": [
+              {
+                "name": "userkey",
+                "value": "",
+                "type": "query",
+                "description": "Personal API key issued by VesselFinder."
+              },
+              {
+                "name": "locode",
+                "value": "",
+                "type": "query",
+                "description": "UN/LOCODE port identifier."
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "Look-ahead window in minutes from now. Use either interval or fromdate/todate."
+              },
+              {
+                "name": "fromdate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "todate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format. Defaults to JSON."
+              },
+              {
+                "name": "extradata",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "aistype",
+                "value": "",
+                "type": "query",
+                "description": "Filter by AIS ship type code(s), comma separated."
+              }
+            ]
+          },
+          "docs": "Return vessels with announced ETAs at the selected port within an interval or date window."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Master Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Master Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vesselfinder.com/masterdata",
+            "params": [
+              {
+                "name": "userkey",
+                "value": "",
+                "type": "query",
+                "description": "Personal API key issued by VesselFinder."
+              },
+              {
+                "name": "imo",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of IMO numbers."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format. Defaults to JSON."
+              }
+            ]
+          },
+          "docs": "Return static vessel particulars (Master dataset) by IMO."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Distance",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Sea Distance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vesselfinder.com/distance",
+            "params": [
+              {
+                "name": "userkey",
+                "value": "",
+                "type": "query",
+                "description": "Personal API key issued by VesselFinder."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Origin as `lon,lat`."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Destination as `lon,lat`."
+              },
+              {
+                "name": "gateways",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of allowed gateways (suez, panama, kiel, oresund, messina, corinth, malacca, drake, magellan, northeast, northwest)."
+              },
+              {
+                "name": "ECA",
+                "value": "",
+                "type": "query",
+                "description": "Emission Control Area preference."
+              },
+              {
+                "name": "EPSG3857",
+                "value": "",
+                "type": "query",
+                "description": "Set to 1 to return coordinates in WebMercator (EPSG:3857)."
+              }
+            ]
+          },
+          "docs": "Return the shortest sea route between two coordinates as a GeoJSON LineString together with distance in meters."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Vessels List",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Vessels List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vesselfinder.com/vesselslist",
+            "params": [
+              {
+                "name": "userkey",
+                "value": "",
+                "type": "query",
+                "description": "Personal API key issued by VesselFinder."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format. Defaults to JSON."
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "Maximum position age in minutes."
+              }
+            ]
+          },
+          "docs": "Return AIS, Voyage, and/or Master data for the account's predefined fleet (subscription)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Live Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Live Area Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vesselfinder.com/livedata",
+            "params": [
+              {
+                "name": "userkey",
+                "value": "",
+                "type": "query",
+                "description": "Personal API key issued by VesselFinder."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format. Defaults to JSON."
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "Maximum position age in minutes."
+              }
+            ]
+          },
+          "docs": "Return all vessels in the account's predefined rectangular area (subscription)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Account Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vesselfinder.com/status",
+            "params": [
+              {
+                "name": "userkey",
+                "value": "",
+                "type": "query",
+                "description": "Personal API key issued by VesselFinder."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format. Defaults to JSON."
+              }
+            ]
+          },
+          "docs": "Return the remaining API credits and access expiration date for the account."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "List Manager",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Watchlist",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vesselfinder.com/listmanager",
+            "params": [
+              {
+                "name": "userkey",
+                "value": "",
+                "type": "query",
+                "description": "Personal API key issued by VesselFinder."
+              }
+            ]
+          },
+          "docs": "Return the current list of vessels (IMO and MMSI) backing the VesselsList method."
+        },
+        {
+          "info": {
+            "name": "Add Vessels To Watchlist",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vesselfinder.com/listmanager",
+            "params": [
+              {
+                "name": "userkey",
+                "value": "",
+                "type": "query",
+                "description": "Personal API key issued by VesselFinder."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Add the supplied vessels (by IMO or MMSI) to the watchlist."
+        },
+        {
+          "info": {
+            "name": "Replace Watchlist",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.vesselfinder.com/listmanager",
+            "params": [
+              {
+                "name": "userkey",
+                "value": "",
+                "type": "query",
+                "description": "Personal API key issued by VesselFinder."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Replace all vessels in the watchlist with the supplied list."
+        },
+        {
+          "info": {
+            "name": "Remove Vessels From Watchlist",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.vesselfinder.com/listmanager",
+            "params": [
+              {
+                "name": "userkey",
+                "value": "",
+                "type": "query",
+                "description": "Personal API key issued by VesselFinder."
+              },
+              {
+                "name": "imo",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "mmsi",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Remove the supplied vessels from the watchlist."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
