@@ -241,7 +241,7 @@ common:
     type: PrivacyPolicy
   - url: https://route.vesselfinder.com
     name: Route Planner
-    type: Tool
+    type: Tools
   - url: https://www.vesselfinder.com/news
     type: Blog
   - url: https://twitter.com/VesselFinder
@@ -260,10 +260,10 @@ common:
     type: GitHubOrganization
   - url: https://github.com/VesselFinder/vesselfinder-api-wrapper
     name: VesselFinder AIS API Wrapper (PHP, Python)
-    type: SDK
+    type: SDKs
   - url: https://github.com/VesselFinder/container-tracking-api-wrapper
     name: VesselFinder Container Tracking API Wrapper (PHP, Python)
-    type: SDK
+    type: SDKs
   - type: Plans
     url: plans/vesselfinder-plans-pricing.yml
   - type: RateLimits
