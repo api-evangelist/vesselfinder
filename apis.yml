@@ -86,6 +86,10 @@ kind: contract
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 common:
+  - type: DomainSecurity
+    url: security/vesselfinder-domain-security.yml
+  - type: Authentication
+    url: authentication/vesselfinder-authentication.yml
   - type: Portal
     url: https://www.vesselfinder.com
   - type: Documentation

@@ -1,0 +1,24 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/vesselfinder-ais-api-openapi.yml, openapi/vesselfinder-container-tracking-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - query
+schemes:
+- name: UserKey
+  type: apiKey
+  in: query
+  parameter: userkey
+  sources:
+  - openapi/vesselfinder-ais-api-openapi.yml
+- name: PathApiKey
+  type: apiKey
+  in: query
+  parameter: apiKey
+  description: |-
+    API key is passed as a path segment of the tracking URL, not as a header or query
+    parameter. This security scheme is declarative only.
+  sources:
+  - openapi/vesselfinder-container-tracking-api-openapi.yml
