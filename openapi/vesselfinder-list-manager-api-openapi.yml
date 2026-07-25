@@ -1,0 +1,147 @@
+openapi: 3.1.0
+info:
+  title: VesselFinder AIS Containers List Manager API
+  description: 'REST API providing real-time and on-demand AIS vessel positions, voyage information,
+
+    and vessel master data from the VesselFinder global AIS network (terrestrial and satellite).
+
+    Authentication is performed via the `userkey` query parameter. Responses default to JSON
+
+    and may be requested as XML by setting `format=xml`. Most pay-per-use methods deduct credits
+
+    from the account''s balance; subscription methods (VesselsList, LiveData) are billed by fleet
+
+    or area size and dataset selection.
+
+    '
+  version: '1.0'
+  contact:
+    name: VesselFinder API Support
+    url: https://api.vesselfinder.com/docs/
+  license:
+    name: Commercial — VesselFinder Terms of Use
+    url: https://www.vesselfinder.com/terms
+servers:
+- url: https://api.vesselfinder.com
+  description: VesselFinder AIS API
+security:
+- UserKey: []
+tags:
+- name: List Manager
+  description: Manage the watchlist of vessels backing the VesselsList method.
+paths:
+  /listmanager:
+    get:
+      tags:
+      - List Manager
+      summary: Get Watchlist
+      description: Return the current list of vessels (IMO and MMSI) backing the VesselsList method.
+      operationId: getWatchlist
+      parameters:
+      - $ref: '#/components/parameters/userkey'
+      responses:
+        '200':
+          description: Array of vessel identifiers in the watchlist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Watchlist'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      tags:
+      - List Manager
+      summary: Add Vessels To Watchlist
+      description: Add the supplied vessels (by IMO or MMSI) to the watchlist.
+      operationId: addWatchlistVessels
+      parameters:
+      - $ref: '#/components/parameters/userkey'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/WatchlistEdit'
+      responses:
+        '200':
+          description: Watchlist updated.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    put:
+      tags:
+      - List Manager
+      summary: Replace Watchlist
+      description: Replace all vessels in the watchlist with the supplied list.
+      operationId: replaceWatchlistVessels
+      parameters:
+      - $ref: '#/components/parameters/userkey'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/WatchlistEdit'
+      responses:
+        '200':
+          description: Watchlist replaced.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      tags:
+      - List Manager
+      summary: Remove Vessels From Watchlist
+      description: Remove the supplied vessels from the watchlist.
+      operationId: deleteWatchlistVessels
+      parameters:
+      - $ref: '#/components/parameters/userkey'
+      - name: imo
+        in: query
+        schema:
+          type: string
+      - name: mmsi
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Vessels removed.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Invalid or missing userkey.
+  schemas:
+    WatchlistEdit:
+      type: object
+      properties:
+        imo:
+          type: string
+          description: Comma-separated IMO numbers.
+        mmsi:
+          type: string
+          description: Comma-separated MMSI numbers.
+    Watchlist:
+      type: object
+      properties:
+        imo:
+          type: array
+          items:
+            type: integer
+        mmsi:
+          type: array
+          items:
+            type: integer
+  parameters:
+    userkey:
+      name: userkey
+      in: query
+      required: true
+      description: Personal API key issued by VesselFinder.
+      schema:
+        type: string
+  securitySchemes:
+    UserKey:
+      type: apiKey
+      in: query
+      name: userkey

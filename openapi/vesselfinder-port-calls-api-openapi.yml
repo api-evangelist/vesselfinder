@@ -1,0 +1,274 @@
+openapi: 3.1.0
+info:
+  title: VesselFinder AIS Containers Port Calls API
+  description: 'REST API providing real-time and on-demand AIS vessel positions, voyage information,
+
+    and vessel master data from the VesselFinder global AIS network (terrestrial and satellite).
+
+    Authentication is performed via the `userkey` query parameter. Responses default to JSON
+
+    and may be requested as XML by setting `format=xml`. Most pay-per-use methods deduct credits
+
+    from the account''s balance; subscription methods (VesselsList, LiveData) are billed by fleet
+
+    or area size and dataset selection.
+
+    '
+  version: '1.0'
+  contact:
+    name: VesselFinder API Support
+    url: https://api.vesselfinder.com/docs/
+  license:
+    name: Commercial — VesselFinder Terms of Use
+    url: https://www.vesselfinder.com/terms
+servers:
+- url: https://api.vesselfinder.com
+  description: VesselFinder AIS API
+security:
+- UserKey: []
+tags:
+- name: Port Calls
+  description: Arrival and departure events for vessels or ports.
+paths:
+  /portcalls:
+    get:
+      tags:
+      - Port Calls
+      summary: Get Port Calls
+      description: Return arrival and departure events for one or more vessels (by IMO or MMSI) or for a port (by LOCODE).
+      operationId: getPortCalls
+      parameters:
+      - $ref: '#/components/parameters/userkey'
+      - name: interval
+        in: query
+        required: true
+        description: Maximum age of returned events in minutes.
+        schema:
+          type: integer
+          minimum: 1
+      - name: imo
+        in: query
+        description: Comma-separated list of IMO numbers. One of imo, mmsi, or locode is required.
+        schema:
+          type: string
+      - name: mmsi
+        in: query
+        description: Comma-separated list of MMSI numbers. One of imo, mmsi, or locode is required.
+        schema:
+          type: string
+      - name: locode
+        in: query
+        description: UN/LOCODE port identifier. Cannot be combined with imo or mmsi.
+        schema:
+          type: string
+          example: BGVAR
+      - $ref: '#/components/parameters/format'
+      - name: event
+        in: query
+        description: Filter to a single event type.
+        schema:
+          type: string
+          enum:
+          - arrival
+          - departure
+      - name: fromdate
+        in: query
+        description: Start of the date window (YYYY-MM-DD HH:MM:SS, UTC).
+        schema:
+          type: string
+          format: date-time
+      - name: todate
+        in: query
+        description: End of the date window (YYYY-MM-DD HH:MM:SS, UTC).
+        schema:
+          type: string
+          format: date-time
+      - name: extradata
+        in: query
+        description: Additional datasets to include. Supported values are `ais` and `voyage`.
+        schema:
+          type: string
+          enum:
+          - ais
+          - voyage
+          - ais,voyage
+      - name: limit
+        in: query
+        description: Maximum number of events to return.
+        schema:
+          type: integer
+          minimum: 1
+      - name: last_id
+        in: query
+        description: Return only events with id greater than this value.
+        schema:
+          type: integer
+      - name: anchorage
+        in: query
+        description: 0 to exclude anchorage events, 1 to include, 2 to return anchorage events only.
+        schema:
+          type: integer
+          enum:
+          - 0
+          - 1
+          - 2
+      - name: imo_only
+        in: query
+        description: Restrict events to vessels carrying an IMO number.
+        schema:
+          type: integer
+          enum:
+          - 0
+          - 1
+      responses:
+        '200':
+          description: Array of port-call events.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PortCall'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+components:
+  schemas:
+    Voyage:
+      type: object
+      description: Last completed port call summary for a vessel.
+      properties:
+        LOCODE:
+          type: string
+        DEPARTURE:
+          type: string
+          format: date-time
+        LASTPORT:
+          type: string
+        LASTCOUNTRY:
+          type: string
+    PortCall:
+      type: object
+      description: A vessel arrival or departure event at a port.
+      properties:
+        MMSI:
+          type: integer
+        IMO:
+          type: integer
+        LOCODE:
+          type: string
+        EVENT:
+          type: string
+          enum:
+          - arrival
+          - departure
+        TIMESTAMP:
+          type: string
+          format: date-time
+        PORT:
+          type: string
+        COUNTRY:
+          type: string
+        AIS:
+          $ref: '#/components/schemas/AIS'
+        VOYAGE:
+          $ref: '#/components/schemas/Voyage'
+    AIS:
+      type: object
+      description: AIS position and dynamic vessel state.
+      properties:
+        MMSI:
+          type: integer
+        TIMESTAMP:
+          type: string
+          format: date-time
+        LATITUDE:
+          type: number
+          format: float
+        LONGITUDE:
+          type: number
+          format: float
+        COURSE:
+          type: number
+          format: float
+        SPEED:
+          type: number
+          format: float
+        HEADING:
+          type: integer
+        NAVSTAT:
+          type: integer
+          description: AIS navigation status code.
+        IMO:
+          type: integer
+        NAME:
+          type: string
+        CALLSIGN:
+          type: string
+        TYPE:
+          type: integer
+          description: AIS ship-type code.
+        A:
+          type: integer
+          description: Distance from GNSS receiver to bow (m).
+        B:
+          type: integer
+          description: Distance from GNSS receiver to stern (m).
+        C:
+          type: integer
+          description: Distance from GNSS receiver to port (m).
+        D:
+          type: integer
+          description: Distance from GNSS receiver to starboard (m).
+        DRAUGHT:
+          type: number
+          format: float
+        DESTINATION:
+          type: string
+        LOCODE:
+          type: string
+        ETA_AIS:
+          type: string
+        ETA:
+          type: string
+          format: date-time
+        SRC:
+          type: string
+          enum:
+          - TER
+          - SAT
+          description: Source — terrestrial or satellite.
+        ZONE:
+          type: string
+        ECA:
+          type: integer
+          description: 1 if currently in an Emission Control Area.
+  responses:
+    PaymentRequired:
+      description: Insufficient credits or expired access.
+    Unauthorized:
+      description: Invalid or missing userkey.
+  parameters:
+    format:
+      name: format
+      in: query
+      description: Response format. Defaults to JSON.
+      schema:
+        type: string
+        enum:
+        - json
+        - xml
+        default: json
+    userkey:
+      name: userkey
+      in: query
+      required: true
+      description: Personal API key issued by VesselFinder.
+      schema:
+        type: string
+  securitySchemes:
+    UserKey:
+      type: apiKey
+      in: query
+      name: userkey

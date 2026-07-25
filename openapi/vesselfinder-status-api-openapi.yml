@@ -1,0 +1,88 @@
+openapi: 3.1.0
+info:
+  title: VesselFinder AIS Containers Status API
+  description: 'REST API providing real-time and on-demand AIS vessel positions, voyage information,
+
+    and vessel master data from the VesselFinder global AIS network (terrestrial and satellite).
+
+    Authentication is performed via the `userkey` query parameter. Responses default to JSON
+
+    and may be requested as XML by setting `format=xml`. Most pay-per-use methods deduct credits
+
+    from the account''s balance; subscription methods (VesselsList, LiveData) are billed by fleet
+
+    or area size and dataset selection.
+
+    '
+  version: '1.0'
+  contact:
+    name: VesselFinder API Support
+    url: https://api.vesselfinder.com/docs/
+  license:
+    name: Commercial — VesselFinder Terms of Use
+    url: https://www.vesselfinder.com/terms
+servers:
+- url: https://api.vesselfinder.com
+  description: VesselFinder AIS API
+security:
+- UserKey: []
+tags:
+- name: Status
+  description: Account status and remaining credits.
+paths:
+  /status:
+    get:
+      tags:
+      - Status
+      summary: Get Account Status
+      description: Return the remaining API credits and access expiration date for the account.
+      operationId: getStatus
+      parameters:
+      - $ref: '#/components/parameters/userkey'
+      - $ref: '#/components/parameters/format'
+      responses:
+        '200':
+          description: Account status object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Invalid or missing userkey.
+  parameters:
+    userkey:
+      name: userkey
+      in: query
+      required: true
+      description: Personal API key issued by VesselFinder.
+      schema:
+        type: string
+    format:
+      name: format
+      in: query
+      description: Response format. Defaults to JSON.
+      schema:
+        type: string
+        enum:
+        - json
+        - xml
+        default: json
+  schemas:
+    Status:
+      type: object
+      properties:
+        CREDITS:
+          type: integer
+          description: Remaining API credits.
+        EXPIRATION_DATE:
+          type: string
+          format: date-time
+  securitySchemes:
+    UserKey:
+      type: apiKey
+      in: query
+      name: userkey

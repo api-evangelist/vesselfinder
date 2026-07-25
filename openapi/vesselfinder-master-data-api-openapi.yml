@@ -1,0 +1,134 @@
+openapi: 3.1.0
+info:
+  title: VesselFinder AIS Containers Master Data API
+  description: 'REST API providing real-time and on-demand AIS vessel positions, voyage information,
+
+    and vessel master data from the VesselFinder global AIS network (terrestrial and satellite).
+
+    Authentication is performed via the `userkey` query parameter. Responses default to JSON
+
+    and may be requested as XML by setting `format=xml`. Most pay-per-use methods deduct credits
+
+    from the account''s balance; subscription methods (VesselsList, LiveData) are billed by fleet
+
+    or area size and dataset selection.
+
+    '
+  version: '1.0'
+  contact:
+    name: VesselFinder API Support
+    url: https://api.vesselfinder.com/docs/
+  license:
+    name: Commercial — VesselFinder Terms of Use
+    url: https://www.vesselfinder.com/terms
+servers:
+- url: https://api.vesselfinder.com
+  description: VesselFinder AIS API
+security:
+- UserKey: []
+tags:
+- name: Master Data
+  description: Static vessel particulars by IMO.
+paths:
+  /masterdata:
+    get:
+      tags:
+      - Master Data
+      summary: Get Master Data
+      description: Return static vessel particulars (Master dataset) by IMO.
+      operationId: getMasterData
+      parameters:
+      - $ref: '#/components/parameters/userkey'
+      - name: imo
+        in: query
+        required: true
+        description: Comma-separated list of IMO numbers.
+        schema:
+          type: string
+          example: '9175717'
+      - $ref: '#/components/parameters/format'
+      responses:
+        '200':
+          description: Array of master-data records.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MasterData'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+components:
+  responses:
+    PaymentRequired:
+      description: Insufficient credits or expired access.
+    Unauthorized:
+      description: Invalid or missing userkey.
+  schemas:
+    MasterData:
+      type: object
+      description: Static vessel particulars.
+      properties:
+        IMO:
+          type: integer
+        NAME:
+          type: string
+        FLAG:
+          type: string
+        TYPE:
+          type: string
+        BUILT:
+          type: integer
+        BUILDER:
+          type: string
+        OWNER:
+          type: string
+        MANAGER:
+          type: string
+        LENGTH:
+          type: number
+          format: float
+        BEAM:
+          type: number
+          format: float
+        MAXDRAUGHT:
+          type: number
+          format: float
+        GT:
+          type: integer
+          description: Gross tonnage.
+        NT:
+          type: integer
+          description: Net tonnage.
+        DWT:
+          type: integer
+          description: Deadweight tonnage.
+        TEU:
+          type: integer
+        CRUDE:
+          type: integer
+  parameters:
+    format:
+      name: format
+      in: query
+      description: Response format. Defaults to JSON.
+      schema:
+        type: string
+        enum:
+        - json
+        - xml
+        default: json
+    userkey:
+      name: userkey
+      in: query
+      required: true
+      description: Personal API key issued by VesselFinder.
+      schema:
+        type: string
+  securitySchemes:
+    UserKey:
+      type: apiKey
+      in: query
+      name: userkey

@@ -1,0 +1,261 @@
+openapi: 3.1.0
+info:
+  title: VesselFinder AIS Containers Expected Arrivals API
+  description: 'REST API providing real-time and on-demand AIS vessel positions, voyage information,
+
+    and vessel master data from the VesselFinder global AIS network (terrestrial and satellite).
+
+    Authentication is performed via the `userkey` query parameter. Responses default to JSON
+
+    and may be requested as XML by setting `format=xml`. Most pay-per-use methods deduct credits
+
+    from the account''s balance; subscription methods (VesselsList, LiveData) are billed by fleet
+
+    or area size and dataset selection.
+
+    '
+  version: '1.0'
+  contact:
+    name: VesselFinder API Support
+    url: https://api.vesselfinder.com/docs/
+  license:
+    name: Commercial — VesselFinder Terms of Use
+    url: https://www.vesselfinder.com/terms
+servers:
+- url: https://api.vesselfinder.com
+  description: VesselFinder AIS API
+security:
+- UserKey: []
+tags:
+- name: Expected Arrivals
+  description: Vessels with announced ETAs at a selected port.
+paths:
+  /expectedarrivals:
+    get:
+      tags:
+      - Expected Arrivals
+      summary: Get Expected Arrivals
+      description: Return vessels with announced ETAs at the selected port within an interval or date window.
+      operationId: getExpectedArrivals
+      parameters:
+      - $ref: '#/components/parameters/userkey'
+      - name: locode
+        in: query
+        required: true
+        description: UN/LOCODE port identifier.
+        schema:
+          type: string
+          example: BGVAR
+      - name: interval
+        in: query
+        description: Look-ahead window in minutes from now. Use either interval or fromdate/todate.
+        schema:
+          type: integer
+          minimum: 1
+      - name: fromdate
+        in: query
+        schema:
+          type: string
+          format: date-time
+      - name: todate
+        in: query
+        schema:
+          type: string
+          format: date-time
+      - $ref: '#/components/parameters/format'
+      - name: extradata
+        in: query
+        schema:
+          type: string
+          enum:
+          - voyage
+          - master
+          - voyage,master
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+      - name: aistype
+        in: query
+        description: Filter by AIS ship type code(s), comma separated.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Array of expected vessel arrivals.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vessel'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+components:
+  schemas:
+    Voyage:
+      type: object
+      description: Last completed port call summary for a vessel.
+      properties:
+        LOCODE:
+          type: string
+        DEPARTURE:
+          type: string
+          format: date-time
+        LASTPORT:
+          type: string
+        LASTCOUNTRY:
+          type: string
+    MasterData:
+      type: object
+      description: Static vessel particulars.
+      properties:
+        IMO:
+          type: integer
+        NAME:
+          type: string
+        FLAG:
+          type: string
+        TYPE:
+          type: string
+        BUILT:
+          type: integer
+        BUILDER:
+          type: string
+        OWNER:
+          type: string
+        MANAGER:
+          type: string
+        LENGTH:
+          type: number
+          format: float
+        BEAM:
+          type: number
+          format: float
+        MAXDRAUGHT:
+          type: number
+          format: float
+        GT:
+          type: integer
+          description: Gross tonnage.
+        NT:
+          type: integer
+          description: Net tonnage.
+        DWT:
+          type: integer
+          description: Deadweight tonnage.
+        TEU:
+          type: integer
+        CRUDE:
+          type: integer
+    AIS:
+      type: object
+      description: AIS position and dynamic vessel state.
+      properties:
+        MMSI:
+          type: integer
+        TIMESTAMP:
+          type: string
+          format: date-time
+        LATITUDE:
+          type: number
+          format: float
+        LONGITUDE:
+          type: number
+          format: float
+        COURSE:
+          type: number
+          format: float
+        SPEED:
+          type: number
+          format: float
+        HEADING:
+          type: integer
+        NAVSTAT:
+          type: integer
+          description: AIS navigation status code.
+        IMO:
+          type: integer
+        NAME:
+          type: string
+        CALLSIGN:
+          type: string
+        TYPE:
+          type: integer
+          description: AIS ship-type code.
+        A:
+          type: integer
+          description: Distance from GNSS receiver to bow (m).
+        B:
+          type: integer
+          description: Distance from GNSS receiver to stern (m).
+        C:
+          type: integer
+          description: Distance from GNSS receiver to port (m).
+        D:
+          type: integer
+          description: Distance from GNSS receiver to starboard (m).
+        DRAUGHT:
+          type: number
+          format: float
+        DESTINATION:
+          type: string
+        LOCODE:
+          type: string
+        ETA_AIS:
+          type: string
+        ETA:
+          type: string
+          format: date-time
+        SRC:
+          type: string
+          enum:
+          - TER
+          - SAT
+          description: Source — terrestrial or satellite.
+        ZONE:
+          type: string
+        ECA:
+          type: integer
+          description: 1 if currently in an Emission Control Area.
+    Vessel:
+      type: object
+      description: A vessel returned from /vessels, /vesselslist, /livedata, or /expectedarrivals.
+      properties:
+        AIS:
+          $ref: '#/components/schemas/AIS'
+        VOYAGE:
+          $ref: '#/components/schemas/Voyage'
+        MASTERDATA:
+          $ref: '#/components/schemas/MasterData'
+  responses:
+    PaymentRequired:
+      description: Insufficient credits or expired access.
+    Unauthorized:
+      description: Invalid or missing userkey.
+  parameters:
+    format:
+      name: format
+      in: query
+      description: Response format. Defaults to JSON.
+      schema:
+        type: string
+        enum:
+        - json
+        - xml
+        default: json
+    userkey:
+      name: userkey
+      in: query
+      required: true
+      description: Personal API key issued by VesselFinder.
+      schema:
+        type: string
+  securitySchemes:
+    UserKey:
+      type: apiKey
+      in: query
+      name: userkey
