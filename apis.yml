@@ -1,77 +1,436 @@
 aid: vesselfinder
 url: https://raw.githubusercontent.com/api-evangelist/vesselfinder/refs/heads/main/apis.yml
 apis:
-  - aid: vesselfinder:vesselfinder-ais-api
-    name: VesselFinder AIS API
-    tags:
-      - AIS
-      - Vessels
-      - Maritime
-      - Tracking
-    humanURL: https://api.vesselfinder.com/docs/
-    properties:
-      - url: https://api.vesselfinder.com/docs/
-        type: Documentation
-      - url: https://api.vesselfinder.com/docs/vessels.html
-        type: Documentation
-      - url: https://api.vesselfinder.com/docs/portcalls.html
-        type: Documentation
-      - url: https://api.vesselfinder.com/docs/expectedarrivals.html
-        type: Documentation
-      - url: https://api.vesselfinder.com/docs/masterdata.html
-        type: Documentation
-      - url: https://api.vesselfinder.com/docs/distance.html
-        type: Documentation
-      - url: https://api.vesselfinder.com/docs/vesselslist.html
-        type: Documentation
-      - url: https://api.vesselfinder.com/docs/livedata.html
-        type: Documentation
-      - url: https://api.vesselfinder.com/docs/status.html
-        type: Documentation
-      - url: https://api.vesselfinder.com/docs/listmanager.html
-        type: Documentation
-      - url: openapi/vesselfinder-ais-api-openapi.yml
-        type: OpenAPI
-      - url: json-schema/vesselfinder-vessel-schema.json
-        type: JSONSchema
-      - url: json-schema/vesselfinder-port-call-schema.json
-        type: JSONSchema
-      - url: json-structure/vesselfinder-vessel-structure.json
-        type: JSONStructure
-      - url: json-ld/vesselfinder-context.jsonld
-        type: JSONLD
-    description: |
-      Credit-based and subscription REST API exposing the VesselFinder global AIS network. On-demand
-      methods (Vessels, PortCalls, ExpectedArrivals, MasterData, Distance) deduct credits per call
-      proportional to dataset and source (terrestrial / satellite); fleet-wide (VesselsList) and
-      area-wide (LiveData) feeds are subscription-priced. Authenticates via the userkey query parameter.
-      Responses default to JSON and may be requested as XML.
-  - aid: vesselfinder:vesselfinder-container-tracking-api
-    name: VesselFinder Container Tracking API
-    tags:
-      - Container Tracking
-      - Logistics
-      - Supply Chain
-      - Maritime
-    humanURL: https://container.vesselfinder.com/api/1.0/docs
-    properties:
-      - url: https://container.vesselfinder.com/api/1.0/docs
-        type: Documentation
-      - url: https://www.vesselfinder.com/container-tracking
-        type: Documentation
-      - url: openapi/vesselfinder-container-tracking-api-openapi.yml
-        type: OpenAPI
-      - url: json-schema/vesselfinder-container-shipment-schema.json
-        type: JSONSchema
-      - url: json-ld/vesselfinder-context.jsonld
-        type: JSONLD
-    description: |
-      Real-time ocean-container track-and-trace API. Look up shipments by 11-character container
-      number and optional SCAC carrier code (AUTO to auto-detect). Returns origin, destination,
-      current vessel position, progress, and schedule events. Asynchronous: a first request may
-      return 202 Accepted while data is fetched; clients poll the same URL every 60 seconds or
-      more. Successful responses are cached for 12 hours and lookups for the same container
-      within 30 days are free.
+- aid: vesselfinder:vesselfinder-containers-api
+  name: VesselFinder Containers API
+  description: Real-time container track-and-trace.
+  humanURL: https://api.vesselfinder.com/docs/
+  tags:
+  - Containers
+  properties:
+  - type: OpenAPI
+    url: openapi/vesselfinder-containers-api-openapi.yml
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/vessels.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/portcalls.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/expectedarrivals.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/masterdata.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/distance.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/vesselslist.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/livedata.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/status.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/listmanager.html
+  - type: JSONSchema
+    url: json-schema/vesselfinder-vessel-schema.json
+  - type: JSONSchema
+    url: json-schema/vesselfinder-port-call-schema.json
+  - type: JSONStructure
+    url: json-structure/vesselfinder-vessel-structure.json
+  - type: JSONLD
+    url: json-ld/vesselfinder-context.jsonld
+  - type: Documentation
+    url: https://container.vesselfinder.com/api/1.0/docs
+  - type: Documentation
+    url: https://www.vesselfinder.com/container-tracking
+  - type: JSONSchema
+    url: json-schema/vesselfinder-container-shipment-schema.json
+- aid: vesselfinder:vesselfinder-distance-api
+  name: VesselFinder Distance API
+  description: Sea-route distance and geometry between two points.
+  humanURL: https://api.vesselfinder.com/docs/
+  tags:
+  - Distance
+  properties:
+  - type: OpenAPI
+    url: openapi/vesselfinder-distance-api-openapi.yml
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/vessels.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/portcalls.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/expectedarrivals.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/masterdata.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/distance.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/vesselslist.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/livedata.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/status.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/listmanager.html
+  - type: JSONSchema
+    url: json-schema/vesselfinder-vessel-schema.json
+  - type: JSONSchema
+    url: json-schema/vesselfinder-port-call-schema.json
+  - type: JSONStructure
+    url: json-structure/vesselfinder-vessel-structure.json
+  - type: JSONLD
+    url: json-ld/vesselfinder-context.jsonld
+  - type: Documentation
+    url: https://container.vesselfinder.com/api/1.0/docs
+  - type: Documentation
+    url: https://www.vesselfinder.com/container-tracking
+  - type: JSONSchema
+    url: json-schema/vesselfinder-container-shipment-schema.json
+- aid: vesselfinder:vesselfinder-expected-arrivals-api
+  name: VesselFinder Expected Arrivals API
+  description: Vessels with announced ETAs at a selected port.
+  humanURL: https://api.vesselfinder.com/docs/
+  tags:
+  - Expected Arrivals
+  properties:
+  - type: OpenAPI
+    url: openapi/vesselfinder-expected-arrivals-api-openapi.yml
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/vessels.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/portcalls.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/expectedarrivals.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/masterdata.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/distance.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/vesselslist.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/livedata.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/status.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/listmanager.html
+  - type: JSONSchema
+    url: json-schema/vesselfinder-vessel-schema.json
+  - type: JSONSchema
+    url: json-schema/vesselfinder-port-call-schema.json
+  - type: JSONStructure
+    url: json-structure/vesselfinder-vessel-structure.json
+  - type: JSONLD
+    url: json-ld/vesselfinder-context.jsonld
+  - type: Documentation
+    url: https://container.vesselfinder.com/api/1.0/docs
+  - type: Documentation
+    url: https://www.vesselfinder.com/container-tracking
+  - type: JSONSchema
+    url: json-schema/vesselfinder-container-shipment-schema.json
+- aid: vesselfinder:vesselfinder-list-manager-api
+  name: VesselFinder List Manager API
+  description: Manage the watchlist of vessels backing the VesselsList method.
+  humanURL: https://api.vesselfinder.com/docs/
+  tags:
+  - List Manager
+  properties:
+  - type: OpenAPI
+    url: openapi/vesselfinder-list-manager-api-openapi.yml
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/vessels.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/portcalls.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/expectedarrivals.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/masterdata.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/distance.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/vesselslist.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/livedata.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/status.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/listmanager.html
+  - type: JSONSchema
+    url: json-schema/vesselfinder-vessel-schema.json
+  - type: JSONSchema
+    url: json-schema/vesselfinder-port-call-schema.json
+  - type: JSONStructure
+    url: json-structure/vesselfinder-vessel-structure.json
+  - type: JSONLD
+    url: json-ld/vesselfinder-context.jsonld
+  - type: Documentation
+    url: https://container.vesselfinder.com/api/1.0/docs
+  - type: Documentation
+    url: https://www.vesselfinder.com/container-tracking
+  - type: JSONSchema
+    url: json-schema/vesselfinder-container-shipment-schema.json
+- aid: vesselfinder:vesselfinder-live-data-api
+  name: VesselFinder Live Data API
+  description: All vessels within a predefined geographic area, subscription-based.
+  humanURL: https://api.vesselfinder.com/docs/
+  tags:
+  - Live Data
+  properties:
+  - type: OpenAPI
+    url: openapi/vesselfinder-live-data-api-openapi.yml
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/vessels.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/portcalls.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/expectedarrivals.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/masterdata.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/distance.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/vesselslist.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/livedata.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/status.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/listmanager.html
+  - type: JSONSchema
+    url: json-schema/vesselfinder-vessel-schema.json
+  - type: JSONSchema
+    url: json-schema/vesselfinder-port-call-schema.json
+  - type: JSONStructure
+    url: json-structure/vesselfinder-vessel-structure.json
+  - type: JSONLD
+    url: json-ld/vesselfinder-context.jsonld
+  - type: Documentation
+    url: https://container.vesselfinder.com/api/1.0/docs
+  - type: Documentation
+    url: https://www.vesselfinder.com/container-tracking
+  - type: JSONSchema
+    url: json-schema/vesselfinder-container-shipment-schema.json
+- aid: vesselfinder:vesselfinder-master-data-api
+  name: VesselFinder Master Data API
+  description: Static vessel particulars by IMO.
+  humanURL: https://api.vesselfinder.com/docs/
+  tags:
+  - Master Data
+  properties:
+  - type: OpenAPI
+    url: openapi/vesselfinder-master-data-api-openapi.yml
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/vessels.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/portcalls.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/expectedarrivals.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/masterdata.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/distance.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/vesselslist.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/livedata.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/status.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/listmanager.html
+  - type: JSONSchema
+    url: json-schema/vesselfinder-vessel-schema.json
+  - type: JSONSchema
+    url: json-schema/vesselfinder-port-call-schema.json
+  - type: JSONStructure
+    url: json-structure/vesselfinder-vessel-structure.json
+  - type: JSONLD
+    url: json-ld/vesselfinder-context.jsonld
+  - type: Documentation
+    url: https://container.vesselfinder.com/api/1.0/docs
+  - type: Documentation
+    url: https://www.vesselfinder.com/container-tracking
+  - type: JSONSchema
+    url: json-schema/vesselfinder-container-shipment-schema.json
+- aid: vesselfinder:vesselfinder-port-calls-api
+  name: VesselFinder Port Calls API
+  description: Arrival and departure events for vessels or ports.
+  humanURL: https://api.vesselfinder.com/docs/
+  tags:
+  - Port Calls
+  properties:
+  - type: OpenAPI
+    url: openapi/vesselfinder-port-calls-api-openapi.yml
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/vessels.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/portcalls.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/expectedarrivals.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/masterdata.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/distance.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/vesselslist.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/livedata.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/status.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/listmanager.html
+  - type: JSONSchema
+    url: json-schema/vesselfinder-vessel-schema.json
+  - type: JSONSchema
+    url: json-schema/vesselfinder-port-call-schema.json
+  - type: JSONStructure
+    url: json-structure/vesselfinder-vessel-structure.json
+  - type: JSONLD
+    url: json-ld/vesselfinder-context.jsonld
+  - type: Documentation
+    url: https://container.vesselfinder.com/api/1.0/docs
+  - type: Documentation
+    url: https://www.vesselfinder.com/container-tracking
+  - type: JSONSchema
+    url: json-schema/vesselfinder-container-shipment-schema.json
+- aid: vesselfinder:vesselfinder-status-api
+  name: VesselFinder Status API
+  description: Account status and remaining credits.
+  humanURL: https://api.vesselfinder.com/docs/
+  tags:
+  - Status
+  properties:
+  - type: OpenAPI
+    url: openapi/vesselfinder-status-api-openapi.yml
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/vessels.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/portcalls.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/expectedarrivals.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/masterdata.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/distance.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/vesselslist.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/livedata.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/status.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/listmanager.html
+  - type: JSONSchema
+    url: json-schema/vesselfinder-vessel-schema.json
+  - type: JSONSchema
+    url: json-schema/vesselfinder-port-call-schema.json
+  - type: JSONStructure
+    url: json-structure/vesselfinder-vessel-structure.json
+  - type: JSONLD
+    url: json-ld/vesselfinder-context.jsonld
+  - type: Documentation
+    url: https://container.vesselfinder.com/api/1.0/docs
+  - type: Documentation
+    url: https://www.vesselfinder.com/container-tracking
+  - type: JSONSchema
+    url: json-schema/vesselfinder-container-shipment-schema.json
+- aid: vesselfinder:vesselfinder-vessels-api
+  name: VesselFinder Vessels API
+  description: On-demand vessel position, voyage, and master data lookups.
+  humanURL: https://api.vesselfinder.com/docs/
+  tags:
+  - Vessels
+  properties:
+  - type: OpenAPI
+    url: openapi/vesselfinder-vessels-api-openapi.yml
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/vessels.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/portcalls.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/expectedarrivals.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/masterdata.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/distance.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/vesselslist.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/livedata.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/status.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/listmanager.html
+  - type: JSONSchema
+    url: json-schema/vesselfinder-vessel-schema.json
+  - type: JSONSchema
+    url: json-schema/vesselfinder-port-call-schema.json
+  - type: JSONStructure
+    url: json-structure/vesselfinder-vessel-structure.json
+  - type: JSONLD
+    url: json-ld/vesselfinder-context.jsonld
+  - type: Documentation
+    url: https://container.vesselfinder.com/api/1.0/docs
+  - type: Documentation
+    url: https://www.vesselfinder.com/container-tracking
+  - type: JSONSchema
+    url: json-schema/vesselfinder-container-shipment-schema.json
+- aid: vesselfinder:vesselfinder-vessels-list-api
+  name: VesselFinder Vessels List API
+  description: Predefined-fleet data, subscription-based.
+  humanURL: https://api.vesselfinder.com/docs/
+  tags:
+  - Vessels List
+  properties:
+  - type: OpenAPI
+    url: openapi/vesselfinder-vessels-list-api-openapi.yml
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/vessels.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/portcalls.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/expectedarrivals.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/masterdata.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/distance.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/vesselslist.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/livedata.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/status.html
+  - type: Documentation
+    url: https://api.vesselfinder.com/docs/listmanager.html
+  - type: JSONSchema
+    url: json-schema/vesselfinder-vessel-schema.json
+  - type: JSONSchema
+    url: json-schema/vesselfinder-port-call-schema.json
+  - type: JSONStructure
+    url: json-structure/vesselfinder-vessel-structure.json
+  - type: JSONLD
+    url: json-ld/vesselfinder-context.jsonld
+  - type: Documentation
+    url: https://container.vesselfinder.com/api/1.0/docs
+  - type: Documentation
+    url: https://www.vesselfinder.com/container-tracking
+  - type: JSONSchema
+    url: json-schema/vesselfinder-container-shipment-schema.json
 name: VesselFinder
 tags:
   - AIS
@@ -83,9 +442,24 @@ tags:
   - Ports
   - Supply Chain
 kind: contract
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/vesselfinder.png
 access: 3rd-Party
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/vesselfinder/overview
   - type: AgenticAccess
     url: agentic-access/vesselfinder-agentic-access.yml
   - type: DomainSecurity
