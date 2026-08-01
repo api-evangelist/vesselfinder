@@ -1,0 +1,195 @@
+{
+  "info": {
+    "_postman_id": "378b7e10-3cbc-46b4-bd9a-16336a93455b",
+    "name": "VesselFinder AIS Containers Vessels List API",
+    "description": "REST API providing real-time and on-demand AIS vessel positions, voyage information,\nand vessel master data from the VesselFinder global AIS network (terrestrial and satellite).\nAuthentication is performed via the `userkey` query parameter. Responses default to JSON\nand may be requested as XML by setting `format=xml`. Most pay-per-use methods deduct credits\nfrom the account's balance; subscription methods (VesselsList, LiveData) are billed by fleet\nor area size and dataset selection.\n\n\nContact Support:\n Name: VesselFinder API Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:29:42.000Z",
+    "updatedAt": "2026-07-28T03:29:42.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-378b7e10-3cbc-46b4-bd9a-16336a93455b"
+  },
+  "item": [
+    {
+      "name": "vesselslist",
+      "item": [
+        {
+          "name": "Get Vessels List",
+          "id": "7774f260-b382-4bb4-937f-5a3a50a5670c",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vesselslist?userkey=<string>&format=json&interval=<integer>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vesselslist"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Personal API key issued by VesselFinder.",
+                  "key": "userkey",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Response format. Defaults to JSON.",
+                  "key": "format",
+                  "value": "json"
+                },
+                {
+                  "description": "Maximum position age in minutes.",
+                  "key": "interval",
+                  "value": "<integer>"
+                }
+              ]
+            },
+            "description": "Return AIS, Voyage, and/or Master data for the account's predefined fleet (subscription)."
+          },
+          "response": [
+            {
+              "id": "f7438610-8377-42d3-815a-72fb26d2d512",
+              "name": "Array of vessels in the account's predefined fleet.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/vesselslist?userkey=<API Key>&format=json&interval=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "vesselslist"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Personal API key issued by VesselFinder.",
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "Response format. Defaults to JSON.",
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "description": "Maximum position age in minutes.",
+                      "key": "interval",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"AIS\": {\n      \"MMSI\": \"<integer>\",\n      \"TIMESTAMP\": \"<dateTime>\",\n      \"LATITUDE\": \"<float>\",\n      \"LONGITUDE\": \"<float>\",\n      \"COURSE\": \"<float>\",\n      \"SPEED\": \"<float>\",\n      \"HEADING\": \"<integer>\",\n      \"NAVSTAT\": \"<integer>\",\n      \"IMO\": \"<integer>\",\n      \"NAME\": \"<string>\",\n      \"CALLSIGN\": \"<string>\",\n      \"TYPE\": \"<integer>\",\n      \"A\": \"<integer>\",\n      \"B\": \"<integer>\",\n      \"C\": \"<integer>\",\n      \"D\": \"<integer>\",\n      \"DRAUGHT\": \"<float>\",\n      \"DESTINATION\": \"<string>\",\n      \"LOCODE\": \"<string>\",\n      \"ETA_AIS\": \"<string>\",\n      \"ETA\": \"<dateTime>\",\n      \"SRC\": \"TER\",\n      \"ZONE\": \"<string>\",\n      \"ECA\": \"<integer>\"\n    },\n    \"VOYAGE\": {\n      \"LOCODE\": \"<string>\",\n      \"DEPARTURE\": \"<dateTime>\",\n      \"LASTPORT\": \"<string>\",\n      \"LASTCOUNTRY\": \"<string>\"\n    },\n    \"MASTERDATA\": {\n      \"IMO\": \"<integer>\",\n      \"NAME\": \"<string>\",\n      \"FLAG\": \"<string>\",\n      \"TYPE\": \"<string>\",\n      \"BUILT\": \"<integer>\",\n      \"BUILDER\": \"<string>\",\n      \"OWNER\": \"<string>\",\n      \"MANAGER\": \"<string>\",\n      \"LENGTH\": \"<float>\",\n      \"BEAM\": \"<float>\",\n      \"MAXDRAUGHT\": \"<float>\",\n      \"GT\": \"<integer>\",\n      \"NT\": \"<integer>\",\n      \"DWT\": \"<integer>\",\n      \"TEU\": \"<integer>\",\n      \"CRUDE\": \"<integer>\"\n    }\n  },\n  {\n    \"AIS\": {\n      \"MMSI\": \"<integer>\",\n      \"TIMESTAMP\": \"<dateTime>\",\n      \"LATITUDE\": \"<float>\",\n      \"LONGITUDE\": \"<float>\",\n      \"COURSE\": \"<float>\",\n      \"SPEED\": \"<float>\",\n      \"HEADING\": \"<integer>\",\n      \"NAVSTAT\": \"<integer>\",\n      \"IMO\": \"<integer>\",\n      \"NAME\": \"<string>\",\n      \"CALLSIGN\": \"<string>\",\n      \"TYPE\": \"<integer>\",\n      \"A\": \"<integer>\",\n      \"B\": \"<integer>\",\n      \"C\": \"<integer>\",\n      \"D\": \"<integer>\",\n      \"DRAUGHT\": \"<float>\",\n      \"DESTINATION\": \"<string>\",\n      \"LOCODE\": \"<string>\",\n      \"ETA_AIS\": \"<string>\",\n      \"ETA\": \"<dateTime>\",\n      \"SRC\": \"SAT\",\n      \"ZONE\": \"<string>\",\n      \"ECA\": \"<integer>\"\n    },\n    \"VOYAGE\": {\n      \"LOCODE\": \"<string>\",\n      \"DEPARTURE\": \"<dateTime>\",\n      \"LASTPORT\": \"<string>\",\n      \"LASTCOUNTRY\": \"<string>\"\n    },\n    \"MASTERDATA\": {\n      \"IMO\": \"<integer>\",\n      \"NAME\": \"<string>\",\n      \"FLAG\": \"<string>\",\n      \"TYPE\": \"<string>\",\n      \"BUILT\": \"<integer>\",\n      \"BUILDER\": \"<string>\",\n      \"OWNER\": \"<string>\",\n      \"MANAGER\": \"<string>\",\n      \"LENGTH\": \"<float>\",\n      \"BEAM\": \"<float>\",\n      \"MAXDRAUGHT\": \"<float>\",\n      \"GT\": \"<integer>\",\n      \"NT\": \"<integer>\",\n      \"DWT\": \"<integer>\",\n      \"TEU\": \"<integer>\",\n      \"CRUDE\": \"<integer>\"\n    }\n  }\n]",
+              "createdAt": "2026-07-28T03:29:43.000Z",
+              "updatedAt": "2026-07-28T03:29:43.000Z",
+              "uid": "35240-f7438610-8377-42d3-815a-72fb26d2d512"
+            },
+            {
+              "id": "030b7434-f2ff-4c5c-b69c-c284cb9bf2af",
+              "name": "Invalid or missing userkey.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/vesselslist?userkey=<API Key>&format=json&interval=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "vesselslist"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Personal API key issued by VesselFinder.",
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "Response format. Defaults to JSON.",
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "description": "Maximum position age in minutes.",
+                      "key": "interval",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T03:29:43.000Z",
+              "updatedAt": "2026-07-28T03:29:43.000Z",
+              "uid": "35240-030b7434-f2ff-4c5c-b69c-c284cb9bf2af"
+            }
+          ],
+          "createdAt": "2026-07-28T03:29:43.000Z",
+          "updatedAt": "2026-07-28T03:29:43.000Z",
+          "uid": "35240-7774f260-b382-4bb4-937f-5a3a50a5670c"
+        }
+      ],
+      "id": "1e2ccbcc-fd8f-450c-9812-fc39a6dc8b42",
+      "createdAt": "2026-07-28T03:29:43.000Z",
+      "updatedAt": "2026-07-28T03:29:43.000Z",
+      "uid": "35240-1e2ccbcc-fd8f-450c-9812-fc39a6dc8b42"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "userkey",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.vesselfinder.com"
+    }
+  ]
+}

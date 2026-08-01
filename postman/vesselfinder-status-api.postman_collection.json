@@ -1,0 +1,180 @@
+{
+  "info": {
+    "_postman_id": "68690299-ab96-4946-a94e-0c17f68afcb7",
+    "name": "VesselFinder AIS Containers Status API",
+    "description": "REST API providing real-time and on-demand AIS vessel positions, voyage information,\nand vessel master data from the VesselFinder global AIS network (terrestrial and satellite).\nAuthentication is performed via the `userkey` query parameter. Responses default to JSON\nand may be requested as XML by setting `format=xml`. Most pay-per-use methods deduct credits\nfrom the account's balance; subscription methods (VesselsList, LiveData) are billed by fleet\nor area size and dataset selection.\n\n\nContact Support:\n Name: VesselFinder API Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:29:40.000Z",
+    "updatedAt": "2026-07-28T03:29:40.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-68690299-ab96-4946-a94e-0c17f68afcb7"
+  },
+  "item": [
+    {
+      "name": "status",
+      "item": [
+        {
+          "name": "Get Account Status",
+          "id": "d4113fc9-3456-4f12-88ef-028a9f8cd35f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/status?userkey=<string>&format=json",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "status"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Personal API key issued by VesselFinder.",
+                  "key": "userkey",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Response format. Defaults to JSON.",
+                  "key": "format",
+                  "value": "json"
+                }
+              ]
+            },
+            "description": "Return the remaining API credits and access expiration date for the account."
+          },
+          "response": [
+            {
+              "id": "715a1f62-df89-4cb8-9509-166ba06de855",
+              "name": "Account status object.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/status?userkey=<API Key>&format=json",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "status"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Personal API key issued by VesselFinder.",
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "Response format. Defaults to JSON.",
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"CREDITS\": \"<integer>\",\n  \"EXPIRATION_DATE\": \"<dateTime>\"\n}",
+              "createdAt": "2026-07-28T03:29:41.000Z",
+              "updatedAt": "2026-07-28T03:29:41.000Z",
+              "uid": "35240-715a1f62-df89-4cb8-9509-166ba06de855"
+            },
+            {
+              "id": "6edf6d39-8cbd-41ac-8c94-4dcaad34052b",
+              "name": "Invalid or missing userkey.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/status?userkey=<API Key>&format=json",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "status"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Personal API key issued by VesselFinder.",
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "Response format. Defaults to JSON.",
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T03:29:41.000Z",
+              "updatedAt": "2026-07-28T03:29:41.000Z",
+              "uid": "35240-6edf6d39-8cbd-41ac-8c94-4dcaad34052b"
+            }
+          ],
+          "createdAt": "2026-07-28T03:29:41.000Z",
+          "updatedAt": "2026-07-28T03:29:41.000Z",
+          "uid": "35240-d4113fc9-3456-4f12-88ef-028a9f8cd35f"
+        }
+      ],
+      "id": "aefb7483-26ab-4918-9923-401c35855a47",
+      "createdAt": "2026-07-28T03:29:41.000Z",
+      "updatedAt": "2026-07-28T03:29:41.000Z",
+      "uid": "35240-aefb7483-26ab-4918-9923-401c35855a47"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "userkey",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.vesselfinder.com"
+    }
+  ]
+}

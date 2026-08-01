@@ -1,0 +1,458 @@
+{
+  "info": {
+    "_postman_id": "205c51d2-0d71-4d48-af28-b8ac0ce6ef3a",
+    "name": "VesselFinder AIS Containers API",
+    "description": "REST API providing real-time and on-demand AIS vessel positions, voyage information,\nand vessel master data from the VesselFinder global AIS network (terrestrial and satellite).\nAuthentication is performed via the `userkey` query parameter. Responses default to JSON\nand may be requested as XML by setting `format=xml`. Most pay-per-use methods deduct credits\nfrom the account's balance; subscription methods (VesselsList, LiveData) are billed by fleet\nor area size and dataset selection.\n\n\nContact Support:\n Name: VesselFinder API Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:27:30.000Z",
+    "updatedAt": "2026-07-28T03:27:30.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-205c51d2-0d71-4d48-af28-b8ac0ce6ef3a"
+  },
+  "item": [
+    {
+      "name": "container",
+      "item": [
+        {
+          "name": "{apiKey}",
+          "item": [
+            {
+              "name": "{containerNumber}",
+              "item": [
+                {
+                  "name": "{sealine}",
+                  "item": [
+                    {
+                      "name": "Track Container",
+                      "id": "644da323-c49c-47e5-bdae-0acf7e7b31c5",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/container/:apiKey/:containerNumber/:sealine",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "container",
+                            ":apiKey",
+                            ":containerNumber",
+                            ":sealine"
+                          ],
+                          "variable": [
+                            {
+                              "id": "d19b7941-a95e-48f9-8e60-c12ce8539c4f",
+                              "key": "apiKey",
+                              "value": "<string>",
+                              "description": "(Required) Personal API key for the Container Tracking service."
+                            },
+                            {
+                              "id": "144727a1-80b9-40f5-b5fd-befb3a5d62a5",
+                              "key": "containerNumber",
+                              "value": "WIBY5829183",
+                              "description": "(Required) 11-character container number (four letters + seven digits)."
+                            },
+                            {
+                              "id": "a797c6ce-9724-471d-b7c8-f9543f2cfc08",
+                              "key": "sealine",
+                              "value": "AUTO",
+                              "description": "(Required) 4-character carrier SCAC code (e.g. `MSCU`). Use `AUTO` to let the service\nauto-detect the carrier.\n"
+                            }
+                          ]
+                        },
+                        "description": "Look up the shipment for the specified container. Returns container origin,\ndestination, current vessel position, progress, and schedule events. May respond\nwith 202 Accepted while the request is processing \u2014 clients should poll the same\nURL no faster than every 60 seconds. Typical processing time is under one minute\nand may extend up to 15\u201320 minutes in worst case.\n"
+                      },
+                      "response": [
+                        {
+                          "id": "339caa3c-88f0-4f57-8028-ae9d636b1f1e",
+                          "name": "Container shipment data is ready.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/container/:apiKey/:containerNumber/:sealine?userkey=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "container",
+                                ":apiKey",
+                                ":containerNumber",
+                                ":sealine"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "userkey",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "apiKey"
+                                },
+                                {
+                                  "key": "containerNumber"
+                                },
+                                {
+                                  "key": "sealine"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"processing\",\n  \"general\": {\n    \"origin\": \"<string>\",\n    \"destination\": \"<string>\",\n    \"progress\": \"<number>\",\n    \"currentLocation\": \"<string>\",\n    \"carrier\": \"<string>\",\n    \"sealine\": \"<string>\"\n  },\n  \"schedule\": [\n    {\n      \"port\": \"<string>\",\n      \"locode\": \"<string>\",\n      \"event\": \"<string>\",\n      \"timestamp\": \"<dateTime>\",\n      \"actual\": \"<boolean>\",\n      \"vessel\": {\n        \"name\": \"<string>\",\n        \"imo\": \"<integer>\",\n        \"mmsi\": \"<integer>\",\n        \"latitude\": \"<number>\",\n        \"longitude\": \"<number>\",\n        \"speed\": \"<number>\",\n        \"course\": \"<number>\"\n      }\n    },\n    {\n      \"port\": \"<string>\",\n      \"locode\": \"<string>\",\n      \"event\": \"<string>\",\n      \"timestamp\": \"<dateTime>\",\n      \"actual\": \"<boolean>\",\n      \"vessel\": {\n        \"name\": \"<string>\",\n        \"imo\": \"<integer>\",\n        \"mmsi\": \"<integer>\",\n        \"latitude\": \"<number>\",\n        \"longitude\": \"<number>\",\n        \"speed\": \"<number>\",\n        \"course\": \"<number>\"\n      }\n    }\n  ],\n  \"vessel\": {\n    \"name\": \"<string>\",\n    \"imo\": \"<integer>\",\n    \"mmsi\": \"<integer>\",\n    \"latitude\": \"<number>\",\n    \"longitude\": \"<number>\",\n    \"speed\": \"<number>\",\n    \"course\": \"<number>\"\n  }\n}",
+                          "createdAt": "2026-07-28T03:27:30.000Z",
+                          "updatedAt": "2026-07-28T03:27:30.000Z",
+                          "uid": "35240-339caa3c-88f0-4f57-8028-ae9d636b1f1e"
+                        },
+                        {
+                          "id": "cfbb22b5-8770-45b0-b8d0-a288c2906a21",
+                          "name": "Request queued or still processing \u2014 retry after 60 seconds or longer.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/container/:apiKey/:containerNumber/:sealine?userkey=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "container",
+                                ":apiKey",
+                                ":containerNumber",
+                                ":sealine"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "userkey",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "apiKey"
+                                },
+                                {
+                                  "key": "containerNumber"
+                                },
+                                {
+                                  "key": "sealine"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Accepted",
+                          "code": 202,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"processing\",\n  \"retryAfter\": \"<integer>\"\n}",
+                          "createdAt": "2026-07-28T03:27:30.000Z",
+                          "updatedAt": "2026-07-28T03:27:30.000Z",
+                          "uid": "35240-cfbb22b5-8770-45b0-b8d0-a288c2906a21"
+                        },
+                        {
+                          "id": "1e16662b-c3c9-4d20-ad28-56afe443c79c",
+                          "name": "Invalid container number, SCAC, or rate limit exceeded.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/container/:apiKey/:containerNumber/:sealine?userkey=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "container",
+                                ":apiKey",
+                                ":containerNumber",
+                                ":sealine"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "userkey",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "apiKey"
+                                },
+                                {
+                                  "key": "containerNumber"
+                                },
+                                {
+                                  "key": "sealine"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:27:30.000Z",
+                          "updatedAt": "2026-07-28T03:27:30.000Z",
+                          "uid": "35240-1e16662b-c3c9-4d20-ad28-56afe443c79c"
+                        },
+                        {
+                          "id": "b4a571c1-4d21-47f2-bd6c-af124b3b1b37",
+                          "name": "Invalid or expired API key.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/container/:apiKey/:containerNumber/:sealine?userkey=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "container",
+                                ":apiKey",
+                                ":containerNumber",
+                                ":sealine"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "userkey",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "apiKey"
+                                },
+                                {
+                                  "key": "containerNumber"
+                                },
+                                {
+                                  "key": "sealine"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:27:30.000Z",
+                          "updatedAt": "2026-07-28T03:27:30.000Z",
+                          "uid": "35240-b4a571c1-4d21-47f2-bd6c-af124b3b1b37"
+                        },
+                        {
+                          "id": "86c89445-38c0-41f2-b7d4-5d7d8fde70e7",
+                          "name": "Container subscription limit reached.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/container/:apiKey/:containerNumber/:sealine?userkey=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "container",
+                                ":apiKey",
+                                ":containerNumber",
+                                ":sealine"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "userkey",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "apiKey"
+                                },
+                                {
+                                  "key": "containerNumber"
+                                },
+                                {
+                                  "key": "sealine"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Payment Required",
+                          "code": 402,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"subscription\": {\n    \"remaining\": \"<integer>\",\n    \"expirationDate\": \"<dateTime>\"\n  }\n}",
+                          "createdAt": "2026-07-28T03:27:30.000Z",
+                          "updatedAt": "2026-07-28T03:27:30.000Z",
+                          "uid": "35240-86c89445-38c0-41f2-b7d4-5d7d8fde70e7"
+                        },
+                        {
+                          "id": "ee5fa473-ce8b-42cd-b496-64697640fe79",
+                          "name": "Carrier-related error.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/container/:apiKey/:containerNumber/:sealine?userkey=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "container",
+                                ":apiKey",
+                                ":containerNumber",
+                                ":sealine"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "userkey",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "apiKey"
+                                },
+                                {
+                                  "key": "containerNumber"
+                                },
+                                {
+                                  "key": "sealine"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Conflict",
+                          "code": 409,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:27:30.000Z",
+                          "updatedAt": "2026-07-28T03:27:30.000Z",
+                          "uid": "35240-ee5fa473-ce8b-42cd-b496-64697640fe79"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:27:30.000Z",
+                      "updatedAt": "2026-07-28T03:27:30.000Z",
+                      "uid": "35240-644da323-c49c-47e5-bdae-0acf7e7b31c5"
+                    }
+                  ],
+                  "id": "58c8465d-5f8f-4397-adc1-12a7f932f124",
+                  "createdAt": "2026-07-28T03:27:30.000Z",
+                  "updatedAt": "2026-07-28T03:27:30.000Z",
+                  "uid": "35240-58c8465d-5f8f-4397-adc1-12a7f932f124"
+                }
+              ],
+              "id": "088ef5fa-95fa-422d-855b-8e925a99ef56",
+              "createdAt": "2026-07-28T03:27:30.000Z",
+              "updatedAt": "2026-07-28T03:27:30.000Z",
+              "uid": "35240-088ef5fa-95fa-422d-855b-8e925a99ef56"
+            }
+          ],
+          "id": "45325e66-8ab7-43dd-818e-7d3b45903179",
+          "createdAt": "2026-07-28T03:27:30.000Z",
+          "updatedAt": "2026-07-28T03:27:30.000Z",
+          "uid": "35240-45325e66-8ab7-43dd-818e-7d3b45903179"
+        }
+      ],
+      "id": "944c61ce-c13b-4ba8-a7c8-0a9a7560903e",
+      "createdAt": "2026-07-28T03:27:30.000Z",
+      "updatedAt": "2026-07-28T03:27:30.000Z",
+      "uid": "35240-944c61ce-c13b-4ba8-a7c8-0a9a7560903e"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "userkey",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.vesselfinder.com"
+    }
+  ]
+}

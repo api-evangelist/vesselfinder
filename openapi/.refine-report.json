@@ -1,0 +1,32 @@
+{
+  "provider": "vesselfinder",
+  "sources": [
+    "vesselfinder-containers-api-openapi.yml",
+    "vesselfinder-distance-api-openapi.yml",
+    "vesselfinder-expected-arrivals-api-openapi.yml",
+    "vesselfinder-list-manager-api-openapi.yml",
+    "vesselfinder-live-data-api-openapi.yml",
+    "vesselfinder-master-data-api-openapi.yml",
+    "vesselfinder-port-calls-api-openapi.yml",
+    "vesselfinder-status-api-openapi.yml",
+    "vesselfinder-vessels-api-openapi.yml",
+    "vesselfinder-vessels-list-api-openapi.yml"
+  ],
+  "outputs": [
+    "vesselfinder-containers-api-openapi.yml",
+    "vesselfinder-distance-api-openapi.yml",
+    "vesselfinder-expected-arrivals-api-openapi.yml",
+    "vesselfinder-list-manager-api-openapi.yml",
+    "vesselfinder-live-data-api-openapi.yml",
+    "vesselfinder-master-data-api-openapi.yml",
+    "vesselfinder-port-calls-api-openapi.yml",
+    "vesselfinder-status-api-openapi.yml",
+    "vesselfinder-vessels-api-openapi.yml",
+    "vesselfinder-vessels-list-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
