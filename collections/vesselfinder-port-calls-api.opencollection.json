@@ -1,0 +1,123 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "VesselFinder AIS Containers Port Calls API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "userkey",
+      "value": "{{userkey}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Port Calls",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Port Calls",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vesselfinder.com/portcalls",
+            "params": [
+              {
+                "name": "userkey",
+                "value": "",
+                "type": "query",
+                "description": "Personal API key issued by VesselFinder."
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "Maximum age of returned events in minutes."
+              },
+              {
+                "name": "imo",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of IMO numbers. One of imo, mmsi, or locode is required."
+              },
+              {
+                "name": "mmsi",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of MMSI numbers. One of imo, mmsi, or locode is required."
+              },
+              {
+                "name": "locode",
+                "value": "",
+                "type": "query",
+                "description": "UN/LOCODE port identifier. Cannot be combined with imo or mmsi."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format. Defaults to JSON."
+              },
+              {
+                "name": "event",
+                "value": "",
+                "type": "query",
+                "description": "Filter to a single event type."
+              },
+              {
+                "name": "fromdate",
+                "value": "",
+                "type": "query",
+                "description": "Start of the date window (YYYY-MM-DD HH:MM:SS, UTC)."
+              },
+              {
+                "name": "todate",
+                "value": "",
+                "type": "query",
+                "description": "End of the date window (YYYY-MM-DD HH:MM:SS, UTC)."
+              },
+              {
+                "name": "extradata",
+                "value": "",
+                "type": "query",
+                "description": "Additional datasets to include. Supported values are `ais` and `voyage`."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of events to return."
+              },
+              {
+                "name": "last_id",
+                "value": "",
+                "type": "query",
+                "description": "Return only events with id greater than this value."
+              },
+              {
+                "name": "anchorage",
+                "value": "",
+                "type": "query",
+                "description": "0 to exclude anchorage events, 1 to include, 2 to return anchorage events only."
+              },
+              {
+                "name": "imo_only",
+                "value": "",
+                "type": "query",
+                "description": "Restrict events to vessels carrying an IMO number."
+              }
+            ]
+          },
+          "docs": "Return arrival and departure events for one or more vessels (by IMO or MMSI) or for a port (by LOCODE)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

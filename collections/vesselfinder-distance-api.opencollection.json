@@ -1,0 +1,75 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "VesselFinder AIS Containers Distance API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "userkey",
+      "value": "{{userkey}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Distance",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Sea Distance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vesselfinder.com/distance",
+            "params": [
+              {
+                "name": "userkey",
+                "value": "",
+                "type": "query",
+                "description": "Personal API key issued by VesselFinder."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Origin as `lon,lat`."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Destination as `lon,lat`."
+              },
+              {
+                "name": "gateways",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of allowed gateways (suez, panama, kiel, oresund, messina, corinth, malacca, drake, magellan, northeast, northwest)."
+              },
+              {
+                "name": "ECA",
+                "value": "",
+                "type": "query",
+                "description": "Emission Control Area preference."
+              },
+              {
+                "name": "EPSG3857",
+                "value": "",
+                "type": "query",
+                "description": "Set to 1 to return coordinates in WebMercator (EPSG:3857)."
+              }
+            ]
+          },
+          "docs": "Return the shortest sea route between two coordinates as a GeoJSON LineString together with distance in meters."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

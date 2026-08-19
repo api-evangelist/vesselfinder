@@ -1,0 +1,120 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "VesselFinder AIS Containers List Manager API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "userkey",
+      "value": "{{userkey}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "List Manager",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Watchlist",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vesselfinder.com/listmanager",
+            "params": [
+              {
+                "name": "userkey",
+                "value": "",
+                "type": "query",
+                "description": "Personal API key issued by VesselFinder."
+              }
+            ]
+          },
+          "docs": "Return the current list of vessels (IMO and MMSI) backing the VesselsList method."
+        },
+        {
+          "info": {
+            "name": "Add Vessels To Watchlist",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vesselfinder.com/listmanager",
+            "params": [
+              {
+                "name": "userkey",
+                "value": "",
+                "type": "query",
+                "description": "Personal API key issued by VesselFinder."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Add the supplied vessels (by IMO or MMSI) to the watchlist."
+        },
+        {
+          "info": {
+            "name": "Replace Watchlist",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.vesselfinder.com/listmanager",
+            "params": [
+              {
+                "name": "userkey",
+                "value": "",
+                "type": "query",
+                "description": "Personal API key issued by VesselFinder."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Replace all vessels in the watchlist with the supplied list."
+        },
+        {
+          "info": {
+            "name": "Remove Vessels From Watchlist",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.vesselfinder.com/listmanager",
+            "params": [
+              {
+                "name": "userkey",
+                "value": "",
+                "type": "query",
+                "description": "Personal API key issued by VesselFinder."
+              },
+              {
+                "name": "imo",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "mmsi",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Remove the supplied vessels from the watchlist."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

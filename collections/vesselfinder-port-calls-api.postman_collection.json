@@ -1,0 +1,445 @@
+{
+  "item": [
+    {
+      "id": "f5ba6891-eba4-49bd-93d9-06831ed55815",
+      "name": "Port Calls",
+      "description": {
+        "content": "Arrival and departure events for vessels or ports.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8da03b51-2c3a-4a4d-907c-03b6b700fb34",
+          "name": "Get Port Calls",
+          "request": {
+            "name": "Get Port Calls",
+            "description": {
+              "content": "Return arrival and departure events for one or more vessels (by IMO or MMSI) or for a port (by LOCODE).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "portcalls"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "userkey",
+                  "value": "<string>",
+                  "description": "(Required) Personal API key issued by VesselFinder."
+                },
+                {
+                  "disabled": false,
+                  "key": "interval",
+                  "value": "<integer>",
+                  "description": "(Required) Maximum age of returned events in minutes."
+                },
+                {
+                  "disabled": false,
+                  "key": "imo",
+                  "value": "<string>",
+                  "description": "Comma-separated list of IMO numbers. One of imo, mmsi, or locode is required."
+                },
+                {
+                  "disabled": false,
+                  "key": "mmsi",
+                  "value": "<string>",
+                  "description": "Comma-separated list of MMSI numbers. One of imo, mmsi, or locode is required."
+                },
+                {
+                  "disabled": false,
+                  "key": "locode",
+                  "value": "<string>",
+                  "description": "UN/LOCODE port identifier. Cannot be combined with imo or mmsi."
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Response format. Defaults to JSON."
+                },
+                {
+                  "disabled": false,
+                  "key": "event",
+                  "value": "<string>",
+                  "description": "Filter to a single event type."
+                },
+                {
+                  "disabled": false,
+                  "key": "fromdate",
+                  "value": "<dateTime>",
+                  "description": "Start of the date window (YYYY-MM-DD HH:MM:SS, UTC)."
+                },
+                {
+                  "disabled": false,
+                  "key": "todate",
+                  "value": "<dateTime>",
+                  "description": "End of the date window (YYYY-MM-DD HH:MM:SS, UTC)."
+                },
+                {
+                  "disabled": false,
+                  "key": "extradata",
+                  "value": "<string>",
+                  "description": "Additional datasets to include. Supported values are `ais` and `voyage`."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of events to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_id",
+                  "value": "<integer>",
+                  "description": "Return only events with id greater than this value."
+                },
+                {
+                  "disabled": false,
+                  "key": "anchorage",
+                  "value": "<integer>",
+                  "description": "0 to exclude anchorage events, 1 to include, 2 to return anchorage events only."
+                },
+                {
+                  "disabled": false,
+                  "key": "imo_only",
+                  "value": "<integer>",
+                  "description": "Restrict events to vessels carrying an IMO number."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "de95bc4b-212f-41e8-8b4d-24872868f1dc",
+              "name": "Array of port-call events.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portcalls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userkey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "imo",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mmsi",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locode",
+                      "value": "BGVAR"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "event",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fromdate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "todate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "extradata",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "last_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "anchorage",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "imo_only",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"MMSI\": 8785,\n    \"IMO\": 9408,\n    \"LOCODE\": \"string\",\n    \"EVENT\": \"departure\",\n    \"TIMESTAMP\": \"1976-10-19T12:03:10.509Z\",\n    \"PORT\": \"string\",\n    \"COUNTRY\": \"string\",\n    \"AIS\": {\n      \"MMSI\": 7489,\n      \"TIMESTAMP\": \"1988-12-16T21:50:05.347Z\",\n      \"LATITUDE\": 3686.4875725451298,\n      \"LONGITUDE\": 9831.955508604467,\n      \"COURSE\": 9235.722671338794,\n      \"SPEED\": 202.8908470558377,\n      \"HEADING\": 9059,\n      \"NAVSTAT\": 1733,\n      \"IMO\": 5131,\n      \"NAME\": \"string\",\n      \"CALLSIGN\": \"string\",\n      \"TYPE\": 1176,\n      \"A\": 5808,\n      \"B\": 5035,\n      \"C\": 3835,\n      \"D\": 7448,\n      \"DRAUGHT\": 1601.4946489299032,\n      \"DESTINATION\": \"string\",\n      \"LOCODE\": \"string\",\n      \"ETA_AIS\": \"string\",\n      \"ETA\": \"1980-02-14T22:58:49.467Z\",\n      \"SRC\": \"TER\",\n      \"ZONE\": \"string\",\n      \"ECA\": 9097\n    },\n    \"VOYAGE\": {\n      \"LOCODE\": \"string\",\n      \"DEPARTURE\": \"1959-03-21T02:15:13.933Z\",\n      \"LASTPORT\": \"string\",\n      \"LASTCOUNTRY\": \"string\"\n    }\n  },\n  {\n    \"MMSI\": 97,\n    \"IMO\": 9547,\n    \"LOCODE\": \"string\",\n    \"EVENT\": \"arrival\",\n    \"TIMESTAMP\": \"1989-03-11T18:58:52.807Z\",\n    \"PORT\": \"string\",\n    \"COUNTRY\": \"string\",\n    \"AIS\": {\n      \"MMSI\": 2881,\n      \"TIMESTAMP\": \"2013-02-08T11:36:07.625Z\",\n      \"LATITUDE\": 995.9651277745985,\n      \"LONGITUDE\": 9907.716236199994,\n      \"COURSE\": 2580.8526786170296,\n      \"SPEED\": 3079.364271504961,\n      \"HEADING\": 4118,\n      \"NAVSTAT\": 2063,\n      \"IMO\": 9731,\n      \"NAME\": \"string\",\n      \"CALLSIGN\": \"string\",\n      \"TYPE\": 5127,\n      \"A\": 7920,\n      \"B\": 7511,\n      \"C\": 7930,\n      \"D\": 771,\n      \"DRAUGHT\": 6414.702569431038,\n      \"DESTINATION\": \"string\",\n      \"LOCODE\": \"string\",\n      \"ETA_AIS\": \"string\",\n      \"ETA\": \"2013-11-17T14:39:56.625Z\",\n      \"SRC\": \"SAT\",\n      \"ZONE\": \"string\",\n      \"ECA\": 858\n    },\n    \"VOYAGE\": {\n      \"LOCODE\": \"string\",\n      \"DEPARTURE\": \"2025-04-24T01:03:27.888Z\",\n      \"LASTPORT\": \"string\",\n      \"LASTCOUNTRY\": \"string\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fe97975a-1f1b-4c01-b79c-fdcb37c65d18",
+              "name": "Invalid or missing userkey.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portcalls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userkey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "imo",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mmsi",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locode",
+                      "value": "BGVAR"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "event",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fromdate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "todate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "extradata",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "last_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "anchorage",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "imo_only",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "def280c5-2669-408f-b9d8-c679a887be63",
+              "name": "Insufficient credits or expired access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portcalls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userkey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "imo",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mmsi",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locode",
+                      "value": "BGVAR"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "event",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fromdate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "todate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "extradata",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "last_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "anchorage",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "imo_only",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vesselfinder.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "userkey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a0a5da08-b958-4460-8fed-87135732720b",
+    "name": "VesselFinder AIS Containers Port Calls API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API providing real-time and on-demand AIS vessel positions, voyage information,\nand vessel master data from the VesselFinder global AIS network (terrestrial and satellite).\nAuthentication is performed via the `userkey` query parameter. Responses default to JSON\nand may be requested as XML by setting `format=xml`. Most pay-per-use methods deduct credits\nfrom the account's balance; subscription methods (VesselsList, LiveData) are billed by fleet\nor area size and dataset selection.\n\n\nContact Support:\n Name: VesselFinder API Support",
+      "type": "text/plain"
+    }
+  }
+}

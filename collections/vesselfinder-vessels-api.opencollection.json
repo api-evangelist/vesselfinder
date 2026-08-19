@@ -1,0 +1,81 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "VesselFinder AIS Containers Vessels API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "userkey",
+      "value": "{{userkey}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vessels",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Vessels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vesselfinder.com/vessels",
+            "params": [
+              {
+                "name": "userkey",
+                "value": "",
+                "type": "query",
+                "description": "Personal API key issued by VesselFinder."
+              },
+              {
+                "name": "imo",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of IMO numbers. Either imo or mmsi is required."
+              },
+              {
+                "name": "mmsi",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of MMSI numbers. Either imo or mmsi is required."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format. Defaults to JSON."
+              },
+              {
+                "name": "extradata",
+                "value": "",
+                "type": "query",
+                "description": "Additional datasets to include in the response. Supported values are `voyage` and `master`."
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "Maximum age of returned positions in minutes."
+              },
+              {
+                "name": "sat",
+                "value": "",
+                "type": "query",
+                "description": "Set to 1 to include satellite positions."
+              }
+            ]
+          },
+          "docs": "Return AIS and optionally Voyage / Master data for one or more vessels identified by IMO or MMSI."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

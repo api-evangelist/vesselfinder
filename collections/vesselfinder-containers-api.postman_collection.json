@@ -1,0 +1,487 @@
+{
+  "item": [
+    {
+      "id": "473f8c12-bba7-4c6f-bd8f-859134a01576",
+      "name": "Containers",
+      "description": {
+        "content": "Real-time container track-and-trace.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8a13b24e-d6eb-4e96-b744-ffde6296290d",
+          "name": "Track Container",
+          "request": {
+            "name": "Track Container",
+            "description": {
+              "content": "Look up the shipment for the specified container. Returns container origin,\ndestination, current vessel position, progress, and schedule events. May respond\nwith 202 Accepted while the request is processing — clients should poll the same\nURL no faster than every 60 seconds. Typical processing time is under one minute\nand may extend up to 15–20 minutes in worst case.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "container",
+                ":apiKey",
+                ":containerNumber",
+                ":sealine"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "apiKey",
+                  "description": "(Required) Personal API key for the Container Tracking service."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "containerNumber",
+                  "description": "(Required) 11-character container number (four letters + seven digits)."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "AUTO",
+                  "key": "sealine",
+                  "description": "(Required) 4-character carrier SCAC code (e.g. `MSCU`). Use `AUTO` to let the service\nauto-detect the carrier.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5f30da0f-6108-4a4d-ae08-c8669d28c4a5",
+              "name": "Container shipment data is ready.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "container",
+                    ":apiKey",
+                    ":containerNumber",
+                    ":sealine"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "apiKey",
+                      "description": "(Required) Personal API key for the Container Tracking service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "containerNumber",
+                      "description": "(Required) 11-character container number (four letters + seven digits)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "AUTO",
+                      "key": "sealine",
+                      "description": "(Required) 4-character carrier SCAC code (e.g. `MSCU`). Use `AUTO` to let the service\nauto-detect the carrier.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"general\": {\n    \"origin\": \"string\",\n    \"destination\": \"string\",\n    \"progress\": 8402.98558178014,\n    \"currentLocation\": \"string\",\n    \"carrier\": \"string\",\n    \"sealine\": \"string\"\n  },\n  \"schedule\": [\n    {\n      \"port\": \"string\",\n      \"locode\": \"string\",\n      \"event\": \"string\",\n      \"timestamp\": \"1973-11-17T20:19:48.347Z\",\n      \"actual\": true,\n      \"vessel\": {\n        \"name\": \"string\",\n        \"imo\": 2914,\n        \"mmsi\": 8581,\n        \"latitude\": 5344.97818994534,\n        \"longitude\": 2575.824365716789,\n        \"speed\": 8824.222594508268,\n        \"course\": 545.1061256436495\n      }\n    },\n    {\n      \"port\": \"string\",\n      \"locode\": \"string\",\n      \"event\": \"string\",\n      \"timestamp\": \"1991-01-22T19:37:54.927Z\",\n      \"actual\": true,\n      \"vessel\": {\n        \"name\": \"string\",\n        \"imo\": 3838,\n        \"mmsi\": 7212,\n        \"latitude\": 787.2565175155011,\n        \"longitude\": 5729.054579882444,\n        \"speed\": 3949.6143412907204,\n        \"course\": 9270.536642308181\n      }\n    }\n  ],\n  \"vessel\": {\n    \"name\": \"string\",\n    \"imo\": 687,\n    \"mmsi\": 8960,\n    \"latitude\": 8455.098687146217,\n    \"longitude\": 9475.38930903342,\n    \"speed\": 3571.252350620289,\n    \"course\": 5487.4398836459695\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1190bf5e-a6b9-44e5-92ae-6d0f2a7ccfed",
+              "name": "Request queued or still processing — retry after 60 seconds or longer.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "container",
+                    ":apiKey",
+                    ":containerNumber",
+                    ":sealine"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "apiKey",
+                      "description": "(Required) Personal API key for the Container Tracking service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "containerNumber",
+                      "description": "(Required) 11-character container number (four letters + seven digits)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "AUTO",
+                      "key": "sealine",
+                      "description": "(Required) 4-character carrier SCAC code (e.g. `MSCU`). Use `AUTO` to let the service\nauto-detect the carrier.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"queued\",\n  \"retryAfter\": 5730\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c1240b69-ba59-4e35-8153-4df5641ac993",
+              "name": "Invalid container number, SCAC, or rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "container",
+                    ":apiKey",
+                    ":containerNumber",
+                    ":sealine"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "apiKey",
+                      "description": "(Required) Personal API key for the Container Tracking service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "containerNumber",
+                      "description": "(Required) 11-character container number (four letters + seven digits)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "AUTO",
+                      "key": "sealine",
+                      "description": "(Required) 4-character carrier SCAC code (e.g. `MSCU`). Use `AUTO` to let the service\nauto-detect the carrier.\n"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a339498f-d7f6-4f98-ac70-5ac928920e11",
+              "name": "Invalid or expired API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "container",
+                    ":apiKey",
+                    ":containerNumber",
+                    ":sealine"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "apiKey",
+                      "description": "(Required) Personal API key for the Container Tracking service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "containerNumber",
+                      "description": "(Required) 11-character container number (four letters + seven digits)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "AUTO",
+                      "key": "sealine",
+                      "description": "(Required) 4-character carrier SCAC code (e.g. `MSCU`). Use `AUTO` to let the service\nauto-detect the carrier.\n"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "61fb5113-dca4-469f-a4e3-2c23d0073222",
+              "name": "Container subscription limit reached.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "container",
+                    ":apiKey",
+                    ":containerNumber",
+                    ":sealine"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "apiKey",
+                      "description": "(Required) Personal API key for the Container Tracking service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "containerNumber",
+                      "description": "(Required) 11-character container number (four letters + seven digits)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "AUTO",
+                      "key": "sealine",
+                      "description": "(Required) 4-character carrier SCAC code (e.g. `MSCU`). Use `AUTO` to let the service\nauto-detect the carrier.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"subscription\": {\n    \"remaining\": 118,\n    \"expirationDate\": \"2010-10-11T17:09:10.550Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c75c709-707e-472e-a888-fda4b0d17149",
+              "name": "Carrier-related error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "container",
+                    ":apiKey",
+                    ":containerNumber",
+                    ":sealine"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "apiKey",
+                      "description": "(Required) Personal API key for the Container Tracking service."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "containerNumber",
+                      "description": "(Required) 11-character container number (four letters + seven digits)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "AUTO",
+                      "key": "sealine",
+                      "description": "(Required) 4-character carrier SCAC code (e.g. `MSCU`). Use `AUTO` to let the service\nauto-detect the carrier.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vesselfinder.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "userkey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ca2d6fda-8419-48d6-9752-191e6af0f345",
+    "name": "VesselFinder AIS Containers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API providing real-time and on-demand AIS vessel positions, voyage information,\nand vessel master data from the VesselFinder global AIS network (terrestrial and satellite).\nAuthentication is performed via the `userkey` query parameter. Responses default to JSON\nand may be requested as XML by setting `format=xml`. Most pay-per-use methods deduct credits\nfrom the account's balance; subscription methods (VesselsList, LiveData) are billed by fleet\nor area size and dataset selection.\n\n\nContact Support:\n Name: VesselFinder API Support",
+      "type": "text/plain"
+    }
+  }
+}

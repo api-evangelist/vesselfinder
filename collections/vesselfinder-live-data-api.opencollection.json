@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "VesselFinder AIS Containers Live Data API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "userkey",
+      "value": "{{userkey}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Live Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Live Area Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vesselfinder.com/livedata",
+            "params": [
+              {
+                "name": "userkey",
+                "value": "",
+                "type": "query",
+                "description": "Personal API key issued by VesselFinder."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format. Defaults to JSON."
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "Maximum position age in minutes."
+              }
+            ]
+          },
+          "docs": "Return all vessels in the account's predefined rectangular area (subscription)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,669 @@
+{
+  "item": [
+    {
+      "id": "17d30b3e-53a5-4814-884b-c70bf234ddcb",
+      "name": "List Manager",
+      "description": {
+        "content": "Manage the watchlist of vessels backing the VesselsList method.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bdc0adb5-00c2-4f55-884b-e6a94201ffc4",
+          "name": "Get Watchlist",
+          "request": {
+            "name": "Get Watchlist",
+            "description": {
+              "content": "Return the current list of vessels (IMO and MMSI) backing the VesselsList method.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "listmanager"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "userkey",
+                  "value": "<string>",
+                  "description": "(Required) Personal API key issued by VesselFinder."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9338d6e8-c0e5-4cfd-b6f4-ece5bee22c80",
+              "name": "Array of vessel identifiers in the watchlist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "listmanager"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userkey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"imo\": [\n    6,\n    7314\n  ],\n  \"mmsi\": [\n    6969,\n    5503\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0fbfedd5-d2c2-4ed9-8c46-fc321bb39c78",
+              "name": "Invalid or missing userkey.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "listmanager"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userkey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4e885d49-e19d-4c95-a638-5c3fe4990668",
+          "name": "Add Vessels To Watchlist",
+          "request": {
+            "name": "Add Vessels To Watchlist",
+            "description": {
+              "content": "Add the supplied vessels (by IMO or MMSI) to the watchlist.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "listmanager"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "userkey",
+                  "value": "<string>",
+                  "description": "(Required) Personal API key issued by VesselFinder."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "imo",
+                  "value": "<string>",
+                  "description": "Comma-separated IMO numbers."
+                },
+                {
+                  "disabled": false,
+                  "key": "mmsi",
+                  "value": "<string>",
+                  "description": "Comma-separated MMSI numbers."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4ac92250-bd1a-44bb-9c6f-3947a7efa46c",
+              "name": "Watchlist updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "listmanager"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userkey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated IMO numbers.",
+                        "type": "text/plain"
+                      },
+                      "key": "imo",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated MMSI numbers.",
+                        "type": "text/plain"
+                      },
+                      "key": "mmsi",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5f8e3278-069d-421d-9d00-7b73e6c438e1",
+              "name": "Invalid or missing userkey.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "listmanager"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userkey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated IMO numbers.",
+                        "type": "text/plain"
+                      },
+                      "key": "imo",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated MMSI numbers.",
+                        "type": "text/plain"
+                      },
+                      "key": "mmsi",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ba071fab-b905-409b-987e-8debe8c63589",
+          "name": "Replace Watchlist",
+          "request": {
+            "name": "Replace Watchlist",
+            "description": {
+              "content": "Replace all vessels in the watchlist with the supplied list.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "listmanager"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "userkey",
+                  "value": "<string>",
+                  "description": "(Required) Personal API key issued by VesselFinder."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "imo",
+                  "value": "<string>",
+                  "description": "Comma-separated IMO numbers."
+                },
+                {
+                  "disabled": false,
+                  "key": "mmsi",
+                  "value": "<string>",
+                  "description": "Comma-separated MMSI numbers."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f51cf224-3fc0-46aa-8b7b-469ecd4eaf75",
+              "name": "Watchlist replaced.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "listmanager"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userkey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated IMO numbers.",
+                        "type": "text/plain"
+                      },
+                      "key": "imo",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated MMSI numbers.",
+                        "type": "text/plain"
+                      },
+                      "key": "mmsi",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1d18bcd6-017f-415d-a2c9-3040c47f8168",
+              "name": "Invalid or missing userkey.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "listmanager"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userkey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated IMO numbers.",
+                        "type": "text/plain"
+                      },
+                      "key": "imo",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated MMSI numbers.",
+                        "type": "text/plain"
+                      },
+                      "key": "mmsi",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "37de1710-8074-402e-b908-83bf63bb6236",
+          "name": "Remove Vessels From Watchlist",
+          "request": {
+            "name": "Remove Vessels From Watchlist",
+            "description": {
+              "content": "Remove the supplied vessels from the watchlist.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "listmanager"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "userkey",
+                  "value": "<string>",
+                  "description": "(Required) Personal API key issued by VesselFinder."
+                },
+                {
+                  "disabled": false,
+                  "key": "imo",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "mmsi",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6f4128be-b7e3-4859-8268-f05ff69fca4b",
+              "name": "Vessels removed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "listmanager"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userkey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "imo",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mmsi",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4a4c1671-43e1-4036-bad0-fb991f9dddae",
+              "name": "Invalid or missing userkey.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "listmanager"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userkey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "imo",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mmsi",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vesselfinder.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "userkey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7c60b889-b547-4d1c-81bc-5b3398c91405",
+    "name": "VesselFinder AIS Containers List Manager API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API providing real-time and on-demand AIS vessel positions, voyage information,\nand vessel master data from the VesselFinder global AIS network (terrestrial and satellite).\nAuthentication is performed via the `userkey` query parameter. Responses default to JSON\nand may be requested as XML by setting `format=xml`. Most pay-per-use methods deduct credits\nfrom the account's balance; subscription methods (VesselsList, LiveData) are billed by fleet\nor area size and dataset selection.\n\n\nContact Support:\n Name: VesselFinder API Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,247 @@
+{
+  "item": [
+    {
+      "id": "d5aa7d7b-9bc1-4462-a132-724e0080ff68",
+      "name": "Master Data",
+      "description": {
+        "content": "Static vessel particulars by IMO.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "811d74dc-d893-498e-9689-b63bbd4ebc5d",
+          "name": "Get Master Data",
+          "request": {
+            "name": "Get Master Data",
+            "description": {
+              "content": "Return static vessel particulars (Master dataset) by IMO.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "masterdata"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "userkey",
+                  "value": "<string>",
+                  "description": "(Required) Personal API key issued by VesselFinder."
+                },
+                {
+                  "disabled": false,
+                  "key": "imo",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated list of IMO numbers."
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Response format. Defaults to JSON."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6671ae43-5174-4bb6-893d-8ae3575d1a31",
+              "name": "Array of master-data records.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "masterdata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userkey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "imo",
+                      "value": "9175717"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"IMO\": 2908,\n    \"NAME\": \"string\",\n    \"FLAG\": \"string\",\n    \"TYPE\": \"string\",\n    \"BUILT\": 9183,\n    \"BUILDER\": \"string\",\n    \"OWNER\": \"string\",\n    \"MANAGER\": \"string\",\n    \"LENGTH\": 4797.808311118869,\n    \"BEAM\": 3092.143917641703,\n    \"MAXDRAUGHT\": 9557.45264212742,\n    \"GT\": 2594,\n    \"NT\": 9518,\n    \"DWT\": 9232,\n    \"TEU\": 2829,\n    \"CRUDE\": 8497\n  },\n  {\n    \"IMO\": 1652,\n    \"NAME\": \"string\",\n    \"FLAG\": \"string\",\n    \"TYPE\": \"string\",\n    \"BUILT\": 5433,\n    \"BUILDER\": \"string\",\n    \"OWNER\": \"string\",\n    \"MANAGER\": \"string\",\n    \"LENGTH\": 5282.557396718389,\n    \"BEAM\": 9635.9937509219,\n    \"MAXDRAUGHT\": 5673.153238983264,\n    \"GT\": 5144,\n    \"NT\": 2577,\n    \"DWT\": 4671,\n    \"TEU\": 873,\n    \"CRUDE\": 9500\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0878ae36-9252-4624-833a-dc94afb83b32",
+              "name": "Invalid or missing userkey.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "masterdata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userkey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "imo",
+                      "value": "9175717"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9c699e54-7354-49ae-8212-56b2eeb50b16",
+              "name": "Insufficient credits or expired access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "masterdata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userkey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "imo",
+                      "value": "9175717"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vesselfinder.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "userkey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0390723c-3b7e-4930-898a-72249d2081c7",
+    "name": "VesselFinder AIS Containers Master Data API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API providing real-time and on-demand AIS vessel positions, voyage information,\nand vessel master data from the VesselFinder global AIS network (terrestrial and satellite).\nAuthentication is performed via the `userkey` query parameter. Responses default to JSON\nand may be requested as XML by setting `format=xml`. Most pay-per-use methods deduct credits\nfrom the account's balance; subscription methods (VesselsList, LiveData) are billed by fleet\nor area size and dataset selection.\n\n\nContact Support:\n Name: VesselFinder API Support",
+      "type": "text/plain"
+    }
+  }
+}

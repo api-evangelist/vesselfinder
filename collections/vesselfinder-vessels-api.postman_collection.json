@@ -1,0 +1,319 @@
+{
+  "item": [
+    {
+      "id": "e15ba3fb-6fed-471e-8dc3-c1cf3ee5c70e",
+      "name": "Vessels",
+      "description": {
+        "content": "On-demand vessel position, voyage, and master data lookups.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "375e2a60-5b25-4590-82a0-4a16c22ef60a",
+          "name": "Get Vessels",
+          "request": {
+            "name": "Get Vessels",
+            "description": {
+              "content": "Return AIS and optionally Voyage / Master data for one or more vessels identified by IMO or MMSI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vessels"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "userkey",
+                  "value": "<string>",
+                  "description": "(Required) Personal API key issued by VesselFinder."
+                },
+                {
+                  "disabled": false,
+                  "key": "imo",
+                  "value": "<string>",
+                  "description": "Comma-separated list of IMO numbers. Either imo or mmsi is required."
+                },
+                {
+                  "disabled": false,
+                  "key": "mmsi",
+                  "value": "<string>",
+                  "description": "Comma-separated list of MMSI numbers. Either imo or mmsi is required."
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Response format. Defaults to JSON."
+                },
+                {
+                  "disabled": false,
+                  "key": "extradata",
+                  "value": "<string>",
+                  "description": "Additional datasets to include in the response. Supported values are `voyage` and `master`."
+                },
+                {
+                  "disabled": false,
+                  "key": "interval",
+                  "value": "<integer>",
+                  "description": "Maximum age of returned positions in minutes."
+                },
+                {
+                  "disabled": false,
+                  "key": "sat",
+                  "value": "0",
+                  "description": "Set to 1 to include satellite positions."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4e903691-49df-4968-96f8-a5016911949a",
+              "name": "Array of vessels with AIS data and optional Voyage / Master sections.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vessels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userkey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "imo",
+                      "value": "9175717"
+                    },
+                    {
+                      "key": "mmsi",
+                      "value": "538003422"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "extradata",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sat",
+                      "value": "0"
+                    },
+                    {
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"AIS\": {\n      \"MMSI\": 9821,\n      \"TIMESTAMP\": \"2021-12-14T21:01:10.000Z\",\n      \"LATITUDE\": 9800.760861318111,\n      \"LONGITUDE\": 6522.078128130276,\n      \"COURSE\": 1848.95881925349,\n      \"SPEED\": 8714.949222240051,\n      \"HEADING\": 5246,\n      \"NAVSTAT\": 1695,\n      \"IMO\": 3450,\n      \"NAME\": \"string\",\n      \"CALLSIGN\": \"string\",\n      \"TYPE\": 6920,\n      \"A\": 3383,\n      \"B\": 5112,\n      \"C\": 6662,\n      \"D\": 4970,\n      \"DRAUGHT\": 2960.5792994571334,\n      \"DESTINATION\": \"string\",\n      \"LOCODE\": \"string\",\n      \"ETA_AIS\": \"string\",\n      \"ETA\": \"2025-10-08T03:50:58.328Z\",\n      \"SRC\": \"SAT\",\n      \"ZONE\": \"string\",\n      \"ECA\": 8450\n    },\n    \"VOYAGE\": {\n      \"LOCODE\": \"string\",\n      \"DEPARTURE\": \"1986-12-06T13:39:23.331Z\",\n      \"LASTPORT\": \"string\",\n      \"LASTCOUNTRY\": \"string\"\n    },\n    \"MASTERDATA\": {\n      \"IMO\": 799,\n      \"NAME\": \"string\",\n      \"FLAG\": \"string\",\n      \"TYPE\": \"string\",\n      \"BUILT\": 4477,\n      \"BUILDER\": \"string\",\n      \"OWNER\": \"string\",\n      \"MANAGER\": \"string\",\n      \"LENGTH\": 3297.686941430683,\n      \"BEAM\": 1240.9602038550827,\n      \"MAXDRAUGHT\": 6180.755540261204,\n      \"GT\": 2808,\n      \"NT\": 8934,\n      \"DWT\": 1410,\n      \"TEU\": 2522,\n      \"CRUDE\": 9512\n    }\n  },\n  {\n    \"AIS\": {\n      \"MMSI\": 7362,\n      \"TIMESTAMP\": \"1987-06-18T19:42:36.450Z\",\n      \"LATITUDE\": 7927.615775807413,\n      \"LONGITUDE\": 9071.924289671635,\n      \"COURSE\": 5929.544629708386,\n      \"SPEED\": 96.23644354737282,\n      \"HEADING\": 2842,\n      \"NAVSTAT\": 8264,\n      \"IMO\": 2185,\n      \"NAME\": \"string\",\n      \"CALLSIGN\": \"string\",\n      \"TYPE\": 3051,\n      \"A\": 2412,\n      \"B\": 9500,\n      \"C\": 4429,\n      \"D\": 5218,\n      \"DRAUGHT\": 4751.122414236543,\n      \"DESTINATION\": \"string\",\n      \"LOCODE\": \"string\",\n      \"ETA_AIS\": \"string\",\n      \"ETA\": \"1987-06-28T03:54:55.746Z\",\n      \"SRC\": \"TER\",\n      \"ZONE\": \"string\",\n      \"ECA\": 9529\n    },\n    \"VOYAGE\": {\n      \"LOCODE\": \"string\",\n      \"DEPARTURE\": \"1981-02-06T09:45:07.113Z\",\n      \"LASTPORT\": \"string\",\n      \"LASTCOUNTRY\": \"string\"\n    },\n    \"MASTERDATA\": {\n      \"IMO\": 9923,\n      \"NAME\": \"string\",\n      \"FLAG\": \"string\",\n      \"TYPE\": \"string\",\n      \"BUILT\": 5397,\n      \"BUILDER\": \"string\",\n      \"OWNER\": \"string\",\n      \"MANAGER\": \"string\",\n      \"LENGTH\": 4645.971038824915,\n      \"BEAM\": 8307.720783250365,\n      \"MAXDRAUGHT\": 7950.39014950896,\n      \"GT\": 1047,\n      \"NT\": 3885,\n      \"DWT\": 5011,\n      \"TEU\": 5009,\n      \"CRUDE\": 9086\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5501bde7-6c26-4e84-8044-840a93ddeecf",
+              "name": "Invalid or missing userkey.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vessels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userkey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "imo",
+                      "value": "9175717"
+                    },
+                    {
+                      "key": "mmsi",
+                      "value": "538003422"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "extradata",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sat",
+                      "value": "0"
+                    },
+                    {
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4f5d46fc-8c7b-4cd4-b00a-263c4591ea93",
+              "name": "Insufficient credits or expired access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vessels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userkey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "imo",
+                      "value": "9175717"
+                    },
+                    {
+                      "key": "mmsi",
+                      "value": "538003422"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "extradata",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sat",
+                      "value": "0"
+                    },
+                    {
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vesselfinder.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "userkey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "667bbe37-2101-4b17-ba99-55b48bf8a2cb",
+    "name": "VesselFinder AIS Containers Vessels API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API providing real-time and on-demand AIS vessel positions, voyage information,\nand vessel master data from the VesselFinder global AIS network (terrestrial and satellite).\nAuthentication is performed via the `userkey` query parameter. Responses default to JSON\nand may be requested as XML by setting `format=xml`. Most pay-per-use methods deduct credits\nfrom the account's balance; subscription methods (VesselsList, LiveData) are billed by fleet\nor area size and dataset selection.\n\n\nContact Support:\n Name: VesselFinder API Support",
+      "type": "text/plain"
+    }
+  }
+}

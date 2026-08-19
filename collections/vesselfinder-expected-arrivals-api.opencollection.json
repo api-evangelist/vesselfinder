@@ -1,0 +1,89 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "VesselFinder AIS Containers Expected Arrivals API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "userkey",
+      "value": "{{userkey}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Expected Arrivals",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Expected Arrivals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vesselfinder.com/expectedarrivals",
+            "params": [
+              {
+                "name": "userkey",
+                "value": "",
+                "type": "query",
+                "description": "Personal API key issued by VesselFinder."
+              },
+              {
+                "name": "locode",
+                "value": "",
+                "type": "query",
+                "description": "UN/LOCODE port identifier."
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "Look-ahead window in minutes from now. Use either interval or fromdate/todate."
+              },
+              {
+                "name": "fromdate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "todate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format. Defaults to JSON."
+              },
+              {
+                "name": "extradata",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "aistype",
+                "value": "",
+                "type": "query",
+                "description": "Filter by AIS ship type code(s), comma separated."
+              }
+            ]
+          },
+          "docs": "Return vessels with announced ETAs at the selected port within an interval or date window."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

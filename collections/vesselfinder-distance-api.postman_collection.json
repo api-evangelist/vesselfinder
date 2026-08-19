@@ -1,0 +1,301 @@
+{
+  "item": [
+    {
+      "id": "ed7f291a-ea14-49ed-af7a-e570fc7c7dab",
+      "name": "Distance",
+      "description": {
+        "content": "Sea-route distance and geometry between two points.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "97e24b04-1f42-4935-b679-abd4bf910154",
+          "name": "Get Sea Distance",
+          "request": {
+            "name": "Get Sea Distance",
+            "description": {
+              "content": "Return the shortest sea route between two coordinates as a GeoJSON LineString together with distance in meters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "distance"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "userkey",
+                  "value": "<string>",
+                  "description": "(Required) Personal API key issued by VesselFinder."
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "(Required) Origin as `lon,lat`."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "(Required) Destination as `lon,lat`."
+                },
+                {
+                  "disabled": false,
+                  "key": "gateways",
+                  "value": "<string>",
+                  "description": "Comma-separated list of allowed gateways (suez, panama, kiel, oresund, messina, corinth, malacca, drake, magellan, northeast, northwest)."
+                },
+                {
+                  "disabled": false,
+                  "key": "ECA",
+                  "value": "<string>",
+                  "description": "Emission Control Area preference."
+                },
+                {
+                  "disabled": false,
+                  "key": "EPSG3857",
+                  "value": "<integer>",
+                  "description": "Set to 1 to return coordinates in WebMercator (EPSG:3857)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2e7b0d40-7b60-4038-bf29-0cb2d7d8857c",
+              "name": "GeoJSON Feature describing the computed route.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "distance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userkey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "27.3711,43.256"
+                    },
+                    {
+                      "key": "to",
+                      "value": "128.345,-34.223"
+                    },
+                    {
+                      "key": "gateways",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ECA",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "EPSG3857",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"Feature\",\n  \"properties\": {\n    \"Crossing\": [\n      \"string\",\n      \"string\"\n    ],\n    \"Distance\": 445.12978321313733,\n    \"DistanceECA\": 4310.923702554887\n  },\n  \"geometry\": {\n    \"type\": \"LineString\",\n    \"coordinates\": [\n      [\n        2228.6573755425075,\n        1408.2079387754031\n      ],\n      [\n        5699.77476939724,\n        7611.947728070238\n      ]\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "da7add5e-7d77-4f99-9422-228cbf49f18f",
+              "name": "Invalid or missing userkey.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "distance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userkey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "27.3711,43.256"
+                    },
+                    {
+                      "key": "to",
+                      "value": "128.345,-34.223"
+                    },
+                    {
+                      "key": "gateways",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ECA",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "EPSG3857",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "17634936-f5f8-4d2d-aa5f-f64aebe0a1bd",
+              "name": "Insufficient credits or expired access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "distance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userkey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "27.3711,43.256"
+                    },
+                    {
+                      "key": "to",
+                      "value": "128.345,-34.223"
+                    },
+                    {
+                      "key": "gateways",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ECA",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "EPSG3857",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vesselfinder.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "userkey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5291ab70-61ef-499e-8ef0-b48f925ad5a2",
+    "name": "VesselFinder AIS Containers Distance API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API providing real-time and on-demand AIS vessel positions, voyage information,\nand vessel master data from the VesselFinder global AIS network (terrestrial and satellite).\nAuthentication is performed via the `userkey` query parameter. Responses default to JSON\nand may be requested as XML by setting `format=xml`. Most pay-per-use methods deduct credits\nfrom the account's balance; subscription methods (VesselsList, LiveData) are billed by fleet\nor area size and dataset selection.\n\n\nContact Support:\n Name: VesselFinder API Support",
+      "type": "text/plain"
+    }
+  }
+}

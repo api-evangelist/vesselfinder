@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "VesselFinder AIS Containers Vessels List API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "userkey",
+      "value": "{{userkey}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vessels List",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Vessels List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vesselfinder.com/vesselslist",
+            "params": [
+              {
+                "name": "userkey",
+                "value": "",
+                "type": "query",
+                "description": "Personal API key issued by VesselFinder."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format. Defaults to JSON."
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "Maximum position age in minutes."
+              }
+            ]
+          },
+          "docs": "Return AIS, Voyage, and/or Master data for the account's predefined fleet (subscription)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

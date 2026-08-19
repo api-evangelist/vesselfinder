@@ -1,0 +1,201 @@
+{
+  "item": [
+    {
+      "id": "5d54d463-a53d-4526-9dd9-43ea4cfc5b90",
+      "name": "Live Data",
+      "description": {
+        "content": "All vessels within a predefined geographic area, subscription-based.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "abe2eb7d-982e-4cb9-ab9a-9fe03b7a9334",
+          "name": "Get Live Area Data",
+          "request": {
+            "name": "Get Live Area Data",
+            "description": {
+              "content": "Return all vessels in the account's predefined rectangular area (subscription).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "livedata"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "userkey",
+                  "value": "<string>",
+                  "description": "(Required) Personal API key issued by VesselFinder."
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Response format. Defaults to JSON."
+                },
+                {
+                  "disabled": false,
+                  "key": "interval",
+                  "value": "<integer>",
+                  "description": "Maximum position age in minutes."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "88f8391c-651f-4ec8-9bc2-eb4576b24c88",
+              "name": "Array of vessels currently in the predefined area.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "livedata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userkey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"AIS\": {\n      \"MMSI\": 3562,\n      \"TIMESTAMP\": \"1991-02-05T12:26:58.749Z\",\n      \"LATITUDE\": 4982.308643495121,\n      \"LONGITUDE\": 801.5541940432258,\n      \"COURSE\": 9873.673296731975,\n      \"SPEED\": 2478.494116487533,\n      \"HEADING\": 329,\n      \"NAVSTAT\": 7571,\n      \"IMO\": 6231,\n      \"NAME\": \"string\",\n      \"CALLSIGN\": \"string\",\n      \"TYPE\": 1500,\n      \"A\": 9140,\n      \"B\": 257,\n      \"C\": 6428,\n      \"D\": 350,\n      \"DRAUGHT\": 8182.183509918055,\n      \"DESTINATION\": \"string\",\n      \"LOCODE\": \"string\",\n      \"ETA_AIS\": \"string\",\n      \"ETA\": \"1996-09-09T20:22:55.887Z\",\n      \"SRC\": \"SAT\",\n      \"ZONE\": \"string\",\n      \"ECA\": 9859\n    },\n    \"VOYAGE\": {\n      \"LOCODE\": \"string\",\n      \"DEPARTURE\": \"2019-11-24T20:29:00.857Z\",\n      \"LASTPORT\": \"string\",\n      \"LASTCOUNTRY\": \"string\"\n    },\n    \"MASTERDATA\": {\n      \"IMO\": 7929,\n      \"NAME\": \"string\",\n      \"FLAG\": \"string\",\n      \"TYPE\": \"string\",\n      \"BUILT\": 8485,\n      \"BUILDER\": \"string\",\n      \"OWNER\": \"string\",\n      \"MANAGER\": \"string\",\n      \"LENGTH\": 8683.356779193691,\n      \"BEAM\": 9790.399033644166,\n      \"MAXDRAUGHT\": 7065.412877947099,\n      \"GT\": 6588,\n      \"NT\": 5834,\n      \"DWT\": 3425,\n      \"TEU\": 772,\n      \"CRUDE\": 199\n    }\n  },\n  {\n    \"AIS\": {\n      \"MMSI\": 2372,\n      \"TIMESTAMP\": \"1946-11-16T16:53:36.480Z\",\n      \"LATITUDE\": 3240.1456669826434,\n      \"LONGITUDE\": 4349.20531940501,\n      \"COURSE\": 3374.0571587557033,\n      \"SPEED\": 9467.523444091034,\n      \"HEADING\": 4842,\n      \"NAVSTAT\": 7087,\n      \"IMO\": 960,\n      \"NAME\": \"string\",\n      \"CALLSIGN\": \"string\",\n      \"TYPE\": 8526,\n      \"A\": 8361,\n      \"B\": 9855,\n      \"C\": 9546,\n      \"D\": 1816,\n      \"DRAUGHT\": 2379.058486265844,\n      \"DESTINATION\": \"string\",\n      \"LOCODE\": \"string\",\n      \"ETA_AIS\": \"string\",\n      \"ETA\": \"1995-07-13T01:10:19.514Z\",\n      \"SRC\": \"TER\",\n      \"ZONE\": \"string\",\n      \"ECA\": 3587\n    },\n    \"VOYAGE\": {\n      \"LOCODE\": \"string\",\n      \"DEPARTURE\": \"1991-04-07T02:14:01.641Z\",\n      \"LASTPORT\": \"string\",\n      \"LASTCOUNTRY\": \"string\"\n    },\n    \"MASTERDATA\": {\n      \"IMO\": 3498,\n      \"NAME\": \"string\",\n      \"FLAG\": \"string\",\n      \"TYPE\": \"string\",\n      \"BUILT\": 3156,\n      \"BUILDER\": \"string\",\n      \"OWNER\": \"string\",\n      \"MANAGER\": \"string\",\n      \"LENGTH\": 6252.815965875221,\n      \"BEAM\": 1352.7660367064987,\n      \"MAXDRAUGHT\": 8432.0648875634,\n      \"GT\": 6273,\n      \"NT\": 3124,\n      \"DWT\": 3044,\n      \"TEU\": 6668,\n      \"CRUDE\": 4235\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2679635b-a533-4e62-a27a-001ebe0e3fbf",
+              "name": "Invalid or missing userkey.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "livedata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userkey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "userkey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vesselfinder.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "userkey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "78b60167-3d90-4a14-a9eb-2334ac74c66c",
+    "name": "VesselFinder AIS Containers Live Data API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API providing real-time and on-demand AIS vessel positions, voyage information,\nand vessel master data from the VesselFinder global AIS network (terrestrial and satellite).\nAuthentication is performed via the `userkey` query parameter. Responses default to JSON\nand may be requested as XML by setting `format=xml`. Most pay-per-use methods deduct credits\nfrom the account's balance; subscription methods (VesselsList, LiveData) are billed by fleet\nor area size and dataset selection.\n\n\nContact Support:\n Name: VesselFinder API Support",
+      "type": "text/plain"
+    }
+  }
+}
