@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: VesselFinder AIS Containers Live Data API
+  title: VesselFinder AIS Live Data API
   description: 'REST API providing real-time and on-demand AIS vessel positions, voyage information,
 
     and vessel master data from the VesselFinder global AIS network (terrestrial and satellite).
@@ -58,6 +58,24 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    format:
+      name: format
+      in: query
+      description: Response format. Defaults to JSON.
+      schema:
+        type: string
+        enum:
+        - json
+        - xml
+        default: json
+    userkey:
+      name: userkey
+      in: query
+      required: true
+      description: Personal API key issued by VesselFinder.
+      schema:
+        type: string
   schemas:
     Voyage:
       type: object
@@ -72,48 +90,6 @@ components:
           type: string
         LASTCOUNTRY:
           type: string
-    MasterData:
-      type: object
-      description: Static vessel particulars.
-      properties:
-        IMO:
-          type: integer
-        NAME:
-          type: string
-        FLAG:
-          type: string
-        TYPE:
-          type: string
-        BUILT:
-          type: integer
-        BUILDER:
-          type: string
-        OWNER:
-          type: string
-        MANAGER:
-          type: string
-        LENGTH:
-          type: number
-          format: float
-        BEAM:
-          type: number
-          format: float
-        MAXDRAUGHT:
-          type: number
-          format: float
-        GT:
-          type: integer
-          description: Gross tonnage.
-        NT:
-          type: integer
-          description: Net tonnage.
-        DWT:
-          type: integer
-          description: Deadweight tonnage.
-        TEU:
-          type: integer
-        CRUDE:
-          type: integer
     AIS:
       type: object
       description: AIS position and dynamic vessel state.
@@ -194,24 +170,48 @@ components:
           $ref: '#/components/schemas/Voyage'
         MASTERDATA:
           $ref: '#/components/schemas/MasterData'
-  parameters:
-    format:
-      name: format
-      in: query
-      description: Response format. Defaults to JSON.
-      schema:
-        type: string
-        enum:
-        - json
-        - xml
-        default: json
-    userkey:
-      name: userkey
-      in: query
-      required: true
-      description: Personal API key issued by VesselFinder.
-      schema:
-        type: string
+    MasterData:
+      type: object
+      description: Static vessel particulars.
+      properties:
+        IMO:
+          type: integer
+        NAME:
+          type: string
+        FLAG:
+          type: string
+        TYPE:
+          type: string
+        BUILT:
+          type: integer
+        BUILDER:
+          type: string
+        OWNER:
+          type: string
+        MANAGER:
+          type: string
+        LENGTH:
+          type: number
+          format: float
+        BEAM:
+          type: number
+          format: float
+        MAXDRAUGHT:
+          type: number
+          format: float
+        GT:
+          type: integer
+          description: Gross tonnage.
+        NT:
+          type: integer
+          description: Net tonnage.
+        DWT:
+          type: integer
+          description: Deadweight tonnage.
+        TEU:
+          type: integer
+        CRUDE:
+          type: integer
   responses:
     Unauthorized:
       description: Invalid or missing userkey.

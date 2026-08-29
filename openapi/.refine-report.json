@@ -1,19 +1,10 @@
 {
   "provider": "vesselfinder",
   "sources": [
-    "vesselfinder-containers-api-openapi.yml",
-    "vesselfinder-distance-api-openapi.yml",
-    "vesselfinder-expected-arrivals-api-openapi.yml",
-    "vesselfinder-list-manager-api-openapi.yml",
-    "vesselfinder-live-data-api-openapi.yml",
-    "vesselfinder-master-data-api-openapi.yml",
-    "vesselfinder-port-calls-api-openapi.yml",
-    "vesselfinder-status-api-openapi.yml",
-    "vesselfinder-vessels-api-openapi.yml",
-    "vesselfinder-vessels-list-api-openapi.yml"
+    "_original/vesselfinder-ais-api-openapi.yml",
+    "_original/vesselfinder-container-tracking-api-openapi.yml"
   ],
   "outputs": [
-    "vesselfinder-containers-api-openapi.yml",
     "vesselfinder-distance-api-openapi.yml",
     "vesselfinder-expected-arrivals-api-openapi.yml",
     "vesselfinder-list-manager-api-openapi.yml",
@@ -22,11 +13,27 @@
     "vesselfinder-port-calls-api-openapi.yml",
     "vesselfinder-status-api-openapi.yml",
     "vesselfinder-vessels-api-openapi.yml",
-    "vesselfinder-vessels-list-api-openapi.yml"
+    "vesselfinder-vessels-list-api-openapi.yml",
+    "vesselfinder-containers-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "vesselfinder-ais-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "vesselfinder-container-tracking-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0"
+  ],
+  "skipped": [
+    "vesselfinder-containers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "vesselfinder-distance-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "vesselfinder-expected-arrivals-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "vesselfinder-list-manager-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "vesselfinder-live-data-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "vesselfinder-master-data-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "vesselfinder-port-calls-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "vesselfinder-status-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "vesselfinder-vessels-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "vesselfinder-vessels-list-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

@@ -1,31 +1,33 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: VesselFinder AIS Containers API
-  description: 'REST API providing real-time and on-demand AIS vessel positions, voyage information,
+  title: VesselFinder Container Tracking Containers API
+  description: 'Container Tracking API for ocean freight monitoring. Supplies real-time vessel position
 
-    and vessel master data from the VesselFinder global AIS network (terrestrial and satellite).
+    overlaid on container schedules — origin, destination, transhipments, ports of loading
 
-    Authentication is performed via the `userkey` query parameter. Responses default to JSON
+    and discharge, and event timestamps. Lookups are by container number (11 characters,
 
-    and may be requested as XML by setting `format=xml`. Most pay-per-use methods deduct credits
+    four letters + seven digits) and optional carrier SCAC code; if SCAC is omitted the API
 
-    from the account''s balance; subscription methods (VesselsList, LiveData) are billed by fleet
+    auto-detects the line. Successful container lookups are cached for 12 hours; the first
 
-    or area size and dataset selection.
+    lookup per container deducts one unit from the subscription, subsequent lookups within
+
+    30 days are free.
 
     '
   version: '1.0'
   contact:
-    name: VesselFinder API Support
-    url: https://api.vesselfinder.com/docs/
+    name: VesselFinder Container Tracking Support
+    url: https://container.vesselfinder.com/api/1.0/docs
   license:
     name: Commercial — VesselFinder Terms of Use
     url: https://www.vesselfinder.com/terms
 servers:
-- url: https://api.vesselfinder.com
-  description: VesselFinder AIS API
+- url: https://container.vesselfinder.com/api/1.0
+  description: VesselFinder Container Tracking API
 security:
-- UserKey: []
+- PathApiKey: []
 tags:
 - name: Containers
   description: Real-time container track-and-trace.
@@ -105,48 +107,6 @@ paths:
                 $ref: '#/components/schemas/CarrierError'
 components:
   schemas:
-    ScheduleEntry:
-      type: object
-      properties:
-        port:
-          type: string
-        locode:
-          type: string
-        event:
-          type: string
-          description: Event code (CEP, CPS, CGI, CLL, VDL, VAT, CDT, CLT, VDT, VAD, CDD, CGO, CDC, CER, UNK).
-        timestamp:
-          type: string
-          format: date-time
-        actual:
-          type: boolean
-          description: True if the timestamp is observed; false if scheduled.
-        vessel:
-          $ref: '#/components/schemas/Vessel'
-    QueuedResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - queued
-          - processing
-        retryAfter:
-          type: integer
-          description: Suggested retry interval in seconds.
-    SubscriptionError:
-      type: object
-      properties:
-        status:
-          type: string
-        subscription:
-          type: object
-          properties:
-            remaining:
-              type: integer
-            expirationDate:
-              type: string
-              format: date-time
     ContainerShipment:
       type: object
       properties:
@@ -165,6 +125,24 @@ components:
             $ref: '#/components/schemas/ScheduleEntry'
         vessel:
           $ref: '#/components/schemas/Vessel'
+    ScheduleEntry:
+      type: object
+      properties:
+        port:
+          type: string
+        locode:
+          type: string
+        event:
+          type: string
+          description: Event code (CEP, CPS, CGI, CLL, VDL, VAT, CDT, CLT, VDT, VAD, CDD, CGO, CDC, CER, UNK).
+        timestamp:
+          type: string
+          format: date-time
+        actual:
+          type: boolean
+          description: True if the timestamp is observed; false if scheduled.
+        vessel:
+          $ref: '#/components/schemas/Vessel'
     CarrierError:
       type: object
       properties:
@@ -174,23 +152,17 @@ components:
           type: string
         message:
           type: string
-    Vessel:
+    QueuedResponse:
       type: object
       properties:
-        name:
+        status:
           type: string
-        imo:
+          enum:
+          - queued
+          - processing
+        retryAfter:
           type: integer
-        mmsi:
-          type: integer
-        latitude:
-          type: number
-        longitude:
-          type: number
-        speed:
-          type: number
-        course:
-          type: number
+          description: Suggested retry interval in seconds.
     General:
       type: object
       properties:
@@ -208,8 +180,43 @@ components:
         sealine:
           type: string
           description: SCAC code of the carrier.
+    Vessel:
+      type: object
+      properties:
+        name:
+          type: string
+        imo:
+          type: integer
+        mmsi:
+          type: integer
+        latitude:
+          type: number
+        longitude:
+          type: number
+        speed:
+          type: number
+        course:
+          type: number
+    SubscriptionError:
+      type: object
+      properties:
+        status:
+          type: string
+        subscription:
+          type: object
+          properties:
+            remaining:
+              type: integer
+            expirationDate:
+              type: string
+              format: date-time
   securitySchemes:
-    UserKey:
+    PathApiKey:
       type: apiKey
       in: query
-      name: userkey
+      name: apiKey
+      description: 'API key is passed as a path segment of the tracking URL, not as a header or query
+
+        parameter. This security scheme is declarative only.
+
+        '
