@@ -1,0 +1,25 @@
+slug: vesselfinder
+provider: VesselFinder
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Transportation & Logistics
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Containers
+  spec_file: vesselfinder-containers-api-openapi.yml
+  capability_id: BC-2510.20
+  capability_id_l1: BC-2510
+  capability_name: Shipment Tracking Management
+  confidence: 0.9
+  evidence: '"Container Tracking API for ocean freight monitoring"; GET /container/{apiKey}/{containerNumber}/{sealine}
+    "Track Container"; schema ContainerShipment'
+  reason: Operation tracks an ocean container shipment by container number across origin, transhipments
+    and discharge ports with event timestamps — end-to-end shipment tracking across legs and partners.

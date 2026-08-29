@@ -470,6 +470,9 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/vesselfinder.png
 access: 3rd-Party
 common:
+  - type: CapabilityMap
+    url: capabilities/vesselfinder-capability-edges.yml
+    name: VesselFinder Business Capability Map
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/vesselfinder/overview
   - type: AgenticAccess
