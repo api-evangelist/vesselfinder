@@ -11,9 +11,7 @@ info:
 
     from the account''s balance; subscription methods (VesselsList, LiveData) are billed by fleet
 
-    or area size and dataset selection.
-
-    '
+    or area size and dataset selection.'
   version: '1.0'
   contact:
     name: VesselFinder API Support
@@ -135,19 +133,6 @@ paths:
           $ref: '#/components/responses/PaymentRequired'
 components:
   schemas:
-    Voyage:
-      type: object
-      description: Last completed port call summary for a vessel.
-      properties:
-        LOCODE:
-          type: string
-        DEPARTURE:
-          type: string
-          format: date-time
-        LASTPORT:
-          type: string
-        LASTCOUNTRY:
-          type: string
     AIS:
       type: object
       description: AIS position and dynamic vessel state.
@@ -218,6 +203,19 @@ components:
         ECA:
           type: integer
           description: 1 if currently in an Emission Control Area.
+    Voyage:
+      type: object
+      description: Last completed port call summary for a vessel.
+      properties:
+        LOCODE:
+          type: string
+        DEPARTURE:
+          type: string
+          format: date-time
+        LASTPORT:
+          type: string
+        LASTCOUNTRY:
+          type: string
     PortCall:
       type: object
       description: A vessel arrival or departure event at a port.

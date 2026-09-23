@@ -11,9 +11,7 @@ info:
 
     from the account''s balance; subscription methods (VesselsList, LiveData) are billed by fleet
 
-    or area size and dataset selection.
-
-    '
+    or area size and dataset selection.'
   version: '1.0'
   contact:
     name: VesselFinder API Support
@@ -58,38 +56,17 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    format:
-      name: format
-      in: query
-      description: Response format. Defaults to JSON.
-      schema:
-        type: string
-        enum:
-        - json
-        - xml
-        default: json
-    userkey:
-      name: userkey
-      in: query
-      required: true
-      description: Personal API key issued by VesselFinder.
-      schema:
-        type: string
   schemas:
-    Voyage:
+    Vessel:
       type: object
-      description: Last completed port call summary for a vessel.
+      description: A vessel returned from /vessels, /vesselslist, /livedata, or /expectedarrivals.
       properties:
-        LOCODE:
-          type: string
-        DEPARTURE:
-          type: string
-          format: date-time
-        LASTPORT:
-          type: string
-        LASTCOUNTRY:
-          type: string
+        AIS:
+          $ref: '#/components/schemas/AIS'
+        VOYAGE:
+          $ref: '#/components/schemas/Voyage'
+        MASTERDATA:
+          $ref: '#/components/schemas/MasterData'
     AIS:
       type: object
       description: AIS position and dynamic vessel state.
@@ -160,16 +137,19 @@ components:
         ECA:
           type: integer
           description: 1 if currently in an Emission Control Area.
-    Vessel:
+    Voyage:
       type: object
-      description: A vessel returned from /vessels, /vesselslist, /livedata, or /expectedarrivals.
+      description: Last completed port call summary for a vessel.
       properties:
-        AIS:
-          $ref: '#/components/schemas/AIS'
-        VOYAGE:
-          $ref: '#/components/schemas/Voyage'
-        MASTERDATA:
-          $ref: '#/components/schemas/MasterData'
+        LOCODE:
+          type: string
+        DEPARTURE:
+          type: string
+          format: date-time
+        LASTPORT:
+          type: string
+        LASTCOUNTRY:
+          type: string
     MasterData:
       type: object
       description: Static vessel particulars.
@@ -212,6 +192,24 @@ components:
           type: integer
         CRUDE:
           type: integer
+  parameters:
+    format:
+      name: format
+      in: query
+      description: Response format. Defaults to JSON.
+      schema:
+        type: string
+        enum:
+        - json
+        - xml
+        default: json
+    userkey:
+      name: userkey
+      in: query
+      required: true
+      description: Personal API key issued by VesselFinder.
+      schema:
+        type: string
   responses:
     Unauthorized:
       description: Invalid or missing userkey.

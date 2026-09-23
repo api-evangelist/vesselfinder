@@ -11,9 +11,7 @@ info:
 
     from the account''s balance; subscription methods (VesselsList, LiveData) are billed by fleet
 
-    or area size and dataset selection.
-
-    '
+    or area size and dataset selection.'
   version: '1.0'
   contact:
     name: VesselFinder API Support
@@ -50,20 +48,14 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  schemas:
-    Status:
-      type: object
-      properties:
-        CREDITS:
-          type: integer
-          description: Remaining API credits.
-        EXPIRATION_DATE:
-          type: string
-          format: date-time
-  responses:
-    Unauthorized:
-      description: Invalid or missing userkey.
   parameters:
+    userkey:
+      name: userkey
+      in: query
+      required: true
+      description: Personal API key issued by VesselFinder.
+      schema:
+        type: string
     format:
       name: format
       in: query
@@ -74,13 +66,19 @@ components:
         - json
         - xml
         default: json
-    userkey:
-      name: userkey
-      in: query
-      required: true
-      description: Personal API key issued by VesselFinder.
-      schema:
-        type: string
+  responses:
+    Unauthorized:
+      description: Invalid or missing userkey.
+  schemas:
+    Status:
+      type: object
+      properties:
+        CREDITS:
+          type: integer
+          description: Remaining API credits.
+        EXPIRATION_DATE:
+          type: string
+          format: date-time
   securitySchemes:
     UserKey:
       type: apiKey

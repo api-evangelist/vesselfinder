@@ -11,9 +11,7 @@ info:
 
     from the account''s balance; subscription methods (VesselsList, LiveData) are billed by fleet
 
-    or area size and dataset selection.
-
-    '
+    or area size and dataset selection.'
   version: '1.0'
   contact:
     name: VesselFinder API Support
@@ -108,6 +106,14 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    userkey:
+      name: userkey
+      in: query
+      required: true
+      description: Personal API key issued by VesselFinder.
+      schema:
+        type: string
   schemas:
     WatchlistEdit:
       type: object
@@ -129,14 +135,6 @@ components:
           type: array
           items:
             type: integer
-  parameters:
-    userkey:
-      name: userkey
-      in: query
-      required: true
-      description: Personal API key issued by VesselFinder.
-      schema:
-        type: string
   responses:
     Unauthorized:
       description: Invalid or missing userkey.
