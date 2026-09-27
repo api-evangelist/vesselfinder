@@ -85,19 +85,6 @@ paths:
         '402':
           $ref: '#/components/responses/PaymentRequired'
 components:
-  parameters:
-    userkey:
-      name: userkey
-      in: query
-      required: true
-      description: Personal API key issued by VesselFinder.
-      schema:
-        type: string
-  responses:
-    Unauthorized:
-      description: Invalid or missing userkey.
-    PaymentRequired:
-      description: Insufficient credits or expired access.
   schemas:
     DistanceResponse:
       type: object
@@ -132,6 +119,19 @@ components:
                 type: array
                 items:
                   type: number
+  responses:
+    Unauthorized:
+      description: Invalid or missing userkey.
+    PaymentRequired:
+      description: Insufficient credits or expired access.
+  parameters:
+    userkey:
+      name: userkey
+      in: query
+      required: true
+      description: Personal API key issued by VesselFinder.
+      schema:
+        type: string
   securitySchemes:
     UserKey:
       type: apiKey

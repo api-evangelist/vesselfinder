@@ -48,24 +48,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    userkey:
-      name: userkey
-      in: query
-      required: true
-      description: Personal API key issued by VesselFinder.
-      schema:
-        type: string
-    format:
-      name: format
-      in: query
-      description: Response format. Defaults to JSON.
-      schema:
-        type: string
-        enum:
-        - json
-        - xml
-        default: json
   responses:
     Unauthorized:
       description: Invalid or missing userkey.
@@ -79,6 +61,24 @@ components:
         EXPIRATION_DATE:
           type: string
           format: date-time
+  parameters:
+    format:
+      name: format
+      in: query
+      description: Response format. Defaults to JSON.
+      schema:
+        type: string
+        enum:
+        - json
+        - xml
+        default: json
+    userkey:
+      name: userkey
+      in: query
+      required: true
+      description: Personal API key issued by VesselFinder.
+      schema:
+        type: string
   securitySchemes:
     UserKey:
       type: apiKey

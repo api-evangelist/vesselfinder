@@ -94,6 +94,19 @@ paths:
           $ref: '#/components/responses/PaymentRequired'
 components:
   schemas:
+    Voyage:
+      type: object
+      description: Last completed port call summary for a vessel.
+      properties:
+        LOCODE:
+          type: string
+        DEPARTURE:
+          type: string
+          format: date-time
+        LASTPORT:
+          type: string
+        LASTCOUNTRY:
+          type: string
     Vessel:
       type: object
       description: A vessel returned from /vessels, /vesselslist, /livedata, or /expectedarrivals.
@@ -174,19 +187,6 @@ components:
         ECA:
           type: integer
           description: 1 if currently in an Emission Control Area.
-    Voyage:
-      type: object
-      description: Last completed port call summary for a vessel.
-      properties:
-        LOCODE:
-          type: string
-        DEPARTURE:
-          type: string
-          format: date-time
-        LASTPORT:
-          type: string
-        LASTCOUNTRY:
-          type: string
     MasterData:
       type: object
       description: Static vessel particulars.
@@ -229,6 +229,11 @@ components:
           type: integer
         CRUDE:
           type: integer
+  responses:
+    PaymentRequired:
+      description: Insufficient credits or expired access.
+    Unauthorized:
+      description: Invalid or missing userkey.
   parameters:
     format:
       name: format
@@ -247,11 +252,6 @@ components:
       description: Personal API key issued by VesselFinder.
       schema:
         type: string
-  responses:
-    PaymentRequired:
-      description: Insufficient credits or expired access.
-    Unauthorized:
-      description: Invalid or missing userkey.
   securitySchemes:
     UserKey:
       type: apiKey

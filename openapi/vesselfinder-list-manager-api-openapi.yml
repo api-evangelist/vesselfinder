@@ -106,24 +106,7 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    userkey:
-      name: userkey
-      in: query
-      required: true
-      description: Personal API key issued by VesselFinder.
-      schema:
-        type: string
   schemas:
-    WatchlistEdit:
-      type: object
-      properties:
-        imo:
-          type: string
-          description: Comma-separated IMO numbers.
-        mmsi:
-          type: string
-          description: Comma-separated MMSI numbers.
     Watchlist:
       type: object
       properties:
@@ -135,9 +118,26 @@ components:
           type: array
           items:
             type: integer
+    WatchlistEdit:
+      type: object
+      properties:
+        imo:
+          type: string
+          description: Comma-separated IMO numbers.
+        mmsi:
+          type: string
+          description: Comma-separated MMSI numbers.
   responses:
     Unauthorized:
       description: Invalid or missing userkey.
+  parameters:
+    userkey:
+      name: userkey
+      in: query
+      required: true
+      description: Personal API key issued by VesselFinder.
+      schema:
+        type: string
   securitySchemes:
     UserKey:
       type: apiKey

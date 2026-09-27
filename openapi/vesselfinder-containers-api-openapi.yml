@@ -121,6 +121,35 @@ components:
             expirationDate:
               type: string
               format: date-time
+    QueuedResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - queued
+          - processing
+        retryAfter:
+          type: integer
+          description: Suggested retry interval in seconds.
+    ContainerShipment:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - queued
+          - processing
+          - error
+        general:
+          $ref: '#/components/schemas/General'
+        schedule:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleEntry'
+        vessel:
+          $ref: '#/components/schemas/Vessel'
     General:
       type: object
       properties:
@@ -154,35 +183,6 @@ components:
         actual:
           type: boolean
           description: True if the timestamp is observed; false if scheduled.
-        vessel:
-          $ref: '#/components/schemas/Vessel'
-    QueuedResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - queued
-          - processing
-        retryAfter:
-          type: integer
-          description: Suggested retry interval in seconds.
-    ContainerShipment:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - queued
-          - processing
-          - error
-        general:
-          $ref: '#/components/schemas/General'
-        schedule:
-          type: array
-          items:
-            $ref: '#/components/schemas/ScheduleEntry'
         vessel:
           $ref: '#/components/schemas/Vessel'
     CarrierError:
