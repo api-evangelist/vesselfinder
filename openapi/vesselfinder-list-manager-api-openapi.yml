@@ -127,9 +127,6 @@ components:
         mmsi:
           type: string
           description: Comma-separated MMSI numbers.
-  responses:
-    Unauthorized:
-      description: Invalid or missing userkey.
   parameters:
     userkey:
       name: userkey
@@ -138,6 +135,9 @@ components:
       description: Personal API key issued by VesselFinder.
       schema:
         type: string
+  responses:
+    Unauthorized:
+      description: Invalid or missing userkey.
   securitySchemes:
     UserKey:
       type: apiKey

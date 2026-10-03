@@ -57,19 +57,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    Voyage:
-      type: object
-      description: Last completed port call summary for a vessel.
-      properties:
-        LOCODE:
-          type: string
-        DEPARTURE:
-          type: string
-          format: date-time
-        LASTPORT:
-          type: string
-        LASTCOUNTRY:
-          type: string
     Vessel:
       type: object
       description: A vessel returned from /vessels, /vesselslist, /livedata, or /expectedarrivals.
@@ -150,6 +137,19 @@ components:
         ECA:
           type: integer
           description: 1 if currently in an Emission Control Area.
+    Voyage:
+      type: object
+      description: Last completed port call summary for a vessel.
+      properties:
+        LOCODE:
+          type: string
+        DEPARTURE:
+          type: string
+          format: date-time
+        LASTPORT:
+          type: string
+        LASTCOUNTRY:
+          type: string
     MasterData:
       type: object
       description: Static vessel particulars.
@@ -192,10 +192,14 @@ components:
           type: integer
         CRUDE:
           type: integer
-  responses:
-    Unauthorized:
-      description: Invalid or missing userkey.
   parameters:
+    userkey:
+      name: userkey
+      in: query
+      required: true
+      description: Personal API key issued by VesselFinder.
+      schema:
+        type: string
     format:
       name: format
       in: query
@@ -206,13 +210,9 @@ components:
         - json
         - xml
         default: json
-    userkey:
-      name: userkey
-      in: query
-      required: true
-      description: Personal API key issued by VesselFinder.
-      schema:
-        type: string
+  responses:
+    Unauthorized:
+      description: Invalid or missing userkey.
   securitySchemes:
     UserKey:
       type: apiKey
