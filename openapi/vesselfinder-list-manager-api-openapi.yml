@@ -107,6 +107,15 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    WatchlistEdit:
+      type: object
+      properties:
+        imo:
+          type: string
+          description: Comma-separated IMO numbers.
+        mmsi:
+          type: string
+          description: Comma-separated MMSI numbers.
     Watchlist:
       type: object
       properties:
@@ -118,15 +127,6 @@ components:
           type: array
           items:
             type: integer
-    WatchlistEdit:
-      type: object
-      properties:
-        imo:
-          type: string
-          description: Comma-separated IMO numbers.
-        mmsi:
-          type: string
-          description: Comma-separated MMSI numbers.
   parameters:
     userkey:
       name: userkey

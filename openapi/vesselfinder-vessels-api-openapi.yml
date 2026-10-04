@@ -88,11 +88,6 @@ paths:
         '402':
           $ref: '#/components/responses/PaymentRequired'
 components:
-  responses:
-    PaymentRequired:
-      description: Insufficient credits or expired access.
-    Unauthorized:
-      description: Invalid or missing userkey.
   schemas:
     Vessel:
       type: object
@@ -104,6 +99,61 @@ components:
           $ref: '#/components/schemas/Voyage'
         MASTERDATA:
           $ref: '#/components/schemas/MasterData'
+    Voyage:
+      type: object
+      description: Last completed port call summary for a vessel.
+      properties:
+        LOCODE:
+          type: string
+        DEPARTURE:
+          type: string
+          format: date-time
+        LASTPORT:
+          type: string
+        LASTCOUNTRY:
+          type: string
+    MasterData:
+      type: object
+      description: Static vessel particulars.
+      properties:
+        IMO:
+          type: integer
+        NAME:
+          type: string
+        FLAG:
+          type: string
+        TYPE:
+          type: string
+        BUILT:
+          type: integer
+        BUILDER:
+          type: string
+        OWNER:
+          type: string
+        MANAGER:
+          type: string
+        LENGTH:
+          type: number
+          format: float
+        BEAM:
+          type: number
+          format: float
+        MAXDRAUGHT:
+          type: number
+          format: float
+        GT:
+          type: integer
+          description: Gross tonnage.
+        NT:
+          type: integer
+          description: Net tonnage.
+        DWT:
+          type: integer
+          description: Deadweight tonnage.
+        TEU:
+          type: integer
+        CRUDE:
+          type: integer
     AIS:
       type: object
       description: AIS position and dynamic vessel state.
@@ -174,69 +224,7 @@ components:
         ECA:
           type: integer
           description: 1 if currently in an Emission Control Area.
-    Voyage:
-      type: object
-      description: Last completed port call summary for a vessel.
-      properties:
-        LOCODE:
-          type: string
-        DEPARTURE:
-          type: string
-          format: date-time
-        LASTPORT:
-          type: string
-        LASTCOUNTRY:
-          type: string
-    MasterData:
-      type: object
-      description: Static vessel particulars.
-      properties:
-        IMO:
-          type: integer
-        NAME:
-          type: string
-        FLAG:
-          type: string
-        TYPE:
-          type: string
-        BUILT:
-          type: integer
-        BUILDER:
-          type: string
-        OWNER:
-          type: string
-        MANAGER:
-          type: string
-        LENGTH:
-          type: number
-          format: float
-        BEAM:
-          type: number
-          format: float
-        MAXDRAUGHT:
-          type: number
-          format: float
-        GT:
-          type: integer
-          description: Gross tonnage.
-        NT:
-          type: integer
-          description: Net tonnage.
-        DWT:
-          type: integer
-          description: Deadweight tonnage.
-        TEU:
-          type: integer
-        CRUDE:
-          type: integer
   parameters:
-    userkey:
-      name: userkey
-      in: query
-      required: true
-      description: Personal API key issued by VesselFinder.
-      schema:
-        type: string
     format:
       name: format
       in: query
@@ -247,6 +235,18 @@ components:
         - json
         - xml
         default: json
+    userkey:
+      name: userkey
+      in: query
+      required: true
+      description: Personal API key issued by VesselFinder.
+      schema:
+        type: string
+  responses:
+    PaymentRequired:
+      description: Insufficient credits or expired access.
+    Unauthorized:
+      description: Invalid or missing userkey.
   securitySchemes:
     UserKey:
       type: apiKey

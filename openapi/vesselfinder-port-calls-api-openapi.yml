@@ -132,38 +132,38 @@ paths:
         '402':
           $ref: '#/components/responses/PaymentRequired'
 components:
-  responses:
-    PaymentRequired:
-      description: Insufficient credits or expired access.
-    Unauthorized:
-      description: Invalid or missing userkey.
+  parameters:
+    format:
+      name: format
+      in: query
+      description: Response format. Defaults to JSON.
+      schema:
+        type: string
+        enum:
+        - json
+        - xml
+        default: json
+    userkey:
+      name: userkey
+      in: query
+      required: true
+      description: Personal API key issued by VesselFinder.
+      schema:
+        type: string
   schemas:
-    PortCall:
+    Voyage:
       type: object
-      description: A vessel arrival or departure event at a port.
+      description: Last completed port call summary for a vessel.
       properties:
-        MMSI:
-          type: integer
-        IMO:
-          type: integer
         LOCODE:
           type: string
-        EVENT:
-          type: string
-          enum:
-          - arrival
-          - departure
-        TIMESTAMP:
+        DEPARTURE:
           type: string
           format: date-time
-        PORT:
+        LASTPORT:
           type: string
-        COUNTRY:
+        LASTCOUNTRY:
           type: string
-        AIS:
-          $ref: '#/components/schemas/AIS'
-        VOYAGE:
-          $ref: '#/components/schemas/Voyage'
     AIS:
       type: object
       description: AIS position and dynamic vessel state.
@@ -234,37 +234,37 @@ components:
         ECA:
           type: integer
           description: 1 if currently in an Emission Control Area.
-    Voyage:
+    PortCall:
       type: object
-      description: Last completed port call summary for a vessel.
+      description: A vessel arrival or departure event at a port.
       properties:
+        MMSI:
+          type: integer
+        IMO:
+          type: integer
         LOCODE:
           type: string
-        DEPARTURE:
+        EVENT:
+          type: string
+          enum:
+          - arrival
+          - departure
+        TIMESTAMP:
           type: string
           format: date-time
-        LASTPORT:
+        PORT:
           type: string
-        LASTCOUNTRY:
+        COUNTRY:
           type: string
-  parameters:
-    userkey:
-      name: userkey
-      in: query
-      required: true
-      description: Personal API key issued by VesselFinder.
-      schema:
-        type: string
-    format:
-      name: format
-      in: query
-      description: Response format. Defaults to JSON.
-      schema:
-        type: string
-        enum:
-        - json
-        - xml
-        default: json
+        AIS:
+          $ref: '#/components/schemas/AIS'
+        VOYAGE:
+          $ref: '#/components/schemas/Voyage'
+  responses:
+    PaymentRequired:
+      description: Insufficient credits or expired access.
+    Unauthorized:
+      description: Invalid or missing userkey.
   securitySchemes:
     UserKey:
       type: apiKey

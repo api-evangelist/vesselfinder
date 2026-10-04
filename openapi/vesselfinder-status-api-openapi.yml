@@ -49,13 +49,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   parameters:
-    userkey:
-      name: userkey
-      in: query
-      required: true
-      description: Personal API key issued by VesselFinder.
-      schema:
-        type: string
     format:
       name: format
       in: query
@@ -66,6 +59,13 @@ components:
         - json
         - xml
         default: json
+    userkey:
+      name: userkey
+      in: query
+      required: true
+      description: Personal API key issued by VesselFinder.
+      schema:
+        type: string
   schemas:
     Status:
       type: object

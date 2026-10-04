@@ -126,17 +126,33 @@ components:
           description: True if the timestamp is observed; false if scheduled.
         vessel:
           $ref: '#/components/schemas/Vessel'
-    QueuedResponse:
+    ContainerShipment:
       type: object
       properties:
         status:
           type: string
           enum:
+          - success
           - queued
           - processing
-        retryAfter:
-          type: integer
-          description: Suggested retry interval in seconds.
+          - error
+        general:
+          $ref: '#/components/schemas/General'
+        schedule:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleEntry'
+        vessel:
+          $ref: '#/components/schemas/Vessel'
+    CarrierError:
+      type: object
+      properties:
+        status:
+          type: string
+        code:
+          type: string
+        message:
+          type: string
     SubscriptionError:
       type: object
       properties:
@@ -167,33 +183,17 @@ components:
         sealine:
           type: string
           description: SCAC code of the carrier.
-    CarrierError:
-      type: object
-      properties:
-        status:
-          type: string
-        code:
-          type: string
-        message:
-          type: string
-    ContainerShipment:
+    QueuedResponse:
       type: object
       properties:
         status:
           type: string
           enum:
-          - success
           - queued
           - processing
-          - error
-        general:
-          $ref: '#/components/schemas/General'
-        schedule:
-          type: array
-          items:
-            $ref: '#/components/schemas/ScheduleEntry'
-        vessel:
-          $ref: '#/components/schemas/Vessel'
+        retryAfter:
+          type: integer
+          description: Suggested retry interval in seconds.
   securitySchemes:
     PathApiKey:
       type: apiKey
