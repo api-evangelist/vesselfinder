@@ -1,3 +1,8 @@
+# Provenance stamped 2026-10-07 (roadmap#943): written by an API Evangelist sweep (dated 2026-05-25 by the file itself), not
+# harvested from the provider. `method: generated` so the economics campaign may replace it with a
+# dated, verbatim transcription; every figure below is unverified until it does.
+method: generated
+generated: '2026-05-25'
 specification: API Commons Plans
 specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
@@ -199,3 +204,92 @@ creditCosts:
     credits: '0'
 containerTracking:
   cachePolicy: First search per container deducts one unit; subsequent searches within 30 days are free. Successful responses are cached 12 hours.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - prepaid
+  - subscription
+  units:
+  - credit
+  plans:
+  - name: AIS Credits — 10,000
+    access: other
+    model: prepaid
+    model_how: stated
+    units:
+    - credit
+    periods:
+    - year
+  - name: AIS Credits — 20,000
+    access: other
+    model: prepaid
+    model_how: stated
+    units:
+    - credit
+    periods:
+    - year
+  - name: AIS Credits — 50,000
+    access: other
+    model: prepaid
+    model_how: stated
+    units:
+    - credit
+    periods:
+    - year
+  - name: AIS VesselsList (Fleet) — Subscription
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - other
+    periods:
+    - month
+  - name: AIS LiveData (Area) — Subscription
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - other
+    periods:
+    - month
+  - name: Container Tracking — 1 Container
+    access: other
+    model: prepaid
+    model_how: stated
+    units:
+    - other
+    periods:
+    - year
+  - name: Container Tracking — 10 Containers
+    access: other
+    model: prepaid
+    model_how: stated
+    units:
+    - other
+    periods:
+    - year
+  - name: Container Tracking — 20 Containers
+    access: other
+    model: prepaid
+    model_how: stated
+    units:
+    - other
+    periods:
+    - year
+  - name: Container Tracking — 50 Containers
+    access: other
+    model: prepaid
+    model_how: stated
+    units:
+    - other
+    periods:
+    - year
+  - name: Container Tracking — 100 Containers
+    access: other
+    model: prepaid
+    model_how: stated
+    units:
+    - other
+    periods:
+    - year
