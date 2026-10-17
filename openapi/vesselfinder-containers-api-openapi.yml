@@ -126,6 +126,47 @@ components:
           description: True if the timestamp is observed; false if scheduled.
         vessel:
           $ref: '#/components/schemas/Vessel'
+    SubscriptionError:
+      type: object
+      properties:
+        status:
+          type: string
+        subscription:
+          type: object
+          properties:
+            remaining:
+              type: integer
+            expirationDate:
+              type: string
+              format: date-time
+    QueuedResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - queued
+          - processing
+        retryAfter:
+          type: integer
+          description: Suggested retry interval in seconds.
+    General:
+      type: object
+      properties:
+        origin:
+          type: string
+        destination:
+          type: string
+        progress:
+          type: number
+          description: 0..100 percent.
+        currentLocation:
+          type: string
+        carrier:
+          type: string
+        sealine:
+          type: string
+          description: SCAC code of the carrier.
     ContainerShipment:
       type: object
       properties:
@@ -153,47 +194,6 @@ components:
           type: string
         message:
           type: string
-    SubscriptionError:
-      type: object
-      properties:
-        status:
-          type: string
-        subscription:
-          type: object
-          properties:
-            remaining:
-              type: integer
-            expirationDate:
-              type: string
-              format: date-time
-    General:
-      type: object
-      properties:
-        origin:
-          type: string
-        destination:
-          type: string
-        progress:
-          type: number
-          description: 0..100 percent.
-        currentLocation:
-          type: string
-        carrier:
-          type: string
-        sealine:
-          type: string
-          description: SCAC code of the carrier.
-    QueuedResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - queued
-          - processing
-        retryAfter:
-          type: integer
-          description: Suggested retry interval in seconds.
   securitySchemes:
     PathApiKey:
       type: apiKey

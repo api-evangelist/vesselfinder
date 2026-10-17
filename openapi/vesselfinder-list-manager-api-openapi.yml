@@ -127,6 +127,9 @@ components:
           type: array
           items:
             type: integer
+  responses:
+    Unauthorized:
+      description: Invalid or missing userkey.
   parameters:
     userkey:
       name: userkey
@@ -135,9 +138,6 @@ components:
       description: Personal API key issued by VesselFinder.
       schema:
         type: string
-  responses:
-    Unauthorized:
-      description: Invalid or missing userkey.
   securitySchemes:
     UserKey:
       type: apiKey

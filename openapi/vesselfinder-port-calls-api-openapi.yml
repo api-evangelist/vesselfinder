@@ -151,19 +151,6 @@ components:
       schema:
         type: string
   schemas:
-    Voyage:
-      type: object
-      description: Last completed port call summary for a vessel.
-      properties:
-        LOCODE:
-          type: string
-        DEPARTURE:
-          type: string
-          format: date-time
-        LASTPORT:
-          type: string
-        LASTCOUNTRY:
-          type: string
     AIS:
       type: object
       description: AIS position and dynamic vessel state.
@@ -234,6 +221,19 @@ components:
         ECA:
           type: integer
           description: 1 if currently in an Emission Control Area.
+    Voyage:
+      type: object
+      description: Last completed port call summary for a vessel.
+      properties:
+        LOCODE:
+          type: string
+        DEPARTURE:
+          type: string
+          format: date-time
+        LASTPORT:
+          type: string
+        LASTCOUNTRY:
+          type: string
     PortCall:
       type: object
       description: A vessel arrival or departure event at a port.
@@ -261,10 +261,10 @@ components:
         VOYAGE:
           $ref: '#/components/schemas/Voyage'
   responses:
-    PaymentRequired:
-      description: Insufficient credits or expired access.
     Unauthorized:
       description: Invalid or missing userkey.
+    PaymentRequired:
+      description: Insufficient credits or expired access.
   securitySchemes:
     UserKey:
       type: apiKey
