@@ -1,4 +1,4 @@
-# VesselFinder (vesselfinder)
+# VesselFinder
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -73,130 +73,193 @@ separate Container Tracking API that returns shipment schedules and real-time ve
 by container number. VesselFinder also runs a public web map, iOS/Android apps, an embeddable
 map widget, a fleet explorer, and a route planner.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/vesselfinder/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/vesselfinder/refs/heads/main/apis.yml)
+**Areas:** AIS · Maritime · Vessel Tracking · Container Tracking · Geospatial · Logistics · Ports · Supply Chain
 
-## Scope
+## VesselFinder on APIs.io
 
-- **Position:** Consuming
-- **Access:** 3rd-Party
+Everything profiled for VesselFinder is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/vesselfinder/](https://apis.io/providers/vesselfinder/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (10)
 
-- AIS
-- Maritime
-- Vessel Tracking
-- Container Tracking
-- Geospatial
-- Logistics
-- Ports
-- Supply Chain
+- [VesselFinder Containers API](https://apis.io/apis/vesselfinder/vesselfinder-containers-api/) — Real-time container track-and-trace.
+- [VesselFinder Distance API](https://apis.io/apis/vesselfinder/vesselfinder-distance-api/) — Sea-route distance and geometry between two points.
+- [VesselFinder Expected Arrivals API](https://apis.io/apis/vesselfinder/vesselfinder-expected-arrivals-api/) — Vessels with announced ETAs at a selected port.
+- [VesselFinder List Manager API](https://apis.io/apis/vesselfinder/vesselfinder-list-manager-api/) — Manage the watchlist of vessels backing the VesselsList method.
+- [VesselFinder Live Data API](https://apis.io/apis/vesselfinder/vesselfinder-live-data-api/) — All vessels within a predefined geographic area, subscription-based.
+- [VesselFinder Master Data API](https://apis.io/apis/vesselfinder/vesselfinder-master-data-api/) — Static vessel particulars by IMO.
+- [VesselFinder Port Calls API](https://apis.io/apis/vesselfinder/vesselfinder-port-calls-api/) — Arrival and departure events for vessels or ports.
+- [VesselFinder Status API](https://apis.io/apis/vesselfinder/vesselfinder-status-api/) — Account status and remaining credits.
+- [VesselFinder Vessels API](https://apis.io/apis/vesselfinder/vesselfinder-vessels-api/) — On-demand vessel position, voyage, and master data lookups.
+- [VesselFinder Vessels List API](https://apis.io/apis/vesselfinder/vesselfinder-vessels-list-api/) — Predefined-fleet data, subscription-based.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-05-25T00:00:00.000Z
-- **Modified:** 2026-05-25
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Agentic access (1)
 
-### VesselFinder AIS API
+Which operations an agent can call, which act, and which need a human in the loop.
 
-Credit-based and subscription REST API exposing the VesselFinder global AIS network. On-demand
-methods (Vessels, PortCalls, ExpectedArrivals, MasterData, Distance) deduct credits per call
-proportional to dataset and source (terrestrial / satellite); fleet-wide (VesselsList) and
-area-wide (LiveData) feeds are subscription-priced. Authenticates via the userkey query parameter.
-Responses default to JSON and may be requested as XML.
+- [Vesselfinder Agentic Access](https://apis.io/agentic-access/vesselfinder/vesselfinder-agentic-access/)
 
-- **Human URL:** [https://api.vesselfinder.com/docs/](https://api.vesselfinder.com/docs/)
+#### JSON Schema (3)
 
-#### Tags
+The data models the API reads and writes.
 
-- AIS
-- Vessels
-- Maritime
-- Tracking
+- [VesselFinder Container Shipment](https://apis.io/schemas/vesselfinder/vesselfinder-container-shipment/)
+- [VesselFinder Port Call](https://apis.io/schemas/vesselfinder/vesselfinder-port-call/)
+- [VesselFinder Vessel](https://apis.io/schemas/vesselfinder/vesselfinder-vessel/)
 
-#### Properties
+#### JSON Structure (1)
 
+Data models expressed in JSON Structure.
+
+- [Vesselfinder Vessel Structure](https://apis.io/json-structure/vesselfinder/vesselfinder-vessel-structure/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Vesselfinder Context](https://apis.io/jsonld/vesselfinder/vesselfinder-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Vesselfinder Vocabulary](https://apis.io/vocabularies/vesselfinder/vesselfinder-vocabulary/)
+
+#### Examples (3)
+
+Example requests and responses.
+
+- [Vesselfinder Container Tracking Example](https://apis.io/examples/vesselfinder/vesselfinder-container-tracking-example/)
+- [Vesselfinder Distance Example](https://apis.io/examples/vesselfinder/vesselfinder-distance-example/)
+- [Vesselfinder Status Example](https://apis.io/examples/vesselfinder/vesselfinder-status-example/)
+
+#### Collections (22)
+
+Postman and Open Collection request collections.
+
+- [VesselFinder AIS API](https://apis.io/collections/vesselfinder/open-vesselfinder-ais-api/)
+- [VesselFinder Container Tracking API](https://apis.io/collections/vesselfinder/open-vesselfinder-container-tracking-api/)
+- [VesselFinder AIS Containers API](https://apis.io/collections/vesselfinder/open-vesselfinder-containers-api/)
+- [VesselFinder AIS Containers Distance API](https://apis.io/collections/vesselfinder/open-vesselfinder-distance-api/)
+- [VesselFinder AIS Containers Expected Arrivals API](https://apis.io/collections/vesselfinder/open-vesselfinder-expected-arrivals-api/)
+- [VesselFinder AIS Containers List Manager API](https://apis.io/collections/vesselfinder/open-vesselfinder-list-manager-api/)
+- [VesselFinder AIS Containers Live Data API](https://apis.io/collections/vesselfinder/open-vesselfinder-live-data-api/)
+- [VesselFinder AIS Containers Master Data API](https://apis.io/collections/vesselfinder/open-vesselfinder-master-data-api/)
+- [VesselFinder AIS Containers Port Calls API](https://apis.io/collections/vesselfinder/open-vesselfinder-port-calls-api/)
+- [VesselFinder AIS Containers Status API](https://apis.io/collections/vesselfinder/open-vesselfinder-status-api/)
+- [VesselFinder AIS Containers Vessels API](https://apis.io/collections/vesselfinder/open-vesselfinder-vessels-api/)
+- [VesselFinder AIS Containers Vessels List API](https://apis.io/collections/vesselfinder/open-vesselfinder-vessels-list-api/)
+- [VesselFinder AIS Containers API](https://apis.io/collections/vesselfinder/postman-vesselfinder-containers-api/)
+- [VesselFinder AIS Containers Distance API](https://apis.io/collections/vesselfinder/postman-vesselfinder-distance-api/)
+- [VesselFinder AIS Containers Expected Arrivals API](https://apis.io/collections/vesselfinder/postman-vesselfinder-expected-arrivals-api/)
+- [VesselFinder AIS Containers List Manager API](https://apis.io/collections/vesselfinder/postman-vesselfinder-list-manager-api/)
+- [VesselFinder AIS Containers Live Data API](https://apis.io/collections/vesselfinder/postman-vesselfinder-live-data-api/)
+- [VesselFinder AIS Containers Master Data API](https://apis.io/collections/vesselfinder/postman-vesselfinder-master-data-api/)
+- [VesselFinder AIS Containers Port Calls API](https://apis.io/collections/vesselfinder/postman-vesselfinder-port-calls-api/)
+- [VesselFinder AIS Containers Status API](https://apis.io/collections/vesselfinder/postman-vesselfinder-status-api/)
+- [VesselFinder AIS Containers Vessels API](https://apis.io/collections/vesselfinder/postman-vesselfinder-vessels-api/)
+- [VesselFinder AIS Containers Vessels List API](https://apis.io/collections/vesselfinder/postman-vesselfinder-vessels-list-api/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [VesselFinder — jsonschema rules](https://apis.io/rules/vesselfinder/vesselfinder-jsonschema-spectral-rules/)
+- [VesselFinder API Rules](https://apis.io/rules/vesselfinder/vesselfinder-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Vesselfinder Authentication](https://apis.io/security/vesselfinder/vesselfinder-authentication/)
+- [Vesselfinder Domain Security](https://apis.io/security/vesselfinder/vesselfinder-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Vesselfinder Plans Pricing](https://apis.io/plans/vesselfinder/vesselfinder-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Vesselfinder Rate Limits](https://apis.io/rate-limits/vesselfinder/vesselfinder-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Vesselfinder Finops](https://apis.io/finops/vesselfinder/vesselfinder-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.vesselfinder.com/)
 - [Documentation](https://api.vesselfinder.com/docs/)
-- [Documentation](https://api.vesselfinder.com/docs/vessels.html)
-- [Documentation](https://api.vesselfinder.com/docs/portcalls.html)
-- [Documentation](https://api.vesselfinder.com/docs/expectedarrivals.html)
-- [Documentation](https://api.vesselfinder.com/docs/masterdata.html)
-- [Documentation](https://api.vesselfinder.com/docs/distance.html)
-- [Documentation](https://api.vesselfinder.com/docs/vesselslist.html)
-- [Documentation](https://api.vesselfinder.com/docs/livedata.html)
-- [Documentation](https://api.vesselfinder.com/docs/status.html)
-- [Documentation](https://api.vesselfinder.com/docs/listmanager.html)
-- [OpenAPI](openapi/vesselfinder-ais-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/vesselfinder-ais-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/vesselfinder-ais-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/vesselfinder-vessel-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/vesselfinder-port-call-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Structure](json-structure/vesselfinder-vessel-structure.json)
-- [JSON-LD](json-ld/vesselfinder-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-
-### VesselFinder Container Tracking API
-
-Real-time ocean-container track-and-trace API. Look up shipments by 11-character container
-number and optional SCAC carrier code (AUTO to auto-detect). Returns origin, destination,
-current vessel position, progress, and schedule events. Asynchronous: a first request may
-return 202 Accepted while data is fetched; clients poll the same URL every 60 seconds or
-more. Successful responses are cached for 12 hours and lookups for the same container
-within 30 days are free.
-
-- **Human URL:** [https://container.vesselfinder.com/api/1.0/docs](https://container.vesselfinder.com/api/1.0/docs)
-
-#### Tags
-
-- Container Tracking
-- Logistics
-- Supply Chain
-- Maritime
-
-#### Properties
-
-- [Documentation](https://container.vesselfinder.com/api/1.0/docs)
-- [Documentation](https://www.vesselfinder.com/container-tracking)
-- [OpenAPI](openapi/vesselfinder-container-tracking-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/vesselfinder-container-tracking-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/vesselfinder-container-tracking-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/vesselfinder-container-shipment-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON-LD](json-ld/vesselfinder-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-
-## Common Properties
-
-- [Portal](https://www.vesselfinder.com)
-- [Documentation](https://api.vesselfinder.com/docs/)
-- [Documentation](https://container.vesselfinder.com/api/1.0/docs)
-- [Getting Started](https://api.vesselfinder.com/docs/)
+- [Getting started](https://api.vesselfinder.com/docs/)
 - [Pricing](https://www.vesselfinder.com/api)
-- [Documentation](https://api.vesselfinder.com/docs/)
-- [F A Q](https://api.vesselfinder.com/docs/)
-- [Documentation](https://api.vesselfinder.com/docs/flags.html)
-- [Documentation](https://api.vesselfinder.com/docs/aistypes.html)
-- [Documentation](https://api.vesselfinder.com/docs/navstat.html)
 - [Support](https://www.vesselfinder.com/contact)
-- [Terms of Service](https://www.vesselfinder.com/terms)
-- [Privacy Policy](https://www.vesselfinder.com/privacy)
-- [Tool](https://route.vesselfinder.com)
 - [Blog](https://www.vesselfinder.com/news)
-- [Twitter](https://twitter.com/VesselFinder)
-- [Facebook](https://www.facebook.com/vesselfinder)
-- [YouTube](https://www.youtube.com/vesselfinder)
-- [Application](https://apps.apple.com/us/app/vesselfinder-lite/id918080862)
-- [Application](https://play.google.com/store/apps/details?id=com.astrapaging.vff)
-- [GitHub Organization](https://github.com/VesselFinder)
-- [SDK](https://github.com/VesselFinder/vesselfinder-api-wrapper)
-- [SDK](https://github.com/VesselFinder/container-tracking-api-wrapper)
-- [Plans](plans/vesselfinder-plans-pricing.yml)
-- [Rate Limits](rate-limits/vesselfinder-rate-limits.yml)
-- [Fin Ops](finops/vesselfinder-finops.yml)
-- [Vocabulary](vocabulary/vesselfinder-vocabulary.yml)
-- [Spectral Rules](rules/vesselfinder-rules.yml) — [Spectral](https://docs.stoplight.io/docs/spectral)
-- [Features](undefined)
+- [Terms of service](https://www.vesselfinder.com/terms)
+- [Privacy policy](https://www.vesselfinder.com/privacy)
+- [GitHub](https://github.com/VesselFinder)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** info@apievangelist.com
-**URL:** https://apievangelist.com
+**Kin Score 44.8** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 57.1 |
+| Contract quality | 62.7 |
+| Contract governance | 27.3 |
+| Operational transparency | 5.3 |
+| Developer ergonomics | 46.4 |
+| Access clarity | 47.4 |
+
+**Agent readiness 19.0** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 24.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/vesselfinder/](https://apis.io/providers/vesselfinder/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for VesselFinder: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/vesselfinder/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
